@@ -19,8 +19,8 @@ module.exports = {
   },
 
   module: {
-    loaders: [
 
+    loaders: [
         {
             test: /materialize-css\/dist\/js\/materialize\.js/,
             loader: 'imports?materializecss'

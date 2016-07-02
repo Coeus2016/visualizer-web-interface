@@ -1,10 +1,14 @@
 const helpers = require('./helpers');
-const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
+const ENV = process.env.ENV = process.env.NODE_ENV = 'production';
 
 module.exports = {
   devtool: 'inline-source-map',
 
   resolve: {
+      alias: {
+          materializecss: 'materialize-css/dist/css/materialize.css',
+          materialize: 'materialize-css/dist/js/materialize.js',
+      },
     extensions: ['', '.ts', '.js']
   },
 

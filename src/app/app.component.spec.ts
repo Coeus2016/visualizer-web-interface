@@ -1,18 +1,36 @@
-import {
-  it,
-  inject,
-  describe,
-  beforeEachProviders,
-  expect
-} from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import {inject} from '@angular/core/testing';
+import {Router} from "@angular/router";
+import { AppComponent } from './app.component'
 
 describe('App', () => {
-  beforeEachProviders(() => [
-    AppComponent
-  ]);
-  it ('should work', inject([AppComponent], (app: AppComponent) => {
-    // Add real test here
-    expect(2).toBe(2);
-  }));
+    let router: Router;
+    let component: AppComponent;
+    var location: any;
+
+
+    beforeAll(() => {
+        router = jasmine.createSpyObj('Router', ['navigateByUrl']);
+        component = new AppComponent();
+        location = jasmine.createSpyObj('location', ['url']);
+
+    });
+
+    it ('Should be defined', () => {
+        expect(component).toBeDefined();
+    });
+/*
+    it('Should be able to navigate to Home', done => {
+        router.navigateByUrl('/').then(() => {
+            expect(location.url).toBe('/');
+            done();
+        }).catch(e => done.fail(e));
+    });
+
+    it('Should be able to navigate to About', done => {
+        router.navigateByUrl('/about').then(() => {
+            expect(location.url).toBe('/home');
+            done();
+        }).catch(e => done.fail(e));
+    });*/
+
 });
