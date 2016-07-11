@@ -1,8 +1,10 @@
 import { Component } from "@angular/core";
 @Component({
     selector: 'my-about',
-    template: `
-    <h2>About Page</h2>
-    <p>Edit this component</p>`
+    pipes: [],
+    providers: [],
+    directives: [],
+    styleUrls: ['./about.css'],
+    templateUrl: './about.html'
 })
-export class AboutComponent { }
+export class About { }

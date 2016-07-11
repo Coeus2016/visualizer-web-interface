@@ -1,15 +1,22 @@
 import { Component } from '@angular/core';
-
-//import {MapComponent} from './map/map.component';
+import {Map} from './map/map';
+//import {MaterializeDirective} from 'angular2-materialize';
 
 
 @Component({
+    moduleId: module.id,
     selector: 'my-home',
-    template: require('./home.component.html'),
-    styles: [require('./home.component.css')],
-    directives: [
-       // MapComponent
-    ]
+    pipes: [],
+    providers: [],
+    directives: [Map],
+    templateUrl: './home.html',
+    styleUrls: ['home.css']
 })
 
-export class HomeComponent { }
+export class Home {
+    constructor(){
+
+    }
+
+    ngOnInit(){}
+}
