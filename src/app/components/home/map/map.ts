@@ -1,46 +1,28 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 declare var ol: any;
-ol = require('ol');
+
 @Component({
-    moduleId: module.id,
     selector: 'my-map',
-    pipes: [],
-    providers: [],
-    directives: [],
-    template: `<div class="map" id="map"></div>`,
-    styleUrls: ['map.css']
+template: `<div id="map" class="map"></div>`
 })
 
-export class Map {
+export class Map implements OnInit{
     ol: any;
-    constructor() {
+    constructor(){
+    }
+    ngOnInit(){
         var map = new ol.Map({
-            controls: ol.control.defaults({
-                attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
-                    collapsible: false
-                })
-            }).extend([
-                new ol.control.ZoomToExtent({
-                    extent: [
-                        813079.7791264898, 5929220.284081122,
-                        848966.9639063801, 5936863.986909639
-                    ]
-                })
-            ]),
+            target: 'map',
             layers: [
                 new ol.layer.Tile({
                     source: new ol.source.OSM()
                 })
             ],
-            target: 'map',
             view: new ol.View({
-                projection: 'EPSG:900913',
-                center: [18.0, 55.4],
-                zoom: 7
+                center: ol.proj.fromLonLat([37.41, 8.82]),
+                zoom: 10
             })
         });
-
     }
-
 }

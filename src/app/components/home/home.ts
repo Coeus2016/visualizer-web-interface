@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {Map} from './map/map';
-//import {MaterializeDirective} from 'angular2-materialize';
+import {MaterializeDirective} from 'angular2-materialize';
 
 
 @Component({
@@ -8,7 +8,7 @@ import {Map} from './map/map';
     selector: 'my-home',
     pipes: [],
     providers: [],
-    directives: [Map],
+    directives: [MaterializeDirective,Map],
     templateUrl: './home.html',
     styleUrls: ['home.css']
 })

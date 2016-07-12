@@ -1,38 +1,40 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <base href="/">
-    <title>Geospatial Data Processor and Visualizer</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <head>
+        <base href="/">
+        <title>Geospatial Data Processor and Visualizer</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="public/css/styles.css">
 
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+        <!-- 1. Load libraries -->
+        <link rel="stylesheet" href="http://openlayers.org/en/v3.17.1/css/ol.css" type="text/css">
+        <script src="http://openlayers.org/en/v3.17.1/build/ol.js"></script>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
-      <link rel="stylesheet" href="node_modules/openlayers/dist/ol.css">
-      <link href="public/css/styles.css" rel="stylesheet" />
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+        <link type="text/css" rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.css" media="screen,projection" />
+        <!-- Import jQuery before materialize.js -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.6/hammer.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 
-      <!-- Latest compiled and minified JavaScript -->
-   <script src="node_modules/core-js/client/shim.min.js"></script>
+        <!-- Polyfill(s) for older browsers -->
+        <script src="node_modules/core-js/client/shim.min.js"></script>
+        <script src="node_modules/zone.js/dist/zone.js"></script>
+        <script src="node_modules/reflect-metadata/Reflect.js"></script>
+        <script src="node_modules/systemjs/dist/system.src.js"></script>
+        <script src="http://openlayers.org/en/v3.12.1/build/ol.js"></script>
 
+        <!-- 2. Configure SystemJS -->
+        <script src="systemjs.config.js"></script>
 
-    <script src="node_modules/zone.js/dist/zone.js"></script>
-    <script src="node_modules/reflect-metadata/Reflect.js"></script>
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
-    <script src="node_modules/openlayers/dist/ol.js"></script>
-   <!--   <script src="node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js"></script>-->
-
-    <script src="systemjs.config.js"></script>
-    <script>
-        System.import('app').catch(function(err){ console.error(err); });
-    </script>
-  </head>
-  <body>
+        <script>
+            System.import('app').catch(function(err){ console.error(err); });
+        </script>
+    </head>
+    <!-- 3. Display the application -->
+    <body>
         <my-app>Loading...</my-app>
-  <!--  <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>-->
-  </body>
+    </body>
 </html>
