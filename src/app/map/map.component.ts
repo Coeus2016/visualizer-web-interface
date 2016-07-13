@@ -4,10 +4,10 @@ declare var ol: any;
 
 @Component({
     selector: 'my-map',
-template: `<div id="map" class="map"></div>`
+templateUrl: 'app/map/map.component.html'
 })
 
-export class Map implements OnInit{
+export class MapComponent implements OnInit{
     ol: any;
     constructor(){
     }
