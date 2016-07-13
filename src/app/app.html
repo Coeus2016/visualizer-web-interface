@@ -2,7 +2,15 @@
     <div class="navbar-fixed" style="position: absolute;">
         <nav class="indigo lighten-1" role="navigation">
             <div class="nav-wrapper">
-                <a style="margin-left: 10px" id="logo-container" href="#" class="brand-logo white-text">Geospatial Data Visualizer</a>
+                <ul class="left">
+                    <li>
+                        <a style="margin-left: 10px" id="logo-container" href="#" class="brand-logo white-text">Geospatial Data Visualizer</a>
+                    </li>
+                </ul>
+                <div class="header-search-wrapper hide-on-med-and-down">
+                    <i class="material-icons active black-text">search</i>
+                    <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Search Area">
+                </div>
                 <ul class="right hide-on-med-and-down">
                     <li><a materialize="leanModal" [materializeParams]="[{dismissible: false}]" href="#login" class="white-text"><i class="material-icons left">person</i>Log In</a></li>
                     <li><a materialize="leanModal" [materializeParams]="[{dismissible: false}]" href="#register" class="white-text"><i class="material-icons left">person_add</i>Register</a></li>
