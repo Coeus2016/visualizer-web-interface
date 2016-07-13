@@ -1,8 +1,10 @@
 "use strict";
 
 import { Component } from '@angular/core';
-import {ROUTER_DIRECTIVES } from '@angular/router';
 import {MaterializeDirective} from "angular2-materialize";
+import {MapComponent} from './map/map.component';
+import {LoginComponent} from './login/login.component';
+import {RegisterComponent} from './register/register.component';
 
 
 @Component({
@@ -10,7 +12,7 @@ import {MaterializeDirective} from "angular2-materialize";
     selector: 'my-app',
     pipes: [],
     providers: [],
-    directives: [MaterializeDirective,ROUTER_DIRECTIVES],
+    directives: [MaterializeDirective,MapComponent,LoginComponent,RegisterComponent],
     templateUrl: './app.html'
 })
 
