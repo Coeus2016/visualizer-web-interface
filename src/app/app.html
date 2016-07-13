@@ -12,9 +12,18 @@
     </div>
 </header>
 <div class="row" style="height : 100%; padding-top : 56px;margin: 0">
-    <div class="col s5" style="height: 100%">
-        <h1>Hello world</h1>
-        <a materialize="tooltip" class="btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>
+    <div class="col s5" style="height: 100%; padding-left: 0; padding-right: 0">
+        <div class="row" style="position: relative">
+            <div class="col s12" style="padding: 0">
+                <ul class="tabs indigo lighten-2 white-text" materialize="tabs">
+                    <li class="tab col s3"><a href="#test1" class="white-text">Disaster</a></li>
+                    <li class="tab col s3"><a class="active white-text" href="#test2">Climate</a></li>
+                    <div class="indicator white" style="z-index:1"></div>
+                </ul>
+            </div>
+            <div id="test1" class="col s12 grey lighten-4" style="height: calc( 100% - 48px)">Test 1</div>
+            <div id="test2" class="col s12 grey lighten-4" style="height: calc( 100% - 48px)">Test 2</div>
+        </div>
     </div>
     <div class="col s7 blue-grey lighten-5" style="padding: 0; margin: 0;height: 100%"><my-map></my-map></div>
 </div>
