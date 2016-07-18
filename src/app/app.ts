@@ -17,5 +17,34 @@ import {RegisterComponent} from './register/register.component';
 })
 
 export class App implements OnInit{
+    public Search:string = "";
+    constructor(){
+    }
 
+    ngOnInit(){
+        $('#autocomplete').autocomplete({
+            serviceUrl: function (){
+                var input = $(this)
+                return 'http://photon.komoot.de/api/?q='+encodeURIComponent(input.val())+'&limit=5';
+            },
+            transformResult: function(response) {
+                var x = JSON.parse(response);
+                return {
+                    suggestions: $.map(x.features, function(dataItem) {
+                        var temp="";
+                        if (typeof dataItem.properties.name!=="undefined")
+                            temp+=dataItem.properties.name+", ";
+                        if (typeof dataItem.properties.osm_value!=="undefined")
+                            temp+=dataItem.properties.osm_value+", ";
+                        if (typeof dataItem.properties.city!=="undefined")
+                            temp+=dataItem.properties.city+", ";
+                        if (typeof dataItem.properties.country!=="undefined")
+                            temp+=dataItem.properties.country;
+
+                        return {value: temp, data: dataItem};
+                    })
+                };
+            }
+        });
+    }
 }
