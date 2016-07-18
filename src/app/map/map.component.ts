@@ -20,9 +20,17 @@ export class MapComponent implements OnInit{
                 })
             ],
             view: new ol.View({
-                center: ol.proj.fromLonLat([37.41, 8.82]),
+                center: ol.proj.fromLonLat([0, 0]),
                 zoom: 10
             })
         });
+        this.initGeoLocation(map);
+    }
+    initGeoLocation(map) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                map.getView().setCenter(ol.proj.transform([position.coords.longitude, position.coords.latitude], 'EPSG:4326', 'EPSG:3857'));
+            });
+        }
     }
 }
