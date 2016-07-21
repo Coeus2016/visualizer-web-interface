@@ -10,3 +10,7 @@ cd ../register/
 rm *.js *.map
 cd ../services/
 rm *.js *.map
+cd ../interfaces/
+rm *.js *.map
+cd ../mocks/
+rm *.js *.map
