@@ -5,6 +5,7 @@ import {MaterializeDirective} from "angular2-materialize";
 import {MapComponent} from './map/map.component';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
+import {DisasterCenterComponent} from './disaster-center/disaster-center.compnent';
 
 
 @Component({
@@ -12,10 +13,10 @@ import {RegisterComponent} from './register/register.component';
     selector: 'my-app',
     pipes: [],
     providers: [],
-    directives: [MaterializeDirective,MapComponent,LoginComponent,RegisterComponent],
+    directives: [MaterializeDirective,MapComponent,LoginComponent,RegisterComponent, DisasterCenterComponent],
     templateUrl: './app.html'
 })
 
-export class App implements OnInit{
+export class App{
 
 }

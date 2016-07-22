@@ -1,19 +1,70 @@
-<div class="row">
-    <div class="col s12">
-        <ul materialize="tabs" class="tabs indigo lighten-1">
-            <li class="tab col s4"><a class = "active white-text" href="#disaster_management">Disaster Management</a></li>
-            <li class="tab col s4"><a href="#active_disaster" class="white-text">Active Disasters</a></li>
-            <li class="tab col s4"><a href="#tracked_disastes" class="white-text">Disaster Tracking</a></li>
+
+        <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header active"><i class="material-icons">search</i>Query Disasters</div>
+                <div class="collapsible-body row">
+                    <div class="col s12">
+                        <ul materialize="tabs" class="tabs">
+                            <li class="tab col s3"><a href="#query_by_type" class="active" >Test 1</a></li>
+                            <li class="tab col s3"><a href="#test2">Test 2</a></li>
+                            <li class="tab col s3"><a href="#test3">Disabled Tab</a></li>
+                            <li class="tab col s3"><a href="#test4">Test 4</a></li>
+                        </ul>
+                    </div>
+                    <div id="query_by_type" class="col s12">
+                        <form #f="ngForm">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input name="disaster_type" [(ngModel)]="disaster_type" (click)="getDisastersByType()" type="radio" class="with-gap" id="all" value="all" checked/>
+                                    <label for="all">All</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input name="disaster_type" [(ngModel)]="disaster_type" (click)="getDisastersByType()" type="radio" class="with-gap" id="wildfires" value="wildfires" />
+                                    <label for="wildfires">Wildfires</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input name="disaster_type" [(ngModel)]="disaster_type" (click)="getDisastersByType()" type="radio" class="with-gap" id="flooding" value="flooding" />
+                                    <label for="flooding">Flooding</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input name="disaster_type" [(ngModel)]="disaster_type" (click)="getDisastersByType()" type="radio" class="with-gap" id="lightning_thunderstorm" value="option2" disabled="disabled" />
+                                    <label for="lightning_thunderstorm">Lighting and Thunderstorms</label>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input name="disaster_type" [(ngModel)]="disaster_type" (click)="getDisastersByType()" type="radio" class="with-gap" id="earthquakes" value="earthquakes" />
+                                    <label for="earthquakes">Earthquakes</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input name="disaster_type" [(ngModel)]="disaster_type" (click)="getDisastersByType()" type="radio" id="drought" value="drought" disabled="disabled" />
+                                    <label for="drought">Drought</label>
+                                </div>
+                            </div>
+                        </form>
+                        {{ f. value | json }}
+                    </div>
+                    <div id="test2" class="col s12">Test 2</div>
+                    <div id="test3" class="col s12">Test 3</div>
+                    <div id="test4" class="col s12">Test 4</div>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header"><i class="material-icons">place</i><span style="right: 50px;" class="badge">4</span>Tracked Disasters</div>
+                <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+            </li>
+            <li>
+                <div class="collapsible-header"><i class="material-icons">warning</i>Active Disasters<span style="right: 50px;" class="new badge">1</span></div>
+                <div class="collapsible-body"><p>Lorem ipsum dolor sit ametsdmf ksfgvhfs dsfhjsf ghsf vdsfjhn dsng dsnf dsfvkjsfn vsfvhsdf vhsfd nksf vhjsf vhdsfvsfd
+                    vdsfhjvsf vdsfvnfvkjdsfvdf
+                    sbvdfhjv dfn vdksf
+                    dsfsb hjbhds
+                    df hdf kb ds
+                    b'dfhjdsf vkdf.</p></div>
+            </li>
         </ul>
-    </div>
-    <div id="disaster_management" class="col s12">
-
-    </div>
-    <div id="active_disaster" class="col s12">
-
-    </div>
-
-    <div id="tracked_disastes" class="col s12">
-
-    </div>
-</div>
