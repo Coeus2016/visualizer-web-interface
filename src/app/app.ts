@@ -1,10 +1,11 @@
 "use strict";
 
-import { Component } from '@angular/core';
+import {Component,ViewChild} from '@angular/core';
 import {MaterializeDirective} from "angular2-materialize";
 import {MapComponent} from './map/map.component';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
+import {WeatherComponent} from './weather/weather.component';
 
 
 @Component({
@@ -12,20 +13,30 @@ import {RegisterComponent} from './register/register.component';
     selector: 'my-app',
     pipes: [],
     providers: [],
-    directives: [MaterializeDirective,MapComponent,LoginComponent,RegisterComponent],
+    directives: [MaterializeDirective,MapComponent,LoginComponent,RegisterComponent,WeatherComponent],
     templateUrl: './app.html'
 })
 
 export class App implements OnInit{
+    @ViewChild(MapComponent) map:MapComponent;
+
     public Search:string = "";
     constructor(){
     }
+    ngAfterViewInit() {
+
+    }
+
+    temp(){
+        console.log(this.map+"xyz");
+    }
 
     ngOnInit(){
+        var self = this;
         $('#autocomplete').autocomplete({
             serviceUrl: function (){
-                var input = $(this)
-                return 'http://photon.komoot.de/api/?q='+encodeURIComponent(input.val())+'&limit=5';
+                var input = $(this);
+                return 'http://photon.komoot.de/api/?q='+encodeURIComponent(input.val())+'&limit=5&lat='+self.map.lat+'&lon='+self.map.lon;
             },
             transformResult: function(response) {
                 var x = JSON.parse(response);
@@ -44,7 +55,15 @@ export class App implements OnInit{
                         return {value: temp, data: dataItem};
                     })
                 };
+            },
+            onSelect: function (suggestion) {
+                self.map.newLocation(suggestion.data.geometry.coordinates[0],suggestion.data.geometry.coordinates[1]);
+            },
+            formatResult: function (suggestion, currentValue)
+            {
+                return ("<h6 style='margin: 0; padding: 0;font-weight: bold;'>"+suggestion.data.properties.name+"</h6><h6 style='margin: 0; padding: 0'>"+suggestion.value+"</h6>");
             }
         });
+        document.body.style.overflow = 'hidden';
     }
 }
