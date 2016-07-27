@@ -2,7 +2,15 @@
     <div class="navbar-fixed" style="position: absolute;">
         <nav class="indigo lighten-1" role="navigation">
             <div class="nav-wrapper">
-                <a style="margin-left: 10px" id="logo-container" href="#" class="brand-logo white-text">Geospatial Data Visualizer</a>
+                <ul class="left">
+                    <li>
+                        <a style="margin-left: 10px" id="logo-container" href="#" class="brand-logo white-text">Geospatial Data Visualizer</a>
+                    </li>
+                </ul>
+                <div class="header-search-wrapper hide-on-med-and-down">
+                    <i class="material-icons active black-text">search</i>
+                    <input type="text" name="Search" [value]="Search" class="header-search-input z-depth-2" id="autocomplete" placeholder="Search Location">
+                </div>
                 <ul class="right hide-on-med-and-down">
                     <li><a materialize="leanModal" [materializeParams]="[{dismissible: false}]" href="#login" class="white-text"><i class="material-icons left">person</i>Log In</a></li>
                     <li><a materialize="leanModal" [materializeParams]="[{dismissible: false}]" href="#register" class="white-text"><i class="material-icons left">person_add</i>Register</a></li>
@@ -12,20 +20,24 @@
     </div>
 </header>
 <div class="row" style="height : 100%; padding-top : 56px;margin: 0">
+    <div class="col s7 blue-grey lighten-5" style="padding: 0; margin: 0;height: 100%"><my-map></my-map></div>
     <div class="col s5" style="height: 100%; padding-left: 0; padding-right: 0">
         <div class="row" style="position: relative">
             <div class="col s12" style="padding: 0">
-                <ul class="tabs indigo lighten-2 white-text" materialize="tabs">
-                    <li class="tab col s3"><a href="#test1" class="white-text">Disaster</a></li>
-                    <li class="tab col s3"><a class="active white-text" href="#test2">Climate</a></li>
-                    <div class="indicator white" style="z-index:1"></div>
+                <ul class="tabs white indigo-text text-lighten-1" materialize="tabs" style="overflow: hidden">
+                    <li class="tab col s3"><a href="#test1" class="indigo-text text-lighten-1">Disaster</a></li>
+                    <li class="tab col s3"><a class="active indigo-text text-lighten-1" href="#test2">Weather</a></li>
+                    <div class="indicator indigo lighten-1" style="z-index:1"></div>
                 </ul>
             </div>
-            <div id="test1" class="col s12 grey lighten-4" style="height: calc( 100% - 48px)">Test 1</div>
-            <div id="test2" class="col s12 grey lighten-4" style="height: calc( 100% - 48px)">Test 2</div>
+            <div id="test1" class="col s12 grey lighten-2" style="height: calc(100% - 48px)">
+                Test 1
+            </div>
+            <div id="test2" class="col s12 grey lighten-2" style="height: calc(100% - 48px); overflow: auto">
+                <my-weather></my-weather>
+            </div>
         </div>
     </div>
-    <div class="col s7 blue-grey lighten-5" style="padding: 0; margin: 0;height: 100%"><my-map></my-map></div>
 </div>
 <my-login></my-login>
 <my-register></my-register>

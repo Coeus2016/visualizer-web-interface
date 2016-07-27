@@ -6,22 +6,30 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="Geospatial Data Processor and Visualizer. SystemJS, Angular2, NodeJS">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- Stylesheets -->
-        <link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons">
-        <link type="text/css" rel="stylesheet" href="public/css/styles.css">
-        <link type="text/css" rel="stylesheet" href="node_modules/openlayers/css/ol.css">
+
+        <!-- 1. Load libraries -->
+        <link rel="stylesheet" href="node_modules/openlayers/dist/ol.css" type="text/css">
+        <script src="node_modules/openlayers/dist/ol.js"></script>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <!-- Compiled and minified CSS -->
         <link type="text/css" rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css" media="screen,projection" />
 
-        <!-- Javascript -->
+        <!-- Import jQuery before materialize.js -->
         <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-        <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
-        <script type="text/javascript" src="node_modules/openlayers/dist/ol.js"></script>
+
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.6/hammer.js"></script> -->
+        <script src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
+        <link rel="stylesheet" href="public/css/styles.css">
 
         <!-- Polyfill(s) for older browsers -->
         <script src="node_modules/core-js/client/shim.min.js"></script>
         <script src="node_modules/zone.js/dist/zone.js"></script>
         <script src="node_modules/reflect-metadata/Reflect.js"></script>
         <script src="node_modules/systemjs/dist/system.src.js"></script>
+        <script src="node_modules/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+
+        <!-- 2. Configure SystemJS -->
         <script src="systemjs.config.js"></script>
         <script>
             System.import('app').catch(function(err){ console.error(err); });
