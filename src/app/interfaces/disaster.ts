@@ -1,17 +1,35 @@
-
-export interface IDisasterType {
-    name: string;
-}
-
 export interface IDisaster {
-    disasterType: IDisasterType,
+    type:string,
     isActive: boolean,
     startDate: Date,
     endDate: Date,
-    location:{
-        name: string,
-        latitude: number,
-        longitude: number
+    location: {
+        name:string,
+        lon: number,
+        lat: number
     },
-    description: string
+    description: string;
+
 }
+/*
+export class Wildfire extends Disaster{
+
+
+}
+
+export class Drought extends Disaster{
+
+}
+
+export class Flood extends Disaster{
+
+}
+
+export class Storm extends Disaster{
+
+}
+
+export class Earthquake extends Disaster{
+
+}
+*/

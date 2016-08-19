@@ -1,70 +1,25 @@
+<ul materialize="tabs" class="tabs">
+    <li class="tab col s4 z-depth-2"><a href="#filter" class="active" ><i class="material-icons">search</i>Filter</a></li>
+    <li class="tab col s4 z-depth-2"><a href="#tracking"><i class="material-icons">place</i>Tracking<span style="" class="badge">4</span></a></li>
+    <li class="tab col s4 z-depth-2"><a href="#active"><i class="material-icons">warning</i>Active<span style="" class="new red badge">1</span></a></li>
+</ul><div id="filter" class="col s12">
+    <div id="nowShowing" class="row col s12">
+        <div class="col" *ngFor="let disaster of showingDisasters" >
+            <my-filter-button (click)="getDisastersByType()" [(on)] ="disaster.isShowing">{{disaster.name}}</my-filter-button>
+        </div>
+    </div>
 
-        <ul materialize="collapsible" class="collapsible popout" data-collapsible="accordion">
-            <li>
-                <div class="collapsible-header active"><i class="material-icons">search</i>Query Disasters</div>
-                <div class="collapsible-body row">
-                    <div class="col s12">
-                        <ul materialize="tabs" class="tabs">
-                            <li class="tab col s3"><a href="#query_by_type" class="active" >Test 1</a></li>
-                            <li class="tab col s3"><a href="#test2">Test 2</a></li>
-                            <li class="tab col s3"><a href="#test3">Disabled Tab</a></li>
-                            <li class="tab col s3"><a href="#test4">Test 4</a></li>
-                        </ul>
-                    </div>
-                    <div id="query_by_type" class="col s12">
-                        <form #f="ngForm">
-                            <div class="row">
-                                <div class="input-field col s6">
-                                    <input name="disaster_type" [(ngModel)]="disaster_type" (click)="getDisastersByType()" type="radio" class="with-gap" id="all" value="all" checked/>
-                                    <label for="all">All</label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input name="disaster_type" [(ngModel)]="disaster_type" (click)="getDisastersByType()" type="radio" class="with-gap" id="wildfires" value="wildfires" />
-                                    <label for="wildfires">Wildfires</label>
-                                </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="input-field col s6">
-                                    <input name="disaster_type" [(ngModel)]="disaster_type" (click)="getDisastersByType()" type="radio" class="with-gap" id="flooding" value="flooding" />
-                                    <label for="flooding">Flooding</label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input name="disaster_type" [(ngModel)]="disaster_type" (click)="getDisastersByType()" type="radio" class="with-gap" id="lightning_thunderstorm" value="option2" disabled="disabled" />
-                                    <label for="lightning_thunderstorm">Lighting and Thunderstorms</label>
-                                </div>
+    <hr/>
+    <div class="row">
+        <input type="date" class="datepicker">
+    </div>
 
-                            </div>
 
-                            <div class="row">
-                                <div class="input-field col s6">
-                                    <input name="disaster_type" [(ngModel)]="disaster_type" (click)="getDisastersByType()" type="radio" class="with-gap" id="earthquakes" value="earthquakes" />
-                                    <label for="earthquakes">Earthquakes</label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input name="disaster_type" [(ngModel)]="disaster_type" (click)="getDisastersByType()" type="radio" id="drought" value="drought" disabled="disabled" />
-                                    <label for="drought">Drought</label>
-                                </div>
-                            </div>
-                        </form>
-                        {{ f. value | json }}
-                    </div>
-                    <div id="test2" class="col s12">Test 2</div>
-                    <div id="test3" class="col s12">Test 3</div>
-                    <div id="test4" class="col s12">Test 4</div>
-                </div>
-            </li>
-            <li>
-                <div class="collapsible-header"><i class="material-icons">place</i><span style="right: 50px;" class="badge">4</span>Tracked Disasters</div>
-                <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-            </li>
-            <li>
-                <div class="collapsible-header"><i class="material-icons">warning</i>Active Disasters<span style="right: 50px;" class="new badge">1</span></div>
-                <div class="collapsible-body"><p>Lorem ipsum dolor sit ametsdmf ksfgvhfs dsfhjsf ghsf vdsfjhn dsng dsnf dsfvkjsfn vsfvhsdf vhsfd nksf vhjsf vhdsfvsfd
-                    vdsfhjvsf vdsfvnfvkjdsfvdf
-                    sbvdfhjv dfn vdksf
-                    dsfsb hjbhds
-                    df hdf kb ds
-                    b'dfhjdsf vkdf.</p></div>
-            </li>
-        </ul>
+</div>
+<div id="tracking" class="col s12">test2
+
+</div>
+<div id="active" class="col s12">test3
+
+</div>

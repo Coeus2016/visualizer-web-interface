@@ -1,4 +1,5 @@
 (function(global) {
+    
     var map = {
         'app':                        'app', // 'dist',
         '@angular':                   'node_modules/@angular',

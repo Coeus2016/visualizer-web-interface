@@ -5,7 +5,14 @@ declare var ol: any;
 export class MapService {
     ol: any;
     map: any;
-    
+    lat:number;
+    lon:number;
+
+    constructor(){
+        this.lon = 0.0;
+        this.lat = 0.0;
+    }
+
     getMap(){
          this.map = new ol.Map({
             target: 'map',
@@ -19,17 +26,9 @@ export class MapService {
                 zoom: 10
             })
         });
-        return {
-            map: this.map
-        }
-
+        return Promise.resolve( this.map);
     }
 
-    addLayer(layer: any){
-        this.map.addLayer(layer);
-        //Promise.resolve(LAYERS)
-
-    }
 
 
 }

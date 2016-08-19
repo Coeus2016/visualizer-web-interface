@@ -63,22 +63,6 @@ h1 {
 .autocomplete-selected { background: #f0f0f0; }
 .autocomplete-suggestions strong { font-weight: normal; color: #3399ff; }
 
-/*================================================================================
-  Item Name: Materialize - Material Design Admin Template
-  Version: 2.2
-  Author: GeeksLabs
-  Author URL: http://www.themeforest.net/user/geekslabs
-================================================================================*/
-/*-----------------------------------------
-
-------------------------------------------*/
-/*=================================================================================
-    General
-====================================================================================*/
-/*----------------------------------------
-  General Layout Style
-------------------------------------------*/
-
 body {
     background-color: #fcfcfc;
 }
@@ -132,6 +116,10 @@ footer {
 /*---------------------------------
     Typography
 -----------------------------------*/
+.filter-small {
+    font-size: 9pt;
+    padding: 0pt;
+}
 
 .small {
     font-size: 1.0rem;

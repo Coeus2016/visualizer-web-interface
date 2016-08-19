@@ -14,3 +14,5 @@ cd ../interfaces/
 rm *.js *.map
 cd ../mocks/
 rm *.js *.map
+cd ../directives/
+rm *.js *.map
