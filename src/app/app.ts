@@ -5,29 +5,35 @@ import {MaterializeDirective} from "angular2-materialize";
 import {MapComponent} from './map/map.component';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
+import {DisasterCenterComponent} from './disaster-center/disaster-center.component';
 import {WeatherComponent} from './weather/weather.component';
 
 
 @Component({
-    moduleId: module.id,
+   //moduleId: module.id,
     selector: 'my-app',
-    pipes: [],
-    providers: [],
-    directives: [MaterializeDirective,MapComponent,LoginComponent,RegisterComponent,WeatherComponent],
-    templateUrl: './app.html'
+    directives: [
+        MaterializeDirective,
+        MapComponent,
+        LoginComponent,
+        RegisterComponent,
+        DisasterCenterComponent,
+        WeatherComponent
+    ],
+    templateUrl: './app/app.html'
 })
 
-export class App implements OnInit{
+export class App {
     @ViewChild(MapComponent) map:MapComponent;
 
-    public Search:string = "";
+  /*  public Search:string = "";
     constructor(){
     }
     ngAfterViewInit() {
 
     }
 
-    temp(){
+   temp(){
         console.log(this.map+"xyz");
     }
 
@@ -65,5 +71,5 @@ export class App implements OnInit{
             }
         });
         document.body.style.overflow = 'hidden';
-    }
+    }*/
 }

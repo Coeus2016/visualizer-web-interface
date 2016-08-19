@@ -11,7 +11,7 @@ import {MaterializeDirective} from "angular2-materialize";
 })
 
 export class WeatherComponent {
-    weathers:Array<Weather> = [];
+    /*weathers:Array<Weather> = [];
     constructor(private http: Http){
         var self = this;
         http.get('app/weather.json').map(function(response) {
@@ -26,5 +26,5 @@ export class WeatherComponent {
     }
     removeWeather(index){
 
-    }
+    }*/
 }

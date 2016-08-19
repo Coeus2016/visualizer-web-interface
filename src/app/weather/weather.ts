@@ -1,5 +1,5 @@
 export class Weather {
-    City: string;
+   /* City: string;
     Country: string;
     List: Object;
     constructor(response){
@@ -7,5 +7,5 @@ export class Weather {
         this.City = response.city.name;
         this.Country = response.city.country;
         this.List = response.list;
-    }
+    }*/
 }

@@ -1,22 +1,25 @@
 import {Component, OnInit} from '@angular/core';
+//import {MapService} from "../services/map.service";
 
-declare var ol: any;
-
+declare var ol:any;
 @Component({
     selector: 'my-map',
+    //providers: [MapService],
     templateUrl: 'app/map/map.component.html'
 })
 
 export class MapComponent implements OnInit{
     ol: any;
+
+
     map: Object;
     markerLayer: Object;
     vectorSource: Object;
     lon: number;
     lat: number;
 
-    constructor(){
-        this.lon = 0.0;
+    constructor(/*private _mapService: MapService*/){
+       this.lon = 0.0;
         this.lat = 0.0;
 
         this.vectorSource = new ol.source.Vector({
@@ -41,6 +44,9 @@ export class MapComponent implements OnInit{
         });
     }
     ngOnInit(){
+
+        //this._mapService.getMap().then(()=> this.map);
+        //this._mapService();
         this.map = new ol.Map({
             target: 'map',
             layers: [
@@ -53,8 +59,8 @@ export class MapComponent implements OnInit{
                 zoom: 10
             })
         });
-        this.map.addLayer(this.markerLayer);
-        this.initGeoLocation(this.map);
+     //   this.map.addLayer(this.markerLayer);
+
 
         var container = document.getElementById('popup');
         var content = document.getElementById('popup-content');
@@ -69,7 +75,7 @@ export class MapComponent implements OnInit{
                 duration: 250
             }
         });
-        this.map.addOverlay(popup);
+     //   this.map.addOverlay(popup);
 
         closer.onclick = function() {
             popup.setPosition(undefined);
@@ -79,7 +85,7 @@ export class MapComponent implements OnInit{
 
         var self = this;
         // display popup on click
-        this.map.on('click', function(evt) {
+       /* this.map.on('click', function(evt) {
             var feature = self.map.forEachFeatureAtPixel(evt.pixel,
                 function(feature, layer) {
                     return feature;
@@ -91,20 +97,20 @@ export class MapComponent implements OnInit{
                 content.innerHTML = '<div class="row"><a class="waves-effect waves-light btn">button</a></div><div class="row"><a class="waves-effect waves-light btn">button</a></div>';
                 popup.setPosition(coord);
                 console.log(feature.get('lat'));
-                /*$(element).popover({
+                $(element).popover({
                     'placement': 'top',
                     'html': true,
                     'content': feature.get('name')
                 });
-                $(element).popover('show');*/
+                $(element).popover('show');
             } else {
-                /*$(element).popover('destroy');*/
+                $(element).popover('destroy');
             }
-        });
+        });*/
     }
-    initGeoLocation(map) {
-        var self = this;
-        if (navigator.geolocation) {
+   initGeoLocation(map:any) {
+       var self = this;
+       if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 self.lat = position.coords.latitude;
                 self.lon = position.coords.longitude;
@@ -113,22 +119,22 @@ export class MapComponent implements OnInit{
         }
     }
 
-    newLocation(longitude, latitude){
-        var iconFeature = new ol.Feature({
+   newLocation(longitude:any, latitude:any){
+       var iconFeature = new ol.Feature({
             geometry: new
                 ol.geom.Point(ol.proj.transform([longitude, latitude], 'EPSG:4326',   'EPSG:3857')),
             lon: longitude,
             lat: latitude
         });
-        this.vectorSource.addFeature(iconFeature);
+        //this.vectorSource.addFeature(iconFeature);
 
-        /*****************************/
+
         this.lat = latitude;
         this.lon = longitude;
 
         var duration = 2000;
         var start = +new Date();
-        var pan = ol.animation.pan({
+        /*var pan = ol.animation.pan({
             duration: duration,
             source: (this.map.getView().getCenter()),
             start: start
@@ -137,9 +143,9 @@ export class MapComponent implements OnInit{
             duration: duration,
             resolution: 4*this.map.getView().getResolution(),
             start: start
-        });
+        });*
         this.map.beforeRender(pan,bounce);
 
-        this.map.getView().setCenter(ol.proj.fromLonLat([longitude, latitude]));
+        this.map.getView().setCenter(ol.proj.fromLonLat([longitude, latitude]));*/
     }
 }
