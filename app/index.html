@@ -1,44 +1,45 @@
-<html style="height: 100%;">
+<!DOCTYPE html>
+<html lang="en"  class="no-js">
     <head>
         <base href="/">
-        <title>Geospatial Data Processor and Visualizer</title>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <title>Geospatial Data Processor and Visualizer</title>
         <meta name="description" content="Geospatial Data Processor and Visualizer. SystemJS, Angular2, NodeJS">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
         <!-- Stylesheets -->
         <link rel="stylesheet" type="text/css" href="public/css/styles.css">
-        <link rel="stylesheet" type="text/css" href="node_modules/openlayers/dist/ol.css">
-        <link rel="stylesheet" type="text/css" herf="public/css/weather-icons.min.css">
+        <link rel="stylesheet" type="text/css" href="bower_components/openlayers/ol.css">
+        <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" type="text/css" href="node_modules/materialize-css/dist/css/materialize.min.css" media="screen,projection" />
 
         <!-- Javascript -->
-        <script type="text/javascript" src="node_modules/openlayers/dist/ol.js"></script>
-        <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-        <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
-        <script type="text/javascript" src="node_modules/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+        <script type="text/javascript" src="bower_components/openlayers/ol.js"></script>
 
-        <!-- Polyfill(s) for older browsers -->
-        <script src="node_modules/core-js/client/shim.min.js"></script>
-        <script src="node_modules/zone.js/dist/zone.js"></script>
-        <script src="node_modules/reflect-metadata/Reflect.js"></script>
-        <script src="node_modules/systemjs/dist/system.src.js"></script>
 
-        <!-- 2. Configure SystemJS -->
-        <script src="systemjs.config.js"></script>
-        <script>
-            System.import('app').catch(function(err){ console.error(err); });
-        </script>
+
     </head>
 
-    <body style="overflow: auto; height: 100%" >
-        <my-app>
-            <div class="loader">
+    <body ng-app="my-app" ng-cloak>
+            <!-- needs to be fixed
+                <div class="loader" ng-show="loading">
                 <div></div>
-            </div>
-        </my-app>
+            </div> -->
 
+            <!-- Angular Material requires Angular.js Libraries -->
+            <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+            <script type="text/javascript" src="bower_components/angular-animate/angular-animate.min.js"></script>
+            <script type="text/javascript" src="bower_components/angular-aria/angular-aria.min.js"></script>
+            <script type="text/javascript" src="bower_components/angular-messages/angular-messages.min.js"></script>
+            <script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+
+            <!-- Angular Material Library -->
+            <script type="text/javascript" src="bower_components/angular-material/angular-material.min.js"></script>
+
+            <!-- Your application bootstrap  -->
+            <script type="text/javascript" src="app.js"></script>
     </body>
+
 </html>
