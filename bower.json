@@ -1,0 +1,23 @@
+{
+  "name": "visualizer-web-interface",
+  "description": "AngularJS ",
+  "keywords": [
+    "angularjs",
+    "openlayers"
+  ],
+  "dependencies": {
+      "angular": "1.5.8",
+      "angular-animate": "1.5.8",
+      "angular-aria": "1.5.8",
+      "angular-material": "1.1.0",
+      "angular-messages": "1.5.8",
+      "angular-resource": "1.5.8",
+      "angular-route": "1.5.8",
+      "angular-loader": "1.5.8",
+      "angular-sanitize": "1.5.8",
+      "openlayers": "https://github.com/openlayers/ol3/releases/download/v3.17.1/v3.17.1-dist.zip"
+  },
+  "devDependencies": {
+      "angular-mocks": "1.5.8"
+  }
+}
