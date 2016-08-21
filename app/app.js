@@ -2,7 +2,8 @@
 
 var myApp = angular.module('my-app', [
     'ngMaterial',
-    'ngSanitize'
+    'ngSanitize',
+    'my-app.my-map'
 
 ])
 .controller('AppCtrl',AppCtrl
@@ -12,6 +13,8 @@ config(['$locationProvider', function($locationProvider) {
 }]);
 
 function AppCtrl ($timeout, $q) {
+
+
     var self = this;
     // list of `state` value/display objects
     self.states = loadAll();

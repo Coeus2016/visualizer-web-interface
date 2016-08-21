@@ -88,9 +88,9 @@
                     </div>
                 </md-toolbar>
             </header>
-            <div layout="row">
-                <div flex>
-                    <div id="map"></div>
+            <div layout="row" style="height: 100%" ng-controller="MapCtrl">
+                <div flex >
+                    <div class="map" id="map"></div>
                 </div>
                 <div flex="40">
                     Put the dropdown selector here
@@ -110,6 +110,7 @@
 
             <!-- Your application bootstrap  -->
             <script type="text/javascript" src="app.js"></script>
+            <script type="text/javascript" src="core/map/map.js"></script>
     </body>
 
 </html>
