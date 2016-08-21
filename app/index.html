@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"  class="no-js">
+<html lang="en" ng-app="my-app" class="no-js">
     <head>
-        <base href="/">
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <title>Geospatial Data Processor and Visualizer</title>
@@ -22,13 +21,84 @@
 
     </head>
 
-    <body ng-app="my-app" ng-cloak>
-            <!-- needs to be fixed
-                <div class="loader" ng-show="loading">
+    <body  ng-controller="AppCtrl as ctrl" ng-cloak style="height: 100%">
+            <!-- needs to be fixed -->
+            <div class="loader" ng-if="false">
                 <div></div>
-            </div> -->
+            </div>
 
             <!-- Angular Material requires Angular.js Libraries -->
+
+            <header>
+                <md-toolbar class="md-hue-2">
+                    <div class="md-toolbar-tools">
+                        <h2>
+                            <span>Toolbar with Disabled/Enabled Icon Buttons</span>
+                        </h2>
+                        <span flex></span>
+
+                        <!-- AUTOCOMPLETE SEARCCH SELECTOR needs to be fixed-->
+                        <form ng-submit="$event.preventDefault()" name="searchLocation">
+                            <div layout="row">
+                            <div flex>
+                                <md-icon md-font-library="material-icons">search</md-icon>
+                            </div>
+                            <div flex="35">
+                                <md-autocomplete flex
+                                                 md-input-name="autocompleteField"
+                                                 md-input-minlength="2"
+                                                 md-input-maxlength="50"
+                                                 md-no-cache="ctrl.noCache"
+                                                 md-selected-item="ctrl.selectedItem"
+                                                 md-search-text="ctrl.searchText"
+                                                 md-items="item in ctrl.querySearch(ctrl.searchText)"
+                                                 md-item-text="item.display"
+                                                 md-require-match
+                                                 md-floating-label="Search Location">
+
+                                    <md-item-template>
+                                        <span md-highlight-text="ctrl.searchText">{{item.display}}</span>
+                                    </md-item-template>
+
+                                </md-autocomplete>
+
+                            </div>
+                            </div>
+
+
+                        </form>
+
+                        <!-- PROFILE MENU-->
+                        <md-menu md-position-mode="target-right target" >
+                            <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                                <md-icon md-font-library="material-icons">face</md-icon>
+                            </md-button>
+                            <md-menu-content width="4" >
+                                <md-menu-item ng-repeat="item in [1, 2, 3]">
+                                    <md-button ng-click="ctrl.announceClick($index)">
+                                        <div layout="row" flex>
+                                            <p flex>Option {{item}}</p>
+
+                                        </div>
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+
+                    </div>
+                </md-toolbar>
+            </header>
+            <div layout="row">
+                <div flex>
+                    <div id="map"></div>
+                </div>
+                <div flex="40">
+                    Put the dropdown selector here
+                    Side Nav
+                </div>
+            </div>
+            <footer></footer>
+
             <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
             <script type="text/javascript" src="bower_components/angular-animate/angular-animate.min.js"></script>
             <script type="text/javascript" src="bower_components/angular-aria/angular-aria.min.js"></script>
