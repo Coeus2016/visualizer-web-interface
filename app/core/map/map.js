@@ -68,16 +68,4 @@ function MapCtrl ($scope) {
     $scope.map.addLayer(layer);
 
     updateUserLocation();
-
-
-
-
-
-
-
-
-
-
-
-
 }
