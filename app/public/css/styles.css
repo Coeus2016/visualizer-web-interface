@@ -1,4 +1,5 @@
 html, body {
+    margin: 0;
     height: 100%;
     -ms-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -33,6 +34,48 @@ section[flex=""] {
  background-color: rgba(0, 128, 0, 0.35);
 }
 
+md-select .md-select-value {
+    font-size: 1rem;
+    background: white;
+    border-radius: 2px;
+    height: 40px;
+    position: relative;
+    overflow: visible;
+    min-width: 190px;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: none;
+}
+
+md-select:not([disabled]):focus .md-select-value {
+    background: white;
+    border: none;
+}
+
+md-select .md-select-value .md-text {
+    color: #37474f! important;
+}
+
+md-select .md-select-icon:after{
+    color: #37474f! important;
+}
+
+md-select .md-select-icon{
+    color: #37474f! important;
+}
+
+#six {
+    border-radius: 2px;
+    display: block;
+    height: 40px;
+    position: relative;
+    overflow: visible;
+    min-width: 190px;
+    background-color: white;
+    padding-bottom: 0px;
+}
 
 /* Important to set height for column layout */
 .boxWithHeight {

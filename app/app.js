@@ -3,11 +3,30 @@
 var myApp = angular.module('my-app', ['ngMaterial','ngSanitize','my-app.my-map']);
 myApp.controller('AppCtrl',AppCtrl);
 
-myApp.config(['$locationProvider', function($locationProvider) {
+myApp.config(function($locationProvider,$mdThemingProvider) {
     $locationProvider.hashPrefix('!');
-}]);
+    $mdThemingProvider.theme('default')
+    .primaryPalette('lime')
+    .accentPalette('orange');
+});
 
-function AppCtrl ($timeout, $q, $log) {
+function AppCtrl ($timeout, $q, $log,$scope) {
+  $scope.user = {
+      title: 'Developer',
+      email: 'ipsum@lorem.com',
+      firstName: '',
+      lastName: '',
+      company: 'Google',
+      address: '1600 Amphitheatre Pkwy',
+      city: 'Mountain View',
+      state: 'CA',
+      biography: 'Loves kittens, snowboarding, and can type at 130 WPM.\n\nAnd rumor has it she bouldered up Castle Craig!',
+      postalCode: '94043'
+    };
+    $scope.states = ('Weather Disasters').split(' ').map(function(state) {
+        return {abbrev: state};
+      });
+
   var self = this;
   self.simulateQuery = false;
   self.isDisabled    = false;

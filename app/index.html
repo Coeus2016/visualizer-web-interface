@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,10 +8,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Stylesheets -->
-        <link rel="stylesheet" type="text/css" href="public/css/styles.css">
-        <link rel="stylesheet" type="text/css" href="bower_components/openlayers/ol.css">
         <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+        <link rel="stylesheet" type="text/css" href="bower_components/openlayers/ol.css">
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" type="text/css" href="public/css/styles.css">
 
         <!-- Javascript -->
         <script type="text/javascript" src="bower_components/openlayers/ol.js"></script>
@@ -24,7 +24,7 @@
         </div>
 
         <!-- Container #1 (see wireframe) -->
-        <md-toolbar class="md-hue-2">
+        <md-toolbar class="md-hue-800">
             <div class="md-toolbar-tools">
                 <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
                     <md-icon class="menu">menu</md-icon>
@@ -63,6 +63,14 @@
                         </span>
                     </md-item-template>
                 </md-autocomplete>
+                
+                <md-input-container class="md-padding">
+                    <label>Geospatial</label>
+                    <md-select ng-model="user.state" class="md-whiteframe-1dp">
+                        <md-option ng-repeat="state in states" value="{{state.abbrev}}">{{state.abbrev}}</md-option>
+                    </md-select>
+                </md-input-container>
+
                 <!-- PROFILE MENU-->
                 <md-menu md-position-mode="target-right target" >
                     <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
@@ -80,32 +88,16 @@
                 </md-menu>
             </div>
         </md-toolbar>
-
-        <div layout="row" style="height: 100%" ng-controller="MapCtrl">
-            <div flex="60" layout="column" class="boxWithHeight" style="padding: 0" layout-padding>
-                <md-content style="height:100%; padding: 0">
-                    <!-- Custom UserDetails component -->
-                    <div class="map" id="map"></div>
-                </md-content>
-            </div>
+        <md-content layout="row" class="boxWithHeight" ng-controller="MapCtrl">
+            <div flex="60" layout="column" class="map" id="map" layout-fill></div>
+                        
             <div flex layout="column" class="boxWithHeight" layout-padding>
                 flex
                 <section flex="70">flex="70"</section>
                 <section flex="20">flex="20"</section>
                 <section flex >flex </section>
             </div>
-        </div>
-
-            <!-- <div layout="row" style="height: 100%" ng-controller="MapCtrl">
-                <div flex >
-                    
-                </div>
-                <div flex="40">
-                    Put the dropdown selector here
-                    Side Nav
-                </div>
-            </div>
-            <footer></footer>-->
+        </md-content>
 
         <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
         <script type="text/javascript" src="bower_components/angular-animate/angular-animate.min.js"></script>

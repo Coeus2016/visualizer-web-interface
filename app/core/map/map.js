@@ -5,6 +5,9 @@ angular.module('my-app.my-map',[
 controller('MapCtrl', MapCtrl);
 
 function MapCtrl ($scope) {
+    angular.element(document).ready(function () {
+        $scope.map.updateSize();
+    });
 
     var markerLayer = null;
 
