@@ -42,5 +42,6 @@ function AppCtrl ($timeout, $q, $log,$scope,$http) {
   
   function selectedItemChange(item) {
     $log.info('Item changed to ' + JSON.stringify(item));
+    console.log($scope.map);//getView().setCenter(ol.proj.transform([item.geometry.coordinates[0], item.geometry.coordinates[1]], 'EPSG:4326', 'EPSG:3857'));
   }
 }

@@ -1,74 +1,53 @@
 'use strict';
-angular.module('my-app.my-map',[
 
-]).
-controller('MapCtrl', MapCtrl);
+var myMap = angular.module('my-app.my-map',[]);
 
-function MapCtrl ($scope) {
-    angular.element(document).ready(function () {
-        $scope.map.updateSize();
+myMap.service('MapService',function(){
+    this.map = new ol.Map({
+        target: 'map'
     });
 
-    var markerLayer = null;
-
-    var iconStyle = new ol.style.Style({
-        image: new ol.style.Icon ({
-            anchor: [0.5, 1],
-
-            src: 'http://openlayers.org/en/v3.17.1/examples/data/icon.png'
-        })
-    });
-    var layer = new ol.layer.Tile({
+    this.layer = new ol.layer.Tile({
         source: new ol.source.OSM()
     });
 
-    var view = new ol.View({
+    this.view = new ol.View({
         center:ol.proj.fromLonLat([0,0]),
         zoom: 10,
         minZoom: 3,
         maxZoom: 15
     });
 
-    function updateUserLocation() {
-        var geo = null;
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                //geo = position;
-                $scope.map.getView().setCenter(ol.proj.transform([position.coords.longitude, position.coords.latitude], 'EPSG:4326', 'EPSG:3857'));
-            });
-        }
-        if (markerLayer)
-            $scope.map.removeLayer(markerLayer);
+    this.map.setView(this.view);
 
-        markerLayer = new ol.layer.Vector({
-            source: new ol.source.Vector({
-                feature: new ol.Feature({
-                    type: 'icon',
-                    geometry: new ol.geom.Point([0,0])
-                })
-            }),
-            style:iconStyle
-        });
+    this.map.addLayer(this.layer);
 
-
-        $scope.map.addLayer(markerLayer);
-    }
-
-    function addLayer(info){
+    this.addLayer = function(info){
 
     }
 
-    function addMarker(info){
+    this.addMarker = function(info){
 
     }
 
-    $scope.map= new ol.Map({
-        target: 'map'
+    this.updateLocation = function(longitude, latitude){
+        this.map.getView().setCenter(ol.proj.transform([longitude, latitude], 'EPSG:4326', 'EPSG:3857'));
+    }
+});
+
+myMap.controller('MapCtrl', MapCtrl);
+
+function MapCtrl ($scope,MapService) {
+    /**
+      * Make Map not to be stretched
+      */
+    angular.element(document).ready(function () {
+        MapService.map.updateSize();
     });
 
-    $scope.map.setView(view);
-
-    $scope.map.addLayer(layer);
-
-    updateUserLocation();
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            MapService.updateLocation(position.coords.longitude,position.coords.latitude);
+        });
+    }
 }
