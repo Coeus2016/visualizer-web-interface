@@ -88,7 +88,7 @@ md-select .md-select-icon{
 .autocomplete-custom-template .item-title,
 .autocomplete-custom-template .item-metadata {
   display: block;
-  line-height: 2; }
+  line-height: 1.5; }
 .autocomplete-custom-template .item-title md-icon {
   height: 18px;
   width: 18px; }

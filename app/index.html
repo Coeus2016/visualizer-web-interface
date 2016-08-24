@@ -55,13 +55,13 @@
                         </span>
                         <span class="item-metadata">
                             <span class="item-metastat">
-                                {{(item.properties.osm_value + ",") || ""}}
+                                {{item.properties.osm_value? item.properties.osm_value+", " : ""}}
                             </span>
                             <span class="item-metastat">
-                                {{(item.properties.city + ",") || ""}}
+                                {{item.properties.city? item.properties.city+", " : ""}}
                             </span>
                             <span class="item-metastat">
-                                {{item.properties.country || ""}}
+                                {{item.properties.country? item.properties.country : ""}}
                             </span>
                         </span>
                     </md-item-template>
