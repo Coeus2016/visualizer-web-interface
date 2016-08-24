@@ -44,28 +44,31 @@
                     md-search-text="ctrl.searchText"
                     md-selected-item-change="ctrl.selectedItemChange(item)"
                     md-items="item in ctrl.querySearch(ctrl.searchText)"
-                    md-item-text="item.name"
+                    md-item-text="item.properties.name"
                     md-min-length="0"
-                    placeholder="Pick an Angular repository"
+                    placeholder="Search location"
                     md-menu-class="autocomplete-custom-template">
                     <md-item-template>
                         <span class="item-title">
                             <md-icon md-font-library="material-icons">place</md-icon>
-                            <span> {{item.name}} </span>
+                            <span><strong> {{item.properties.name}}</strong> </span>
                         </span>
                         <span class="item-metadata">
                             <span class="item-metastat">
-                                <strong>{{item.watchers}}</strong> watchers
+                                {{(item.properties.osm_value + ",") || ""}}
                             </span>
                             <span class="item-metastat">
-                                <strong>{{item.forks}}</strong> forks
+                                {{(item.properties.city + ",") || ""}}
+                            </span>
+                            <span class="item-metastat">
+                                {{item.properties.country || ""}}
                             </span>
                         </span>
                     </md-item-template>
                 </md-autocomplete>
                 
                 <md-input-container class="md-padding">
-                    <md-select placeholder="Geospatial" ng-model="gis.data" class="md-whiteframe-1dp">
+                    <md-select placeholder="pick geospatial" ng-model="gis.data" class="md-whiteframe-1dp">
                         <md-option ng-repeat="gisdata in geospatial" value="{{gisdata.data}}">{{gisdata.data}}</md-option>
                     </md-select>
                 </md-input-container>
