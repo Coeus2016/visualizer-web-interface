@@ -10,7 +10,7 @@ myApp.config(function($locationProvider,$mdThemingProvider) {
     .accentPalette('orange');
 });
 
-function AppCtrl ($timeout, $q, $log,$scope,$http) {
+function AppCtrl ($timeout, $q, $log,$scope,$http,MapService) {
   $scope.geospatial = ('weather disasters').split(' ').map(function(gisdata) {
     return {data: gisdata};
   });
@@ -42,6 +42,8 @@ function AppCtrl ($timeout, $q, $log,$scope,$http) {
   
   function selectedItemChange(item) {
     $log.info('Item changed to ' + JSON.stringify(item));
-    console.log($scope.map);//getView().setCenter(ol.proj.transform([item.geometry.coordinates[0], item.geometry.coordinates[1]], 'EPSG:4326', 'EPSG:3857'));
+    if (item===undefined){}
+    else
+      MapService.updateLocation(item.geometry.coordinates[0],item.geometry.coordinates[1]);
   }
 }
