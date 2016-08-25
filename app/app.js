@@ -1,63 +1,73 @@
 'use strict';
 
-var myApp = angular.module('my-app', [
-    'ngMaterial',
-    'ngSanitize',
-    'my-app.my-map'
+var myApp = angular.module('my-app', ['ngMaterial','ngSanitize','my-app.my-map','ui.router']);
+myApp.controller('AppCtrl',AppCtrl);
 
-])
-.controller('AppCtrl',AppCtrl
-).
-config(['$locationProvider', function($locationProvider) {
+myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRouterProvider) {
     $locationProvider.hashPrefix('!');
-}]);
+    $mdThemingProvider.theme('default')
+    .primaryPalette('lime')
+    .accentPalette('orange');
 
-function AppCtrl ($timeout, $q) {
+    $stateProvider
+      .state("weather",{
+        url: "/weather",
+        templateUrl: "templates/weather.html"
+      })
+      .state("disasters",{
+        url: "/disasters",
+        templateUrl: "templates/disasters.html"
+      })
+      .state("weather.data",{
+        url: "/data",
+        templateUrl: "templates/weather.data.html"
+      })
+      .state("weather.settings",{
+        url: "/settings",
+        templateUrl: "templates/weather.settings.html"
+      })
+      .state("/",{
+        url: "/",
+        templateUrl: "templates/index.html"
+      });
 
+    $urlRouterProvider.otherwise("/");
+});
 
-    var self = this;
-    // list of `state` value/display objects
-    self.states = loadAll();
-    self.selectedItem = null;
-    self.searchText = null;
-    self.querySearch = querySearch;
+function AppCtrl ($timeout, $q, $log,$scope,$http,MapService,$state) {
+  $scope.geospatial = [
+    {"data": "weather"},
+    {"data": "disasters"}
+  ];
 
-    function querySearch(query) {
-        var results = query ? self.states.filter(createFilterFor(query)) : self.states;
-        var deferred = $q.defer();
-        $timeout(function () {
-            deferred.resolve(results);
-        }, Math.random() * 1000, false);
-        return deferred.promise;
-    }
+  $scope.selectChanged = function(){
+    $state.go($scope.gis.data);
+  };
 
-    /**
-     * Build `states` list of key/value pairs
-     */
-    function loadAll() {
-        var allStates = 'Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut, Delaware,\
-              Florida, Georgia, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana,\
-              Maine, Maryland, Massachusetts, Michigan, Minnesota, Mississippi, Missouri, Montana,\
-              Nebraska, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina,\
-              North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina,\
-              South Dakota, Tennessee, Texas, Utah, Vermont, Virginia, Washington, West Virginia,\
-              Wisconsin, Wyoming';
-        return allStates.split(/, +/g).map(function (state) {
-            return {
-                value: state.toLowerCase(),
-                display: state
-            };
-        });
-    }
-
-    /**
-     * Create filter function for a query string
-     */
-    function createFilterFor(query) {
-        var lowercaseQuery = angular.lowercase(query);
-        return function filterFn(state) {
-            return (state.value.indexOf(lowercaseQuery) === 0);
-        };
-    }
+  var self = this;
+  self.querySearch   = querySearch;
+  self.selectedItemChange = selectedItemChange;
+  self.searchTextChange   = searchTextChange;
+  
+  /**
+    * Reverse geolocation
+    */
+  function querySearch (query) {
+    return $http.get('http://photon.komoot.de/api/?limit=5&q=' + escape(query))
+                .then(function(result) {
+                  self.data = result.data.features;
+                  return result.data.features;
+                });
+  }
+  
+  function searchTextChange(text) {
+    $log.info('Text changed to ' + text);
+  }
+  
+  function selectedItemChange(item) {
+    $log.info('Item changed to ' + JSON.stringify(item));
+    if (item===undefined){}
+    else
+      MapService.updateLocation(item.geometry.coordinates[0],item.geometry.coordinates[1]);
+  }
 }
-
