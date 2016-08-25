@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,14 +17,14 @@
         <script type="text/javascript" src="bower_components/openlayers/ol.js"></script>
     </head>
 
-    <body ng-app="my-app" layout="column" ng-controller="AppCtrl as ctrl">
+    <body ng-app="my-app" layout="column" ng-controller="AppCtrl as ctrl" style="position: relative; height: 100%">
         <!-- needs to be fixed -->
         <div class="loader" ng-if="false">
             <div></div>
         </div>
 
         <!-- Container #1 (see wireframe) -->
-        <md-toolbar class="md-hue-800">
+        <md-toolbar class="md-hue-800" layout="row" style="position: relative">
             <div class="md-toolbar-tools">
                 <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
                     <md-icon class="menu">menu</md-icon>
@@ -90,14 +90,11 @@
                 </md-menu>
             </div>
         </md-toolbar>
-        <md-content layout="row" class="boxWithHeight" ng-controller="MapCtrl">
-            <div flex="60" layout="column" class="map" id="map" layout-fill></div>
+        <md-content layout="row" flex class="boxWithHeight" ng-controller="MapCtrl" style="position: relative; height: 100%">
+            <div flex="60" layout="column" class="map" id="map" style="position: relative; height: 100%" layout-fill></div>
                         
-            <div flex layout="column" class="boxWithHeight" style="height: 100%" layout-fill>
+            <div flex layout="column" class="boxWithHeight" style="position: relative; height: 100%" layout-fill>
                 <div ui-view></div>
-                <!--<section flex="70">flex="70"</section>
-                <section flex="20">flex="20"</section>
-                <section flex >flex </section>-->
             </div>
         </md-content>
 
