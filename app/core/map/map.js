@@ -18,12 +18,40 @@ myMap.service('MapService',function(){
         maxZoom: 15
     });
 
+    this.vectorSource = new ol.source.Vector({
+        //create empty vector
+    });
+
+    //create the style
+    this.iconStyle = new ol.style.Style({
+        image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+            anchor: [0.5, 46],
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            opacity: 0.75,
+            src: 'public/images/location.png'
+        }))
+    });
+
+    var self = this;
+    this.markerLayer = new ol.layer.Vector({
+        source: self.vectorSource,
+        style: self.iconStyle
+    });
+
     this.map.setView(this.view);
 
     this.map.addLayer(this.layer);
 
-    this.addLayer = function(info){
+    this.map.addLayer(this.markerLayer);
 
+    this.addLayer = function(longitude,latitude){
+        var iconFeature = new ol.Feature({
+            geometry: new ol.geom.Point(ol.proj.transform([longitude, latitude], 'EPSG:4326',   'EPSG:3857')),
+            lon: longitude,
+            lat: latitude
+        });
+        self.vectorSource.addFeature(iconFeature);
     }
 
     this.addMarker = function(info){
@@ -31,7 +59,7 @@ myMap.service('MapService',function(){
     }
 
     this.updateLocation = function(longitude, latitude){
-        this.map.getView().setCenter(ol.proj.transform([longitude, latitude], 'EPSG:4326', 'EPSG:3857'));
+        self.map.getView().setCenter(ol.proj.transform([longitude, latitude], 'EPSG:4326', 'EPSG:3857'));
     }
 });
 

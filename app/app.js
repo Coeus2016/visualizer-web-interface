@@ -1,6 +1,6 @@
 'use strict';
 
-var myApp = angular.module('my-app', ['ngMaterial','ngSanitize','my-app.my-map','ui.router']);
+var myApp = angular.module('my-app', ['ngMaterial','ngSanitize','my-app.my-map','ui.router','my-disasters.my-disasters']);
 myApp.controller('AppCtrl',AppCtrl);
 
 myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRouterProvider) {
