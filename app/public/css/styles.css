@@ -1,4 +1,5 @@
 html, body {
+    margin: 0;
     height: 100%;
     -ms-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -9,6 +10,108 @@ html, body {
 h1 {
     color: blue;
 }
+
+body[ng-cloak] {
+  display:none;
+}
+body {
+    background-color: #FEEBC8;
+}
+div[flex="30"] {
+  background-color: #DFDFDF;  
+}
+
+section[flex="40"] {
+  background-color: #D4E5FA;
+}
+section[flex="70"] {
+  background-color: #E8FCD6;
+}
+section[flex="20"] {
+ background-color: #FFD5E3;
+}
+section[flex=""] {
+ background-color: rgba(0, 128, 0, 0.35);
+}
+
+md-select .md-select-value {
+    font-size: 1rem;
+    background: white;
+    border-radius: 2px;
+    height: 40px;
+    position: relative;
+    overflow: visible;
+    min-width: 190px;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: none;
+}
+
+md-select:not([disabled]):focus .md-select-value {
+    background: white;
+    border: none;
+}
+
+md-select .md-select-value .md-text {
+    color: #37474f! important;
+}
+
+md-select .md-select-icon:after{
+    color: #37474f! important;
+}
+
+md-select .md-select-icon{
+    color: #37474f! important;
+}
+
+#six {
+    border-radius: 2px;
+    display: block;
+    height: 40px;
+    position: relative;
+    overflow: visible;
+    min-width: 190px;
+    background-color: white;
+    padding-bottom: 0px;
+}
+
+.autocomplete-custom-template li {
+  border-bottom: 1px solid #ccc;
+  height: auto;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  white-space: normal; }
+.autocomplete-custom-template li:last-child {
+  border-bottom-width: 0; }
+.autocomplete-custom-template .item-title,
+.autocomplete-custom-template .item-metadata {
+  display: block;
+  line-height: 1.5; }
+.autocomplete-custom-template .item-title md-icon {
+  height: 18px;
+  width: 18px; }
+
+/* Important to set height for column layout */
+.boxWithHeight {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.a, section {
+  border: 5px solid rgba(85, 97, 85, 0.27);
+  margin: 5px;  
+}
+
+section {
+  background-color: #dedede;
+}
+
+/*
+Copyright 2016 Google Inc. All Rights Reserved. 
+Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at http://material.angularjs.org/license.
+*/
 
 .map {
     height: 100%;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="my-app" class="no-js">
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,110 +7,112 @@
         <meta name="description" content="Geospatial Data Processor and Visualizer. SystemJS, Angular2, NodeJS">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
         <!-- Stylesheets -->
-        <link rel="stylesheet" type="text/css" href="public/css/styles.css">
-        <link rel="stylesheet" type="text/css" href="bower_components/openlayers/ol.css">
         <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+        <link rel="stylesheet" type="text/css" href="bower_components/openlayers/ol.css">
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" type="text/css" href="public/css/styles.css">
 
         <!-- Javascript -->
         <script type="text/javascript" src="bower_components/openlayers/ol.js"></script>
-
-
-
     </head>
 
-    <body  ng-controller="AppCtrl as ctrl" ng-cloak style="height: 100%">
-            <!-- needs to be fixed -->
-            <div class="loader" ng-if="false">
-                <div></div>
-            </div>
+    <body ng-app="my-app" layout="column" ng-controller="AppCtrl as ctrl">
+        <!-- needs to be fixed -->
+        <div class="loader" ng-if="false">
+            <div></div>
+        </div>
 
-            <!-- Angular Material requires Angular.js Libraries -->
+        <!-- Container #1 (see wireframe) -->
+        <md-toolbar class="md-hue-800">
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
+                    <md-icon class="menu">menu</md-icon>
+                </md-button>
+                <h2>
+                    <span>Geospatial Data Visualiser</span>
+                </h2>
+                <span flex></span>
+                
+                <!-- AUTOCOMPLETE SEARCH-->
+                <md-autocomplete
+                    style="width: 500px"
+                    ng-disabled="ctrl.isDisabled"
+                    md-no-cache="ctrl.noCache"
+                    md-selected-item="ctrl.selectedItem"
+                    md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                    md-search-text="ctrl.searchText"
+                    md-selected-item-change="ctrl.selectedItemChange(item)"
+                    md-items="item in ctrl.querySearch(ctrl.searchText)"
+                    md-item-text="item.properties.name"
+                    md-min-length="0"
+                    placeholder="Search location"
+                    md-menu-class="autocomplete-custom-template">
+                    <md-item-template>
+                        <span class="item-title">
+                            <md-icon md-font-library="material-icons">place</md-icon>
+                            <span><strong> {{item.properties.name}}</strong> </span>
+                        </span>
+                        <span class="item-metadata">
+                            <span class="item-metastat">
+                                {{item.properties.osm_value? item.properties.osm_value+", " : ""}}
+                            </span>
+                            <span class="item-metastat">
+                                {{item.properties.city? item.properties.city+", " : ""}}
+                            </span>
+                            <span class="item-metastat">
+                                {{item.properties.country? item.properties.country : ""}}
+                            </span>
+                        </span>
+                    </md-item-template>
+                </md-autocomplete>
+                
+                <md-input-container class="md-padding">
+                    <md-select placeholder="pick geospatial" ng-model="gis.data" ng-change="selectChanged();" class="md-whiteframe-1dp">
+                        <md-option ng-repeat="gisdata in geospatial" value="{{gisdata.data}}">{{gisdata.data}}</md-option>
+                    </md-select>
+                </md-input-container>
 
-            <header>
-                <md-toolbar class="md-hue-2">
-                    <div class="md-toolbar-tools">
-                        <h2>
-                            <span>Toolbar with Disabled/Enabled Icon Buttons</span>
-                        </h2>
-                        <span flex></span>
-
-                        <!-- AUTOCOMPLETE SEARCCH SELECTOR needs to be fixed-->
-                        <form ng-submit="$event.preventDefault()" name="searchLocation">
-                            <div layout="row">
-                            <div flex>
-                                <md-icon md-font-library="material-icons">search</md-icon>
-                            </div>
-                            <div flex="35">
-                                <md-autocomplete flex
-                                                 md-input-name="autocompleteField"
-                                                 md-input-minlength="2"
-                                                 md-input-maxlength="50"
-                                                 md-no-cache="ctrl.noCache"
-                                                 md-selected-item="ctrl.selectedItem"
-                                                 md-search-text="ctrl.searchText"
-                                                 md-items="item in ctrl.querySearch(ctrl.searchText)"
-                                                 md-item-text="item.display"
-                                                 md-require-match
-                                                 md-floating-label="Search Location">
-
-                                    <md-item-template>
-                                        <span md-highlight-text="ctrl.searchText">{{item.display}}</span>
-                                    </md-item-template>
-
-                                </md-autocomplete>
-
-                            </div>
-                            </div>
-
-
-                        </form>
-
-                        <!-- PROFILE MENU-->
-                        <md-menu md-position-mode="target-right target" >
-                            <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                                <md-icon md-font-library="material-icons">face</md-icon>
+                <!-- PROFILE MENU-->
+                <md-menu md-position-mode="target-right target" >
+                    <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                        <md-icon md-font-library="material-icons">more_vert</md-icon>
+                    </md-button>
+                    <md-menu-content width="4" >
+                        <md-menu-item ng-repeat="item in [1, 2, 3]">
+                            <md-button ng-click="ctrl.announceClick($index)">
+                                <div layout="row" flex>
+                                    <p flex>Option {{item}}</p>
+                                </div>
                             </md-button>
-                            <md-menu-content width="4" >
-                                <md-menu-item ng-repeat="item in [1, 2, 3]">
-                                    <md-button ng-click="ctrl.announceClick($index)">
-                                        <div layout="row" flex>
-                                            <p flex>Option {{item}}</p>
-
-                                        </div>
-                                    </md-button>
-                                </md-menu-item>
-                            </md-menu-content>
-                        </md-menu>
-
-                    </div>
-                </md-toolbar>
-            </header>
-            <div layout="row" style="height: 100%" ng-controller="MapCtrl">
-                <div flex >
-                    <div class="map" id="map"></div>
-                </div>
-                <div flex="40">
-                    Put the dropdown selector here
-                    Side Nav
-                </div>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
             </div>
-            <footer></footer>
+        </md-toolbar>
+        <md-content layout="row" class="boxWithHeight" ng-controller="MapCtrl">
+            <div flex="60" layout="column" class="map" id="map" layout-fill></div>
+                        
+            <div flex layout="column" class="boxWithHeight" style="height: 100%" layout-fill>
+                <div ui-view></div>
+                <!--<section flex="70">flex="70"</section>
+                <section flex="20">flex="20"</section>
+                <section flex >flex </section>-->
+            </div>
+        </md-content>
 
-            <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
-            <script type="text/javascript" src="bower_components/angular-animate/angular-animate.min.js"></script>
-            <script type="text/javascript" src="bower_components/angular-aria/angular-aria.min.js"></script>
-            <script type="text/javascript" src="bower_components/angular-messages/angular-messages.min.js"></script>
-            <script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+        <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+        <script type="text/javascript" src="bower_components/angular-animate/angular-animate.min.js"></script>
+        <script type="text/javascript" src="bower_components/angular-aria/angular-aria.min.js"></script>
+        <script type="text/javascript" src="bower_components/angular-messages/angular-messages.min.js"></script>
+        <script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+        <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 
-            <!-- Angular Material Library -->
-            <script type="text/javascript" src="bower_components/angular-material/angular-material.min.js"></script>
+         <!-- Angular Material Library -->
+        <script type="text/javascript" src="bower_components/angular-material/angular-material.min.js"></script>
 
-            <!-- Your application bootstrap  -->
-            <script type="text/javascript" src="app.js"></script>
-            <script type="text/javascript" src="core/map/map.js"></script>
+        <!-- Your application bootstrap  -->
+        <script type="text/javascript" src="app.js"></script>
+        <script type="text/javascript" src="core/map/map.js"></script>
     </body>
-
 </html>
