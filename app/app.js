@@ -1,39 +1,63 @@
 'use strict';
 
-var myApp = angular.module('my-app', ['ngMaterial','ngSanitize','my-app.my-map']);
+var myApp = angular.module('my-app', ['ngMaterial','ngSanitize','my-app.my-map','ui.router']);
 myApp.controller('AppCtrl',AppCtrl);
 
-myApp.config(function($locationProvider,$mdThemingProvider) {
+myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRouterProvider) {
     $locationProvider.hashPrefix('!');
     $mdThemingProvider.theme('default')
     .primaryPalette('lime')
     .accentPalette('orange');
+
+    $stateProvider
+      .state("weather",{
+        url: "/weather",
+        templateUrl: "templates/weather.html"
+      })
+      .state("disasters",{
+        url: "/disasters",
+        templateUrl: "templates/disasters.html"
+      })
+      .state("weather.data",{
+        url: "/data",
+        templateUrl: "templates/weather.data.html"
+      })
+      .state("weather.settings",{
+        url: "/settings",
+        templateUrl: "templates/weather.settings.html"
+      })
+      .state("/",{
+        url: "/",
+        templateUrl: "templates/index.html"
+      });
+
+    $urlRouterProvider.otherwise("/");
 });
 
-function AppCtrl ($timeout, $q, $log,$scope,$http,MapService) {
-  $scope.geospatial = ('weather disasters').split(' ').map(function(gisdata) {
-    return {data: gisdata};
-  });
+function AppCtrl ($timeout, $q, $log,$scope,$http,MapService,$state) {
+  $scope.geospatial = [
+    {"data": "weather"},
+    {"data": "disasters"}
+  ];
+
+  $scope.selectChanged = function(){
+    $state.go($scope.gis.data);
+  };
 
   var self = this;
-  self.simulateQuery = false;
-  self.isDisabled    = false;
   self.querySearch   = querySearch;
   self.selectedItemChange = selectedItemChange;
   self.searchTextChange   = searchTextChange;
-  // ******************************
-  // Internal methods
-  // ******************************
+  
   /**
-    * Search for repos... use $timeout to simulate
-    * remote dataservice call.
+    * Reverse geolocation
     */
   function querySearch (query) {
     return $http.get('http://photon.komoot.de/api/?limit=5&q=' + escape(query))
                 .then(function(result) {
-                    self.data = result.data.features;
-                    return result.data.features;
-                  });
+                  self.data = result.data.features;
+                  return result.data.features;
+                });
   }
   
   function searchTextChange(text) {

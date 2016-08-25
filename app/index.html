@@ -68,7 +68,7 @@
                 </md-autocomplete>
                 
                 <md-input-container class="md-padding">
-                    <md-select placeholder="pick geospatial" ng-model="gis.data" class="md-whiteframe-1dp">
+                    <md-select placeholder="pick geospatial" ng-model="gis.data" ng-change="selectChanged();" class="md-whiteframe-1dp">
                         <md-option ng-repeat="gisdata in geospatial" value="{{gisdata.data}}">{{gisdata.data}}</md-option>
                     </md-select>
                 </md-input-container>
@@ -93,11 +93,11 @@
         <md-content layout="row" class="boxWithHeight" ng-controller="MapCtrl">
             <div flex="60" layout="column" class="map" id="map" layout-fill></div>
                         
-            <div flex layout="column" class="boxWithHeight" layout-padding>
-                flex
-                <section flex="70">flex="70"</section>
+            <div flex layout="column" class="boxWithHeight" style="height: 100%" layout-fill>
+                <div ui-view></div>
+                <!--<section flex="70">flex="70"</section>
                 <section flex="20">flex="20"</section>
-                <section flex >flex </section>
+                <section flex >flex </section>-->
             </div>
         </md-content>
 
@@ -106,6 +106,7 @@
         <script type="text/javascript" src="bower_components/angular-aria/angular-aria.min.js"></script>
         <script type="text/javascript" src="bower_components/angular-messages/angular-messages.min.js"></script>
         <script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+        <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 
          <!-- Angular Material Library -->
         <script type="text/javascript" src="bower_components/angular-material/angular-material.min.js"></script>
