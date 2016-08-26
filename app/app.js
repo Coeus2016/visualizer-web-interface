@@ -4,7 +4,6 @@ var myApp = angular.module('my-app', ['ngMaterial','ngSanitize','my-app.my-map',
 myApp.controller('AppCtrl',AppCtrl);
 
 myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRouterProvider) {
-    $locationProvider.hashPrefix('!');
     $mdThemingProvider.theme('default')
     .primaryPalette('lime')
     .accentPalette('orange');
@@ -32,6 +31,10 @@ myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRo
       });
 
     $urlRouterProvider.otherwise("/");
+    
+    if(window.history && window.history.pushState){
+      $locationProvider.html5Mode(true);
+    }
 });
 
 function AppCtrl ($timeout, $q, $log,$scope,$http,MapService,$state) {
