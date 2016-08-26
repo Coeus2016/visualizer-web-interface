@@ -35,12 +35,16 @@ myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRo
 });
 
 function AppCtrl ($timeout, $q, $log,$scope,$http,MapService,$state) {
+  //$scope.gis.data = {"data": "weather"};
   $scope.geospatial = [
     {"data": "weather"},
     {"data": "disasters"}
   ];
 
+  $scope.gis = {"data": "weather"};
+
   $scope.selectChanged = function(){
+    console.log($scope.gis.data);
     $state.go($scope.gis.data);
   };
 
