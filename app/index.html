@@ -91,11 +91,11 @@
                 </md-menu>
             </div>
         </md-toolbar>
-        <md-content layout="row" flex class="boxWithHeight" style="position: relative; height: 100%">
+        <md-content layout="row" flex class="boxWithHeight">
             <div flex="60" layout="column" class="map" id="map" ng-controller="MapCtrl" style="position: relative; height: 100%" layout-fill></div>
                         
-            <div flex layout="column" class="boxWithHeight" style="position: relative; height: 100%" layout-fill>
-                <div ui-view></div>
+            <div flex layout="column" class="boxWithHeight" layout-fill>
+                <div ui-view style="height: 100%"></div>
             </div>
         </md-content>
 
