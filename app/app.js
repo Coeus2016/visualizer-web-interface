@@ -33,7 +33,7 @@ myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRo
     $urlRouterProvider.otherwise("/weather");
 });
 
-function AppCtrl ($timeout, $q, $log,$scope,$http,MapService,$state) {
+function AppCtrl ($timeout, $q, $log,$scope,$http,MapService,WeatherService,$state) {
   $scope.geospatial = [
     {"data": "weather"},
     {"data": "disasters"}
@@ -68,7 +68,9 @@ function AppCtrl ($timeout, $q, $log,$scope,$http,MapService,$state) {
   function selectedItemChange(item) {
     $log.info('Item changed to ' + JSON.stringify(item));
     if (item===undefined){}
-    else
+    else {
       MapService.updateLocation(item.geometry.coordinates[0],item.geometry.coordinates[1]);
+      WeatherService.push(item);
+    }
   }
 }
