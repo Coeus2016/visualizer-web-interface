@@ -1,6 +1,6 @@
 'use strict';
 
-var myApp = angular.module('my-app', ['ngMaterial','ngSanitize','my-app.my-map','ui.router','my-disasters.my-disasters']);
+var myApp = angular.module('my-app', ['ngMaterial','ngSanitize','my-app.my-map','ui.router','my-disasters.my-disasters','weather']);
 myApp.controller('AppCtrl',AppCtrl);
 
 myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRouterProvider) {
@@ -30,15 +30,10 @@ myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRo
         templateUrl: "templates/index.html"
       });
 
-    $urlRouterProvider.otherwise("/");
-    
-    if(window.history && window.history.pushState){
-      $locationProvider.html5Mode(true);
-    }
+    $urlRouterProvider.otherwise("/weather");
 });
 
 function AppCtrl ($timeout, $q, $log,$scope,$http,MapService,$state) {
-  //$scope.gis.data = {"data": "weather"};
   $scope.geospatial = [
     {"data": "weather"},
     {"data": "disasters"}
@@ -47,7 +42,6 @@ function AppCtrl ($timeout, $q, $log,$scope,$http,MapService,$state) {
   $scope.gis = {"data": "weather"};
 
   $scope.selectChanged = function(){
-    console.log($scope.gis.data);
     $state.go($scope.gis.data);
   };
 
