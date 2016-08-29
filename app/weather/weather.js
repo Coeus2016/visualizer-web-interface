@@ -16,4 +16,8 @@ myWeather.controller('WeatherCtrl', WeatherCtrl);
 
 function WeatherCtrl($scope,WeatherService){
 	$scope.favourates = WeatherService.favourates;
+
+	$scope.loadWeather = function() {
+    	console.log("Lol");
+	};
 }
