@@ -24,13 +24,14 @@ myMap.service('MapService',function(){
 
     //create the style
     this.iconStyle = new ol.style.Style({
-        image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
-            anchor: [0.5, 46],
-            anchorXUnits: 'fraction',
-            anchorYUnits: 'pixels',
-            opacity: 0.75,
-            src: 'public/images/location.png'
-        }))
+        text: new ol.style.Text({
+            text: '\uf041',
+            font: 'normal 24px FontAwesome',
+            textBaseline: 'Bottom',
+            fill: new ol.style.Fill({
+                color: 'black',
+            })
+        })
     });
 
     var self = this;
