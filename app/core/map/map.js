@@ -39,6 +39,10 @@ myMap.service('MapService',function(){
         style: self.iconStyle
     });
 
+    this.longitude = 0;
+
+    this.latitude = 0;
+
     this.map.setView(this.view);
 
     this.map.addLayer(this.layer);
@@ -60,6 +64,8 @@ myMap.service('MapService',function(){
 
     this.updateLocation = function(longitude, latitude){
         self.map.getView().setCenter(ol.proj.transform([longitude, latitude], 'EPSG:4326', 'EPSG:3857'));
+        self.longitude=longitude;
+        self.latitude=latitude;
     }
 });
 
