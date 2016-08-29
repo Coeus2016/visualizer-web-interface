@@ -11,28 +11,10 @@
             <div flex>
                 <div layout="column" class="DisasterChipsContainer" ng-cloak ng-controller="DisastersCtrl as ctrl">
                     <md-content class="md-padding autocomplete" layout="column">
-                        <md-subheader class="md-no-sticky">Disasters Showing</md-subheader>
-
-                        <md-contact-chips
-                            ng-model="ctrl.disasters"
-                            md-contacts ="ctrl.delayedQuerySearch($query)"
-                            md-contact-name="name"
-                            md-contact-image="image"
-                            md-require-match="true"
-                            md-highlight-flags="i"
-                            filter-selected="ctrl.filterSelected"
-                            placeholder="No Selected Disasters">
-                        </md-contact-chips>
-                        <md-list class="fixedRows">
+                       <md-list class="fixedRows">
                             <md-subheader class="md-no-sticky">Disasters</md-subheader>
-                            <md-list-item class="md-2-line contact-item" ng-repeat="(index, disaster) in ctrl.allDisasters"
-                                          ng-if="ctrl.disasters.indexOf(disaster) < 0">
-                                <img ng-src="{{disaster.image}}" class="md-avatar" alt="{{disaster.name}}" />
-                                <div class="md-list-item-text compact">
-                                    <h3>{{disaster.name}}</h3>
-                                </div>
-                            </md-list-item>
-                            <md-list-item class="md-2-line contact-item selected" ng-repeat="(index, disaster) in ctrl.disasters">
+                            <md-list-item ng-click="ctrl.toggle( disaster, ctrl.disasters)" class="md-2-line contact-item" ng-repeat="(index, disaster) in ctrl.allDisasters"
+                                          ng-class="(ctrl.disasters.indexOf(disaster)< 0) ? 'notselected' : 'selected'">
                                 <img ng-src="{{disaster.image}}" class="md-avatar" alt="{{disaster.name}}" />
                                 <div class="md-list-item-text compact">
                                     <h3>{{disaster.name}}</h3>

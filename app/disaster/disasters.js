@@ -1,73 +1,37 @@
 'use strict';
 
 angular.module('my-disasters.my-disasters',[])
-    .controller('DisastersCtrl', DisastersCtrl).
-service('DisasterService', function($http){
-    this.getEarthquakes = function(info){
+.constant('ENDPOINT','http://localhost:3300/')
+.controller('DisastersCtrl', DisastersCtrl)
+.service('DisasterService', function($http, ENDPOINT){
+    var service = this;
+
+    function getUrl(path){
+        return ENDPOINT + path;
+    }
+
+    service.getEarthquakes = function(info){
+        var startDate ="";
+        var endDate ="";
+        return $http.get(getUrl("earthquakes")+"");
+    };
+
+    service.getFire = function(info){
+        var startDate ="";
+        var endDate ="";
+        return $http.get(getUrl("fires")+"");
 
     };
 
-    this.getFire = function(info){
-
-    };
 });
 
-function DisastersCtrl($q, $timeout,$scope, $http,MapService){
+function DisastersCtrl($q, $timeout,$log,$scope,MapService, DisasterService){
     var self = this;
-    var pendingSearch, cancelSearch = angular.noop;
-    var cachedQuery, lastSearch;
     self.allDisasters = loadDisasters();
     self.disasters = [];
-    self.filterSelected = true;
-    self.querySearch = querySearch;
-    self.delayedQuerySearch = delayedQuerySearch;
 
-    function querySearch (criteria) {
-        cachedQuery = cachedQuery || criteria;
-        return cachedQuery ? self.allDisasters.filter(createFilterFor(cachedQuery)) : [];
-    }
-    /**
-     * Async search for contacts
-     * Also debounce the queries; since the md-contact-chips does not support this
-     */
-    function delayedQuerySearch(criteria) {
-        cachedQuery = criteria;
-        if ( !pendingSearch || !debounceSearch() )  {
-            cancelSearch();
-            return pendingSearch = $q(function(resolve, reject) {
-                // Simulate async search... (after debouncing)
-                cancelSearch = reject;
-                $timeout(function() {
-                    resolve( self.querySearch() );
-                    refreshDebounce();
-                }, Math.random() * 500, true)
-            });
-        }
-        return pendingSearch;
-    }
-    function refreshDebounce() {
-        lastSearch = 0;
-        pendingSearch = null;
-        cancelSearch = angular.noop;
-    }
-    /**
-     * Debounce if querying faster than 300ms
-     */
-    function debounceSearch() {
-        var now = new Date().getMilliseconds();
-        lastSearch = lastSearch || now;
-        return ((now - lastSearch) < 300);
-    }
-    /**
-     * Create filter function for a query string
-     */
-    function createFilterFor(query) {
-        var lowercaseQuery = angular.lowercase(query);
-        return function filterFn(disaster) {
-            return (disaster._lowername.indexOf(lowercaseQuery) != -1);
-        };
-    }
     function loadDisasters() {
+
         var disasters = [
             'Drought',
             'Fire',
@@ -85,10 +49,57 @@ function DisastersCtrl($q, $timeout,$scope, $http,MapService){
             return disaster;
         });
     }
-	/*$http
-		.get('http://localhost:3300/earthquakes')
-		.then(function(result) {
-			for (var i=0; i<result.data.length; i++)
-				MapService.addLayer(result.data[i].geometry.coordinates[0],result.data[i].geometry.coordinates[1]);
-		});*/
+
+    self.toggle = function (item, list) {
+        var idx = list.indexOf(item);
+        if (idx > -1) {
+            list.splice(idx, 1);
+            //REMOVE
+            switch (item.name ){
+                case 'Earthquakes':
+                        MapService.removeEarthLayer();
+                    break;
+                case 'Fire':
+                        MapService.removeFireLayer();
+                    break;
+            }
+
+        }
+        else {
+            //ADD
+            list.push(item);
+            switch (item.name ) {
+                case 'Earthquakes':
+                {
+
+                    DisasterService.getEarthquakes("hee").then(function (result) {
+
+                        MapService.addEarthLayer(result);
+                    });
+                }
+                    break;
+                case 'Fire':{
+                    DisasterService.getFire("hee").then(function (result) {
+
+                        MapService.addFireLayer(result);
+                    });
+                }
+                    break;
+            }
+
+
+        }
+
+    };
+    self.exists = function (item, list) {
+        return list.indexOf(item) > -1;
+    };
+
+    function updateLayer(){
+        var data;
+        for (var i=0; i<disasters.length; i++){
+
+        }
+       // DisasterService.addLayer(disasters);
+    }
 }

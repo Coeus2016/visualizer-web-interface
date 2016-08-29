@@ -12,8 +12,8 @@
 .DisasterChipsContainer .contact-item.selected h3 {
     opacity: 0.5; }
 .DisasterChipsContainer .contact-item .md-list-item-text {
-    padding: 14px 0;
-    max-width: 190px; }
+    padding: 5px 0;
+    max-width: 100px; }
 .DisasterChipsContainer .contact-item .md-list-item-text h3 {
     margin: 0 !important;
     padding: 0;
@@ -25,11 +25,11 @@
 @media (min-width: 960px) {
     .DisasterChipsContainer .contact-item {
         float: left;
-        width: 33%; } }
+        width: 25%; } }
 .DisasterChipsContainer md-contact-chips {
     margin-bottom: 10px; }
 .DisasterChipsContainer .md-chips {
     padding: 5px 0 8px; }
 .DisasterChipsContainer .fixedRows {
-    height: 250px;
+    height: 200px;
     overflow: hidden; }
