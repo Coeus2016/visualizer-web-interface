@@ -14,10 +14,10 @@ myWeather.service('WeatherService',function(){
 
 myWeather.controller('WeatherCtrl', WeatherCtrl);
 
-function WeatherCtrl($scope,WeatherService){
+function WeatherCtrl($scope,WeatherService,MapService){
 	$scope.favourates = WeatherService.favourates;
 
-	$scope.loadWeather = function() {
-    	console.log("Lol");
+	$scope.loadWeather = function(data) {
+		MapService.updateLocation(data.geometry.coordinates[0],data.geometry.coordinates[1]);
 	};
 }
