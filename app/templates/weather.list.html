@@ -1,0 +1,12 @@
+<md-list ng-model="gis.weather" ng-controller="WeatherCtrl">
+	<md-subheader class="md-no-sticky">Searched locations (Favourates)</md-subheader>
+	<md-list-item ng-repeat="data in favourates" class="md-3-line" ng-click="loadWeather(data)">
+		<md-icon md-font-library="material-icons">place</md-icon>
+		<div class="md-list-item-text" layout="column">
+			<h3 style="font-weight:bold">{{data.properties.name}}</h3>
+			<h4>
+				{{data.properties.osm_value? data.properties.osm_value+", " : ""}}{{data.properties.city? data.properties.city+", " : ""}}{{data.properties.country? data.properties.country : ""}}
+			</h4>
+		</div>
+	</md-list-item>
+</md-list>

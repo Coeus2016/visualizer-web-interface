@@ -17,20 +17,20 @@ myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRo
         url: "/disasters",
         templateUrl: "templates/disasters.html"
       })
-      .state("weather.data",{
-        url: "/data",
-        templateUrl: "templates/weather.data.html"
+      .state("weather.list",{
+        url: "/list",
+        templateUrl: "templates/weather.list.html"
       })
-      .state("weather.settings",{
-        url: "/settings",
-        templateUrl: "templates/weather.settings.html"
+      .state("weather.forecast",{
+        url: "/forecast",
+        templateUrl: "templates/weather.forecast.html"
       })
       .state("/",{
         url: "/",
         templateUrl: "templates/index.html"
       });
 
-    $urlRouterProvider.otherwise("/weather");
+    $urlRouterProvider.otherwise("/weather/list");
 });
 
 function AppCtrl ($timeout, $q, $log,$scope,$http,MapService,WeatherService,$state) {

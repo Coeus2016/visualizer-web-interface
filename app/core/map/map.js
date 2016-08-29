@@ -29,7 +29,7 @@ myMap.service('MapService',function(){
             font: 'normal 24px FontAwesome',
             textBaseline: 'Bottom',
             fill: new ol.style.Fill({
-                color: 'black',
+                color: '#9E9D24',
             })
         })
     });
