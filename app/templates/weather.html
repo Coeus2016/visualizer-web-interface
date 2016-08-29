@@ -1,8 +1,13 @@
-<div  layout="column" ng-cloak style="height: 100%">
+<div  layout="column" ng-cloak style="height: 100%" ng-controller="WeatherCtrl">
   	<md-toolbar class="md-accent">
-    	<div class="md-toolbar-tools">
-      		<h2 class="md-flex">Weather</h2>
-    	</div>
+  		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="back" ng-click="back()">
+				<md-icon class="keyboard_backspace">keyboard_backspace</md-icon>
+			</md-button>
+	    	<h2 class="md-flex">
+				<span>Weather</span>
+			</h2>
+	    </div>
   	</md-toolbar>
   	<md-content flex layout-fill style="height:100%">
   		<div ui-view></div>

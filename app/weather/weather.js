@@ -14,10 +14,15 @@ myWeather.service('WeatherService',function(){
 
 myWeather.controller('WeatherCtrl', WeatherCtrl);
 
-function WeatherCtrl($scope,WeatherService,MapService){
+function WeatherCtrl($scope,WeatherService,MapService,$state){
 	$scope.favourates = WeatherService.favourates;
 
 	$scope.loadWeather = function(data) {
 		MapService.updateLocation(data.geometry.coordinates[0],data.geometry.coordinates[1]);
+		$state.go("weather.forecast");
 	};
+
+	$scope.back = function(){
+		$state.go("weather.list");
+	}
 }
