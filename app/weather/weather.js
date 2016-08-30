@@ -25,4 +25,13 @@ function WeatherCtrl($scope,WeatherService,MapService,$state){
 	$scope.back = function(){
 		$state.go("weather.list");
 	}
+
+	$scope.$on('$stateChangeSuccess',function onStateSuccess(event, toState,toParams,fromState){
+		if (toState.name=="weather.list")
+			$scope.isActive = false;
+		else if (toState.name=="weather.forecast")
+			$scope.isActive = true;
+		else
+			$scope.isActive = false;
+	});
 }

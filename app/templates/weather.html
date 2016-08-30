@@ -1,7 +1,7 @@
 <div  layout="column" ng-cloak style="height: 100%" ng-controller="WeatherCtrl">
   	<md-toolbar class="md-accent">
-  		<div class="md-toolbar-tools">
-			<md-button class="md-icon-button" aria-label="back" ng-click="back()">
+  		<div class="md-toolbar-tools" ng-init="isActive = false">
+			<md-button class="md-icon-button" aria-label="back" ng-click="back()" ng-show="isActive">
 				<md-icon class="keyboard_backspace">keyboard_backspace</md-icon>
 			</md-button>
 	    	<h2 class="md-flex">
