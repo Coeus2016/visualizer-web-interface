@@ -7,9 +7,6 @@ myWeather.service('WeatherService',function(){
 	this.push= function(data){
 		this.favourates.push(data);
 	}
-	this.getFavourates = function(){
-		return this.favourates;
-	}
 });
 
 myWeather.controller('WeatherCtrl', WeatherCtrl);

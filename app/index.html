@@ -70,7 +70,7 @@
                 </md-autocomplete>
                 
                 <md-input-container class="md-padding">
-                    <md-select placeholder="pick geospatial" ng-model="gis.data" ng-change="selectChanged();" class="md-whiteframe-1dp">
+                    <md-select placeholder="pick geospatial" ng-model="gis.data" ng-change="selectChanged();" class="md-no-underline md-whiteframe-1dp">
                         <md-option ng-repeat="gisdata in geospatial" value="{{gisdata.data}}">{{gisdata.data}}</md-option>
                     </md-select>
                 </md-input-container>
