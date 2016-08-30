@@ -11,7 +11,8 @@ myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRo
     $stateProvider
       .state("weather",{
         url: "/weather",
-        templateUrl: "templates/weather.html"
+        templateUrl: "templates/weather.html",
+        redirectTo: 'weather.list'
       })
       .state("disasters",{
         url: "/disasters",
@@ -44,6 +45,13 @@ function AppCtrl ($timeout, $q, $log,$scope,$http,MapService,WeatherService,$sta
   $scope.selectChanged = function(){
     $state.go($scope.gis.data);
   };
+
+  $scope.$on('$stateChangeStart', function(evt, to, params) {
+    if (to.redirectTo) {
+      evt.preventDefault();
+      $state.go(to.redirectTo, params, {location: 'replace'})
+    }
+  });
 
   var self = this;
   self.querySearch   = querySearch;
