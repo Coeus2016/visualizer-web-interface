@@ -8,22 +8,23 @@ myMap.service('MapService',function(){
     this.latitude = 0;
 
     this.map = L.map('map');
-    this.markers = L.markerClusterGroup();
-    this.map.addLayer(this.markers);
 
     this.map.locate({
         setView: true,
-        maxZoom: 10
+        maxZoom: 2
     });
+
+    this.markers = L.markerClusterGroup();
+    this.map.addLayer(this.markers);
 
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-        maxZoom: 15,
-        minZoom: 3
+        minZoom: 2,
+        maxZoom: 15
     }).addTo(this.map);
 
     this.addLayer = function(longitude,latitude){
-        this.markers.addLayer(L.marker([latitude, longitude]).addTo(this.map));
+        this.markers.addLayer(L.marker([latitude,longitude]));
     }
 
     this.updateLocation = function(longitude, latitude){
