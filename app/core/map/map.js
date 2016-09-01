@@ -8,6 +8,8 @@ myMap.service('MapService',function(){
     this.latitude = 0;
 
     this.map = L.map('map');
+    this.markers = L.markerClusterGroup();
+    this.map.addLayer(this.markers);
 
     this.map.locate({
         setView: true,
@@ -20,54 +22,9 @@ myMap.service('MapService',function(){
         minZoom: 3
     }).addTo(this.map);
 
-//  L.marker([51.930454,4.527054], {icon: L.AwesomeMarkers.icon({icon: 'group', prefix: 'fa', markerColor: 'darkred'}) }).addTo(this.map);
-
-    /*this.layer = new ol.layer.Tile({
-        source: new ol.source.OSM()
-    });
-
-    this.view = new ol.View({
-        center:ol.proj.fromLonLat([0,0]),
-        zoom: 10,
-        minZoom: 3,
-        maxZoom: 15
-    });
-
-    this.vectorSource = new ol.source.Vector({
-        //create empty vector
-    });
-
-    //create the style
-    this.iconStyle = new ol.style.Style({
-        text: new ol.style.Text({
-            text: '\uf041',
-            font: 'normal 24px FontAwesome',
-            textBaseline: 'Bottom',
-            fill: new ol.style.Fill({
-                color: '#9E9D24',
-            })
-        })
-    });
-
-    
-    this.markerLayer = new ol.layer.Vector({
-        source: self.vectorSource,
-        style: self.iconStyle
-    });
-
-    this.map.setView(this.view);
-
-    this.map.addLayer(this.layer);
-
-    this.map.addLayer(this.markerLayer);*/
-
     this.addLayer = function(longitude,latitude){
-        L.marker([latitude, longitude]).addTo(this.map);
+        this.markers.addLayer(L.marker([latitude, longitude]).addTo(this.map));
     }
-
-    /*this.addMarker = function(info){
-
-    }*/
 
     this.updateLocation = function(longitude, latitude){
         this.map.panTo(new L.LatLng(latitude,longitude));
