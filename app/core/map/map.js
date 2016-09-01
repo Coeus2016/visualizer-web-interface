@@ -59,18 +59,13 @@ myMap.service('MapService',function(){
 
     this.map.addLayer(this.layer);
 
-    this.map.addLayer(this.markerLayer);
+    this.map.addLayer(this.markerLayer);*/
 
     this.addLayer = function(longitude,latitude){
-        var iconFeature = new ol.Feature({
-            geometry: new ol.geom.Point(ol.proj.transform([longitude, latitude], 'EPSG:4326',   'EPSG:3857')),
-            lon: longitude,
-            lat: latitude
-        });
-        self.vectorSource.addFeature(iconFeature);
+        L.marker([latitude, longitude]).addTo(this.map);
     }
 
-    this.addMarker = function(info){
+    /*this.addMarker = function(info){
 
     }*/
 
