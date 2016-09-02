@@ -7,7 +7,9 @@ myMap.service('MapService',function(){
     this.longitude = 0;
     this.latitude = 0;
 
-    this.map = L.map('map');
+    this.map = L.map('map',{
+        'worldCopyJump': true
+    });
 
     this.map.locate({
         setView: true,

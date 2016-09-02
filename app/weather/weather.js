@@ -4,6 +4,7 @@ var myWeather= angular.module('weather',[]);
 
 myWeather.service('WeatherService',function(){
 	this.favourates = [];
+	this.weather = {"country":"", "description":""};
 	this.push= function(data){
 		this.favourates.push(data);
 	}
@@ -11,13 +12,30 @@ myWeather.service('WeatherService',function(){
 
 myWeather.controller('WeatherCtrl', WeatherCtrl);
 
-function WeatherCtrl($scope,WeatherService,MapService,$state){
+function WeatherCtrl($scope,WeatherService,MapService,$state,$http){
 	$scope.favourates = WeatherService.favourates;
+	//$scope.weather = {"country": "hello"};
+	$scope.name = "Hello";
+	$scope.country = "World";
+	$scope.weather = WeatherService.weather;
 
 	$scope.loadWeather = function(data) {
 		MapService.updateLocation(data.geometry.coordinates[0],data.geometry.coordinates[1]);
 		$state.go("weather.forecast");
+
+		$http
+			.post('http://localhost:3300/getweather',{lon: data.geometry.coordinates[0], lat: data.geometry.coordinates[1]})
+			.then(function(result){
+				extractData(result.data);
+			});
 	};
+
+	function extractData(data){
+		if (typeof data !== 'undefined'){
+			WeatherService.weather.country = data[0].country;
+			WeatherService.weather.description = data[0].description;
+		}
+	}
 
 	$scope.back = function(){
 		$state.go("weather.list");

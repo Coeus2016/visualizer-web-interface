@@ -10,7 +10,5 @@ function DisastersCtrl($scope,$http,MapService){
 		.then(function(result) {
 			for (var i=0; i<result.data.length; i++)
 				MapService.addLayer(result.data[i].geometry.coordinates[0],result.data[i].geometry.coordinates[1]);
-
-			MapService.markers.refreshClusters();
 		});
 }
