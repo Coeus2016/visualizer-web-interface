@@ -18,6 +18,22 @@ body {
     background-color: #FEEBC8;
 }
 
+md-button-group {
+  border-radius: 3px;
+  display: inline-block;
+  padding: 0;
+  margin: 6px 8px;
+  min-height: 36px;
+  min-width: 88px;
+}
+
+md-button-group > .md-button {
+  border-radius: 0;
+  border: 0;
+  min-width: 20px;
+  margin: 0;
+}
+
 md-input-container .md-errors-spacer{
  min-height: 0px !important;
 }
