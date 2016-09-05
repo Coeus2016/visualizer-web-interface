@@ -4,7 +4,7 @@ var myWeather= angular.module('weather',[]);
 
 myWeather.service('WeatherService',function(){
 	this.favourates = [];
-	this.weather = {"country":"", "description":""};
+	this.weather = {"country":"", "description":"","name":""};
 	this.push= function(data){
 		this.favourates.push(data);
 	}
@@ -14,9 +14,6 @@ myWeather.controller('WeatherCtrl', WeatherCtrl);
 
 function WeatherCtrl($scope,WeatherService,MapService,$state,$http){
 	$scope.favourates = WeatherService.favourates;
-	//$scope.weather = {"country": "hello"};
-	$scope.name = "Hello";
-	$scope.country = "World";
 	$scope.weather = WeatherService.weather;
 
 	$scope.loadWeather = function(data) {
@@ -33,8 +30,10 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http){
 	function extractData(data){
 		if (typeof data !== 'undefined'){
 			WeatherService.weather.country = data[0].country;
-			WeatherService.weather.description = data[0].description;
+			WeatherService.weather.name = data[0].description;
+			WeatherService.weather.description = data[0].weather_description;
 		}
+		console.log(data);
 	}
 
 	$scope.back = function(){
