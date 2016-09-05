@@ -1,0 +1,17 @@
+<md-list ng-model="gis.weather" ng-controller="WeatherCtrl">
+	<md-list-item>
+		<md-card md-theme-watch flex>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-display-1">{{weather.name}}</span>
+            <span class="md-subhead">{{weather.description}}</span>
+            <i class="owf owf-200 owf-5x" md-colors="{color:'primary'}"></i>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button>Action 1</md-button>
+          <md-button>Action 2</md-button>
+        </md-card-actions>
+      </md-card>
+	</md-list-item>
+</md-list>

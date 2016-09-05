@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" style="height: 100%">
     <head>
+        <base href="/">
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <title>Geospatial Data Processor and Visualizer</title>
@@ -9,13 +10,16 @@
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
-        <link rel="stylesheet" type="text/css" href="bower_components/openlayers/ol.css">
-        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="core/map/leaflet/leaflet.css"/>
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" type="text/css" href="public/css/styles.css">
-        <link rel="stylesheet" type="text/css" href="public/css/disasters.css">
+        <link rel="stylesheet" type="text/css" href="owfont/css/owfont-regular.min.css">
+        <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="bower_components/leaflet.markercluster/dist/MarkerCluster.css">
+        <link rel="stylesheet" type="text/css" href="bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css">
 
         <!-- Javascript -->
-        <script type="text/javascript" src="bower_components/openlayers/ol.js"></script>
+        <script type="text/javascript" src="core/map/leaflet/leaflet.js"></script>
     </head>
 
     <body ng-app="my-app" layout="column" ng-controller="AppCtrl as ctrl" style="position: relative; height: 100%">
@@ -69,7 +73,7 @@
                 </md-autocomplete>
 
                 <md-input-container class="md-padding">
-                    <md-select placeholder="pick geospatial" ng-model="gis.data" ng-change="selectChanged();" class="md-whiteframe-1dp">
+                    <md-select placeholder="pick geospatial" ng-model="gis.data" ng-change="selectChanged();" class="md-no-underline md-whiteframe-1dp">
                         <md-option ng-repeat="gisdata in geospatial" value="{{gisdata.data}}">{{gisdata.data}}</md-option>
                     </md-select>
                 </md-input-container>
@@ -91,11 +95,11 @@
                 </md-menu>
             </div>
         </md-toolbar>
-        <md-content layout="row" flex class="boxWithHeight" style="position: relative; height: 100%">
+        <md-content layout="row" flex class="boxWithHeight">
             <div flex="60" layout="column" class="map" id="map" ng-controller="MapCtrl" style="position: relative; height: 100%" layout-fill></div>
 
-            <div flex layout="column" class="boxWithHeight" style="position: relative; height: 100%" layout-fill>
-                <div ui-view></div>
+            <div flex layout="column" class="boxWithHeight" layout-fill>
+                <div ui-view style="height: 100%"></div>
             </div>
         </md-content>
 
@@ -108,10 +112,12 @@
 
          <!-- Angular Material Library -->
         <script type="text/javascript" src="bower_components/angular-material/angular-material.min.js"></script>
+        <script type="text/javascript" src="bower_components/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 
         <!-- Your application bootstrap  -->
         <script type="text/javascript" src="app.js"></script>
         <script type="text/javascript" src="core/map/map.js"></script>
         <script type="text/javascript" src="disaster/disasters.js"></script>
+        <script type="text/javascript" src="weather/weather.js"></script>
     </body>
 </html>
