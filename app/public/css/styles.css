@@ -17,21 +17,9 @@ body[ng-cloak] {
 body {
     background-color: #FEEBC8;
 }
-div[flex="30"] {
-  background-color: #DFDFDF;  
-}
 
-section[flex="40"] {
-  background-color: #D4E5FA;
-}
-section[flex="70"] {
-  background-color: #E8FCD6;
-}
-section[flex="20"] {
- background-color: #FFD5E3;
-}
-section[flex=""] {
- background-color: rgba(0, 128, 0, 0.35);
+md-input-container .md-errors-spacer{
+ min-height: 0px !important;
 }
 
 md-select .md-select-value {
@@ -64,17 +52,6 @@ md-select .md-select-icon:after{
 
 md-select .md-select-icon{
     color: #37474f! important;
-}
-
-#six {
-    border-radius: 2px;
-    display: block;
-    height: 40px;
-    position: relative;
-    overflow: visible;
-    min-width: 190px;
-    background-color: white;
-    padding-bottom: 0px;
 }
 
 .autocomplete-custom-template li {
