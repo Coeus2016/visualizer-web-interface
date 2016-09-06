@@ -16,6 +16,17 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http){
 	$scope.favourates = WeatherService.favourates;
 	$scope.weather = WeatherService.weather;
 
+	$scope.getTime = function(){
+		var d = new Date();
+
+		var hr = d.getHours();
+		var min = d.getMinutes();
+
+		var ampm = hr < 12 ? "AM" : "PM";
+
+		return (hr + ":" + min + ampm);
+	}
+
 	$scope.loadWeather = function(data) {
 		MapService.updateLocation(data.geometry.coordinates[0],data.geometry.coordinates[1]);
 		$state.go("weather.forecast");
