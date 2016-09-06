@@ -6,7 +6,7 @@ myApp.controller('AppCtrl',AppCtrl);
 myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRouterProvider) {
     $mdThemingProvider.theme('default')
     .primaryPalette('lime',{'default': '800'})
-    .accentPalette('lime', {'default': '500'});
+    .accentPalette('lime', {'default': '600'});
 
     $stateProvider
       .state("weather",{

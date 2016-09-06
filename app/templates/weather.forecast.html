@@ -1,6 +1,6 @@
 <md-list ng-model="gis.weather" ng-controller="WeatherCtrl">
 	<md-list-item style="padding: 0">
-		<md-card md-theme-watch flex>
+		<md-card md-theme-watch md-colors="{background: 'lime-300'}" flex>
         <md-card-title layout="row">
           <md-card-title-text flex="25" layout-align="center center">
             <span class="md-display-1">{{weather.name}}</span>
@@ -20,7 +20,7 @@
           </md-card-title-text>
         </md-card-title>
         <md-card-title layout="row">
-          <md-card layout-align="center center" class="md-primary" style="padding-top: 10px; padding-bottom: 10px" flex>
+          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" md-colors="{background: 'accent'}" flex>
             <md-card-title-text layout-align="center center">
               Monday
             </md-card-title-text>
@@ -38,7 +38,7 @@
               <span class="md-subhead">max: {{forecast[0].temp_max}}&deg;C</span>
             </md-card-title-text>
           </md-card>
-          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" flex>
+          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" md-colors="{background: 'accent'}" flex>
             <md-card-title-text layout-align="center center">
               Tuesday
             </md-card-title-text>
@@ -56,7 +56,7 @@
               <span class="md-subhead">max: {{forecast[8].temp_max}}&deg;C</span>
             </md-card-title-text>
           </md-card>
-          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" flex>
+          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" md-colors="{background: 'accent'}" flex>
             <md-card-title-text layout-align="center center">
               Wednesday
             </md-card-title-text>
@@ -74,7 +74,7 @@
               <span class="md-subhead">max: {{forecast[16].temp_max}}&deg;C</span>
             </md-card-title-text>
           </md-card>
-          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" flex>
+          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" md-colors="{background: 'accent'}" flex>
             <md-card-title-text layout-align="center center">
               Thursday
             </md-card-title-text>
@@ -92,7 +92,7 @@
               <span class="md-subhead">max: {{forecast[24].temp_max}}&deg;C</span>
             </md-card-title-text>
           </md-card>
-          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" flex>
+          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" md-colors="{background: 'accent'}" flex>
             <md-card-title-text layout-align="center center">
               Friday
             </md-card-title-text>
