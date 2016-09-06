@@ -4,9 +4,15 @@ var myApp = angular.module('my-app', ['ngMaterial','ngSanitize','my-app.my-map',
 myApp.controller('AppCtrl',AppCtrl);
 
 myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRouterProvider) {
+    var mycolor = $mdThemingProvider.extendPalette('indigo');
+    $mdThemingProvider.definePalette('mycolor', mycolor);
+
     $mdThemingProvider.theme('default')
-    .primaryPalette('lime',{'default': '800'})
-    .accentPalette('lime', {'default': '600'});
+      .primaryPalette('mycolor');
+
+    $mdThemingProvider.theme('default')
+    .primaryPalette('indigo',{'default': '800'})
+    .accentPalette('indigo', {'default': '600'});
 
     $stateProvider
       .state("weather",{
