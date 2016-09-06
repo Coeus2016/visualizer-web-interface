@@ -25,81 +25,15 @@ angular.module('my-disasters.my-disasters',[])
 
 });
 
-function DisastersCtrl($q, $timeout,$log,$scope,MapService, DisasterService){
-    var self = this;
-    self.allDisasters = loadDisasters();
-    self.disasters = [];
+function DisastersCtrl($http,MapService){
+    $http({
+  method: 'GET',
+  url: 'http://localhost:3300/earthquakes'
+}).then(function(response) {
+	for (var i=0; i<response.data.length; i++){
+			MapService.addLayer(response.data[i].geometry.coordinates[0],response.data[i].geometry.coordinates[1]);
 
-    function loadDisasters() {
-
-        var disasters = [
-            'Drought',
-            'Fire',
-            'Earthquakes',
-            'Thunderstorms',
-            'Flooding'
-        ];
-        return disasters.map(function (c, index) {
-            var cParts = c.split(' ');
-            var disaster = {
-                name: c,
-                image: 'public/images/disasters/' + index+'.png'
-            };
-            disaster._lowername = disaster.name.toLowerCase();
-            return disaster;
-        });
-    }
-
-    self.toggle = function (item, list) {
-        var idx = list.indexOf(item);
-        if (idx > -1) {
-            list.splice(idx, 1);
-            //REMOVE
-            switch (item.name ){
-                case 'Earthquakes':
-                        MapService.removeEarthLayer();
-                    break;
-                case 'Fire':
-                        MapService.removeFireLayer();
-                    break;
-            }
-
-        }
-        else {
-            //ADD
-            list.push(item);
-            switch (item.name ) {
-                case 'Earthquakes':
-                {
-
-                    DisasterService.getEarthquakes("hee").then(function (result) {
-
-                        MapService.addEarthLayer(result);
-                    });
-                }
-                    break;
-                case 'Fire':{
-                    DisasterService.getFire("hee").then(function (result) {
-
-                        MapService.addFireLayer(result);
-                    });
-                }
-                    break;
-            }
-
-
-        }
-
-    };
-    self.exists = function (item, list) {
-        return list.indexOf(item) > -1;
-    };
-
-    function updateLayer(){
-        var data;
-        for (var i=0; i<disasters.length; i++){
-
-        }
-       // DisasterService.addLayer(disasters);
-    }
+		}
+	}
+);
 }

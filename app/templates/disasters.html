@@ -1,10 +1,27 @@
-<md-toolbar md-scroll-shrink ng-if="true">
-    <div class="md-toolbar-tools">
-      	<h3>
-        	<span>Disasters</span>
-      	</h3>
-    </div>
-</md-toolbar>
+<div  layout="column" ng-cloak style="height: 100%">
+    <md-toolbar class="md-accent">
+        <div class="md-toolbar-tools">
+            <h2 class="md-flex">
+                <span>Disasters</span>
+            </h2>
+            <span flex></span>
+            <md-input-container md-no-float style="padding-bottom:0px;">
+                <md-datepicker ng-model="myDate" md-placeholder="Start date"></md-datepicker>
+            </md-input-container>
+            <md-input-container md-no-float style="padding-bottom:0px;">
+                <md-datepicker ng-model="myDate" md-placeholder="End date"></md-datepicker>
+            </md-input-container>
+        </div>
+        <div class="md-toolbar-tools md-toolbar-tools-bottom">
+            <md-button-group>
+                <md-button>Drought</md-button>
+                <md-button>Fire</md-button>
+                <md-button>Earthquake</md-button>
+                <md-button>Thunderstorm</md-button>
+                <md-button>Flood</md-button>
+            </md-button-group>
+        </div>
+    </md-toolbar>
 <div layout="column">
     <div flex="60">
         <div layout="column">
@@ -64,4 +81,5 @@
         </div>
     </div>
     <div flex>active disasters</div>
+</div>
 </div>
