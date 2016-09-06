@@ -13,10 +13,10 @@
             <i class="owf owf-200" style="font-size: 10em" md-colors="{color:'primary'}"></i>
           </md-card-title-text>
           <md-card-title-text flex="25" layout-align="center center">
-            <span class="md-display-3">12&deg;C</span>
+            <span class="md-display-3">{{weather.temp}}&deg;C</span>
             <br>
-            <span class="md-subhead">min: 16&deg;C</span>
-            <span class="md-subhead">max: 25&deg;C</span>
+            <span class="md-subhead">min: {{weather.temp_min}}&deg;C</span>
+            <span class="md-subhead">max: {{weather.temp_max}}&deg;C</span>
           </md-card-title-text>
         </md-card-title>
         <md-card-title layout="row">

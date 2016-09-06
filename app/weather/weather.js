@@ -4,7 +4,7 @@ var myWeather= angular.module('weather',[]);
 
 myWeather.service('WeatherService',function(){
 	this.favourates = [];
-	this.weather = {"country":"", "description":"","name":""};
+	this.weather = {"country":"", "description":"","name":"","temp":"","temp_min":"","temp_max":""};
 	this.push= function(data){
 		this.favourates.push(data);
 	}
@@ -53,6 +53,9 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http){
 			WeatherService.weather.country = data[0].country;
 			WeatherService.weather.name = data[0].description;
 			WeatherService.weather.description = data[0].weather_description;
+			WeatherService.weather.temp = Math.round(data[0].temp);
+			WeatherService.weather.temp_min = Math.round(data[0].temp_min);
+			WeatherService.weather.temp_max = Math.round(data[0].temp_max);
 		}
 		console.log(data);
 	}
