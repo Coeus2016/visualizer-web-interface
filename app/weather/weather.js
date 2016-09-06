@@ -27,6 +27,16 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http){
 		return (hr + ":" + min + ampm);
 	}
 
+	$scope.getDate = function(){
+		var d = new Date();
+		var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+		var date = d.getDate();
+		var month = months[d.getMonth()];
+		var year = d.getFullYear();
+
+		return (date+" "+month+" "+year);
+	}
+
 	$scope.loadWeather = function(data) {
 		MapService.updateLocation(data.geometry.coordinates[0],data.geometry.coordinates[1]);
 		$state.go("weather.forecast");
