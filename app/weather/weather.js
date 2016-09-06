@@ -4,7 +4,8 @@ var myWeather= angular.module('weather',[]);
 
 myWeather.service('WeatherService',function(){
 	this.favourates = [];
-	this.weather = {"country":"", "description":"","name":"","temp":"","temp_min":"","temp_max":""};
+	this.weather = {"country":"", "description":"","name":"","temp":"","temp_min":"","temp_max":"","icon":""};
+	this.forecast = [];
 	this.push= function(data){
 		this.favourates.push(data);
 	}
@@ -15,6 +16,7 @@ myWeather.controller('WeatherCtrl', WeatherCtrl);
 function WeatherCtrl($scope,WeatherService,MapService,$state,$http){
 	$scope.favourates = WeatherService.favourates;
 	$scope.weather = WeatherService.weather;
+	$scope.forecast = WeatherService.forecast;
 
 	$scope.getTime = function(){
 		var d = new Date();
@@ -56,6 +58,17 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http){
 			WeatherService.weather.temp = Math.round(data[0].temp);
 			WeatherService.weather.temp_min = Math.round(data[0].temp_min);
 			WeatherService.weather.temp_max = Math.round(data[0].temp_max);
+			WeatherService.weather.icon = data[0].weather_icon;
+
+			for (var i=0; i<data.length; i++){
+				var result = {
+					"temp": Math.round(data[i].temp),
+					"temp_min": Math.round(data[i].temp_min),
+					"temp_max": Math.round(data[i].temp_max),
+					"icon": data[i].weather_icon
+				};
+				WeatherService.forecast.push(result);
+			}
 		}
 		console.log(data);
 	}

@@ -10,7 +10,7 @@
             <span class="md-subhead">{{getDate()}}</span>
           </md-card-title-text>
           <md-card-title-text layout="row" layout-align="center center" flex>
-            <i class="owf owf-200" style="font-size: 10em" md-colors="{color:'primary'}"></i>
+            <i class="owf owf-{{weather.icon}}" style="font-size: 10em" md-colors="{color:'primary'}"></i>
           </md-card-title-text>
           <md-card-title-text flex="25" layout-align="center center">
             <span class="md-display-3">{{weather.temp}}&deg;C</span>
@@ -20,28 +20,40 @@
           </md-card-title-text>
         </md-card-title>
         <md-card-title layout="row">
-          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" flex>
+          <md-card layout-align="center center" class="md-primary" style="padding-top: 10px; padding-bottom: 10px" flex>
             <md-card-title-text layout-align="center center">
               Monday
             </md-card-title-text>
             <md-card-title-text>
-               <i class="owf owf-200 owf-3x" md-colors="{color:'primary'}"></i>
+               <i class="owf owf-{{forecast[0].icon}} owf-3x" md-colors="{color:'primary'}"></i>
             </md-card-title-text>
             <br>
             <md-card-title-text>
-              <span class="md-headline">12&deg;C</span>
+              <span class="md-headline">{{forecast[0].temp}}&deg;C</span>
+            </md-card-title-text>
+            <md-card-title-text>
+              <span class="md-subhead">min: {{forecast[0].temp_min}}&deg;C</span>
+            </md-card-title-text>
+            <md-card-title-text>
+              <span class="md-subhead">max: {{forecast[0].temp_max}}&deg;C</span>
             </md-card-title-text>
           </md-card>
           <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" flex>
-            <md-card-title-text>
+            <md-card-title-text layout-align="center center">
               Tuesday
             </md-card-title-text>
             <md-card-title-text>
-               <i class="owf owf-200 owf-3x" md-colors="{color:'primary'}"></i>
+               <i class="owf owf-{{forecast[8].icon}} owf-3x" md-colors="{color:'primary'}"></i>
             </md-card-title-text>
             <br>
             <md-card-title-text>
-              <span class="md-headline">12&deg;C</span>
+              <span class="md-headline">{{forecast[8].temp}}&deg;C</span>
+            </md-card-title-text>
+            <md-card-title-text>
+              <span class="md-subhead">min: {{forecast[8].temp_min}}&deg;C</span>
+            </md-card-title-text>
+            <md-card-title-text>
+              <span class="md-subhead">max: {{forecast[8].temp_max}}&deg;C</span>
             </md-card-title-text>
           </md-card>
           <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" flex>
@@ -49,11 +61,17 @@
               Wednesday
             </md-card-title-text>
             <md-card-title-text>
-               <i class="owf owf-200 owf-3x" md-colors="{color:'primary'}"></i>
+               <i class="owf owf-{{forecast[16].icon}} owf-3x" md-colors="{color:'primary'}"></i>
             </md-card-title-text>
             <br>
             <md-card-title-text>
-              <span class="md-headline">12&deg;C</span>
+              <span class="md-headline">{{forecast[16].temp}}&deg;C</span>
+            </md-card-title-text>
+            <md-card-title-text>
+              <span class="md-subhead">min: {{forecast[16].temp_min}}&deg;C</span>
+            </md-card-title-text>
+            <md-card-title-text>
+              <span class="md-subhead">max: {{forecast[16].temp_max}}&deg;C</span>
             </md-card-title-text>
           </md-card>
           <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" flex>
@@ -61,11 +79,17 @@
               Thursday
             </md-card-title-text>
             <md-card-title-text>
-               <i class="owf owf-200 owf-3x" md-colors="{color:'primary'}"></i>
+               <i class="owf owf-{{forecast[24].icon}} owf-3x" md-colors="{color:'primary'}"></i>
             </md-card-title-text>
             <br>
             <md-card-title-text>
-              <span class="md-headline">12&deg;C</span>
+              <span class="md-headline">{{forecast[24].temp}}&deg;C</span>
+            </md-card-title-text>
+            <md-card-title-text>
+              <span class="md-subhead">min: {{forecast[24].temp_min}}&deg;C</span>
+            </md-card-title-text>
+            <md-card-title-text>
+              <span class="md-subhead">max: {{forecast[24].temp_max}}&deg;C</span>
             </md-card-title-text>
           </md-card>
           <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" flex>
@@ -73,11 +97,17 @@
               Friday
             </md-card-title-text>
             <md-card-title-text>
-               <i class="owf owf-200 owf-3x" md-colors="{color:'primary'}"></i>
+               <i class="owf owf-{{forecast[32].icon}} owf-3x" md-colors="{color:'primary'}"></i>
             </md-card-title-text>
             <br>
             <md-card-title-text>
-              <span class="md-headline">12&deg;C</span>
+              <span class="md-headline">{{forecast[32].temp}}&deg;C</span>
+            </md-card-title-text>
+            <md-card-title-text>
+              <span class="md-subhead">min: {{forecast[32].temp_min}}&deg;C</span>
+            </md-card-title-text>
+            <md-card-title-text>
+              <span class="md-subhead">max: {{forecast[32].temp_max}}&deg;C</span>
             </md-card-title-text>
           </md-card>
         </md-card-title>
