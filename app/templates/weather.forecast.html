@@ -1,17 +1,85 @@
 <md-list ng-model="gis.weather" ng-controller="WeatherCtrl">
-	<md-list-item>
+	<md-list-item style="padding: 0">
 		<md-card md-theme-watch flex>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-display-1">{{weather.name}}</span>
-            <span class="md-subhead">{{weather.description}}</span>
-            <i class="owf owf-200 owf-5x" md-colors="{color:'primary'}"></i>
+        <md-card-title layout="row">
+          <md-card-title-text flex="25" layout-align="center center">
+            <span class="md-display-1">Pretoria</span>
+            <span class="md-subhead">Clear Sky</span>
+            <br>
+            <span class="md-subhead">12 September 2016</span>
+          </md-card-title-text>
+          <md-card-title-text layout="row" layout-align="center center" flex>
+            <i class="owf owf-200" style="font-size: 10em" md-colors="{color:'primary'}"></i>
+          </md-card-title-text>
+          <md-card-title-text flex="25" layout-align="center center">
+            <span class="md-display-3">12&deg;C</span>
+            <br>
+            <span class="md-subhead">min: 16&deg;C</span>
+            <span class="md-subhead">max: 25&deg;C</span>
           </md-card-title-text>
         </md-card-title>
-        <md-card-actions layout="row" layout-align="end center">
-          <md-button>Action 1</md-button>
-          <md-button>Action 2</md-button>
-        </md-card-actions>
+        <md-card-title layout="row">
+          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" flex>
+            <md-card-title-text layout-align="center center">
+              Monday
+            </md-card-title-text>
+            <md-card-title-text>
+               <i class="owf owf-200 owf-3x" md-colors="{color:'primary'}"></i>
+            </md-card-title-text>
+            <br>
+            <md-card-title-text>
+              <span class="md-headline">12&deg;C</span>
+            </md-card-title-text>
+          </md-card>
+          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" flex>
+            <md-card-title-text>
+              Tuesday
+            </md-card-title-text>
+            <md-card-title-text>
+               <i class="owf owf-200 owf-3x" md-colors="{color:'primary'}"></i>
+            </md-card-title-text>
+            <br>
+            <md-card-title-text>
+              <span class="md-headline">12&deg;C</span>
+            </md-card-title-text>
+          </md-card>
+          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" flex>
+            <md-card-title-text layout-align="center center">
+              Wednesday
+            </md-card-title-text>
+            <md-card-title-text>
+               <i class="owf owf-200 owf-3x" md-colors="{color:'primary'}"></i>
+            </md-card-title-text>
+            <br>
+            <md-card-title-text>
+              <span class="md-headline">12&deg;C</span>
+            </md-card-title-text>
+          </md-card>
+          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" flex>
+            <md-card-title-text layout-align="center center">
+              Thursday
+            </md-card-title-text>
+            <md-card-title-text>
+               <i class="owf owf-200 owf-3x" md-colors="{color:'primary'}"></i>
+            </md-card-title-text>
+            <br>
+            <md-card-title-text>
+              <span class="md-headline">12&deg;C</span>
+            </md-card-title-text>
+          </md-card>
+          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" flex>
+            <md-card-title-text layout-align="center center">
+              Friday
+            </md-card-title-text>
+            <md-card-title-text>
+               <i class="owf owf-200 owf-3x" md-colors="{color:'primary'}"></i>
+            </md-card-title-text>
+            <br>
+            <md-card-title-text>
+              <span class="md-headline">12&deg;C</span>
+            </md-card-title-text>
+          </md-card>
+        </md-card-title>
       </md-card>
 	</md-list-item>
 </md-list>
