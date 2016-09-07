@@ -33,15 +33,15 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http){
 	$scope.favourates = WeatherService.favourates;
 	$scope.weather = WeatherService.weather;
 	$scope.forecast = WeatherService.forecast;
-	$scope.cardColors = ['','accent','accent','accent','accent'];
+	$scope.cardColors = ['grey-A100','accent','accent','accent','accent'];
 
 	WeatherService.initializeForecast();
 
 	$scope.activateButton = function(index){
-		$scope.cardColors[index] = '';
-		
+		$scope.cardColors[index] = 'grey-A100';
+
 		for (var i=0; i<5; i++)
-			if ($scope.cardColors[i]=='' && index!=i)
+			if ($scope.cardColors[i]=='grey-A100' && index!=i)
 				$scope.cardColors[i]='accent';
 
 		//$scope.cardColors[0] = !$scope.cardColors[0];
