@@ -16,7 +16,27 @@ myMap.service('MapService',function(){
         maxZoom: 2
     });
 
-    this.markers = L.markerClusterGroup();
+    this.markers = L.markerClusterGroup({
+        iconCreateFunction: function(cluster) {
+            // get the number of items in the cluster
+            var count = cluster.getChildCount();
+
+            // figure out how many digits long the number is
+            var digits = (count+'').length;
+
+            // return a new L.DivIcon with our classes so we can
+            // style them with CSS. Take a look at the CSS in
+            // the <head> to see these styles. You have to set
+            // iconSize to null if you want to use CSS to set the
+            // width and height.
+            return new L.divIcon({
+                html: count,
+                className:'cluster digits-'+digits,
+                iconSize: null
+            });
+        }
+    });
+
     this.map.addLayer(this.markers);
 
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -25,8 +45,15 @@ myMap.service('MapService',function(){
         maxZoom: 15
     }).addTo(this.map);
 
+    var redMarker = L.WeatherMarkers.icon({
+    icon: 'volcano',
+    markerColor: 'red'
+  });
+
+  //L.marker([51.941196,4.512291], {icon: redMarker}).addTo(map);
+
     this.addLayer = function(longitude,latitude){
-        this.markers.addLayer(L.marker([latitude,longitude]));
+        this.markers.addLayer(L.marker([latitude,longitude],{icon: redMarker}));
     }
 
     this.updateLocation = function(longitude, latitude){
