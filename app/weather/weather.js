@@ -90,6 +90,8 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http){
 			WeatherService.weather.temp_min = Math.round(data[0].temp_min);
 			WeatherService.weather.temp_max = Math.round(data[0].temp_max);
 			WeatherService.weather.icon = data[0].weather_icon;
+			WeatherService.weather.humidity = data[0].humidity;
+			WeatherService.weather.wind = data[0].wind.speed;
 
 			for (var i=0; i<data.length; i++){
 				var d = new Date(data[i].time);
