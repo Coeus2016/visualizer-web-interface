@@ -46,11 +46,9 @@ myMap.service('MapService',function(){
     }).addTo(this.map);
 
     var redMarker = L.WeatherMarkers.icon({
-    icon: 'volcano',
-    markerColor: 'red'
-  });
-
-  //L.marker([51.941196,4.512291], {icon: redMarker}).addTo(map);
+        icon: 'earthquake',
+        markerColor: 'blue'
+    });
 
     this.addLayer = function(longitude,latitude){
         this.markers.addLayer(L.marker([latitude,longitude],{icon: redMarker}));

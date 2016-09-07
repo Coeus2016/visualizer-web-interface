@@ -14,72 +14,11 @@
         </div>
         <div class="md-toolbar-tools md-toolbar-tools-bottom">
             <md-button-group>
-                <md-button>Drought</md-button>
-                <md-button>Fire</md-button>
-                <md-button>Earthquake</md-button>
-                <md-button>Thunderstorm</md-button>
-                <md-button>Flood</md-button>
+                <md-button md-colors="{background: 'primary'}"><md-icon class="wi wi-fire"></md-icon> Fire <md-icon class="close">close</md-icon></md-button>
+                <md-button><md-icon class="wi wi-earthquake"></md-icon> Earthquake <md-icon class="close">close</md-icon></md-button>
+                <md-button><md-icon class="wi wi-flood"></md-icon> Flood <md-icon class="close">close</md-icon></md-button>
+                <md-button><md-icon class="wi wi-tsunami"></md-icon> Tsunami <md-icon class="close">close</md-icon></md-button>
             </md-button-group>
         </div>
     </md-toolbar>
-<div layout="column">
-    <div flex="60">
-        <div layout="column">
-            <div flex>
-                <div layout="column" class="DisasterChipsContainer" ng-cloak ng-controller="DisastersCtrl as ctrl">
-                    <md-content class="md-padding autocomplete" layout="column">
-                       <md-list class="fixedRows">
-                            <md-subheader class="md-no-sticky">Disasters</md-subheader>
-                            <md-list-item ng-click="ctrl.toggle( disaster, ctrl.disasters)" class="md-2-line contact-item" ng-repeat="(index, disaster) in ctrl.allDisasters"
-                                          ng-class="(ctrl.disasters.indexOf(disaster)< 0) ? 'notselected' : 'selected'">
-                                <img ng-src="{{disaster.image}}" class="md-avatar" alt="{{disaster.name}}" />
-                                <div class="md-list-item-text compact">
-                                    <h3>{{disaster.name}}</h3>
-                                </div>
-                            </md-list-item>
-                        </md-list>
-                    </md-content>
-                </div>
-            </div>
-            <div flex>
-                <div layout="row">
-                    <div flex>
-                        <form name="myOtherForm1" flex-gt-xs>
-                            <h4>Start Date</h4>
-                            <md-input-container>
-                                <label>Enter date</label>
-                                <md-datepicker ng-model="myDate1" name="dateField" md-min-date="minDate"
-                                               md-max-date="maxDate"></md-datepicker>
-                                <div ng-messages="myOtherForm.dateField.$error">
-                                    <div ng-message="valid">The entered value is not a date!</div>
-                                    <div ng-message="required">This date is required!</div>
-                                    <div ng-message="mindate">Date is too early!</div>
-                                    <div ng-message="maxdate">Date is too late!</div>
-                                </div>
-                            </md-input-container>
-                        </form>
-                    </div>
-                    <div flex>
-                        <form name="myOtherForm" flex-gt-xs>
-                            <h4>End Date</h4>
-                            <md-input-container>
-                                <label>Enter date</label>
-                                <md-datepicker ng-model="myDate" name="dateField" md-min-date="minDate"
-                                               md-max-date="maxDate"></md-datepicker>
-                                <div ng-messages="myOtherForm.dateField.$error">
-                                    <div ng-message="valid">The entered value is not a date!</div>
-                                    <div ng-message="required">This date is required!</div>
-                                    <div ng-message="mindate">Date is too early!</div>
-                                    <div ng-message="maxdate">Date is too late!</div>
-                                </div>
-                            </md-input-container>
-                        </form>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div flex>active disasters</div>
-</div>
 </div>
