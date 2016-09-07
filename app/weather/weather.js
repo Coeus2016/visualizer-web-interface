@@ -33,7 +33,19 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http){
 	$scope.favourates = WeatherService.favourates;
 	$scope.weather = WeatherService.weather;
 	$scope.forecast = WeatherService.forecast;
+	$scope.cardColors = ['grey-A100','accent','accent','accent','accent'];
+
 	WeatherService.initializeForecast();
+
+	$scope.activateButton = function(index){
+		$scope.cardColors[index] = 'grey-A100';
+
+		for (var i=0; i<5; i++)
+			if ($scope.cardColors[i]=='grey-A100' && index!=i)
+				$scope.cardColors[i]='accent';
+
+		//$scope.cardColors[0] = !$scope.cardColors[0];
+	}
 
 	$scope.getTime = function(){
 		var d = new Date();
@@ -78,6 +90,8 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http){
 			WeatherService.weather.temp_min = Math.round(data[0].temp_min);
 			WeatherService.weather.temp_max = Math.round(data[0].temp_max);
 			WeatherService.weather.icon = data[0].weather_icon;
+			WeatherService.weather.humidity = data[0].humidity;
+			WeatherService.weather.wind = data[0].wind.speed;
 
 			for (var i=0; i<data.length; i++){
 				var d = new Date(data[i].time);

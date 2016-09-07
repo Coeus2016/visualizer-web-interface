@@ -17,10 +17,13 @@
             <br>
             <span class="md-body-3">min: {{weather.temp_min}}&deg;C</span>
             <span class="md-body-3">max: {{weather.temp_max}}&deg;C</span>
+            <br>
+            <span class="md-body-3">Humidity: {{weather.humidity}}%</span>
+            <span class="md-body-3">Wind: {{weather.wind}} m/s</span>
           </md-card-title-text>
         </md-card-title>
         <md-card-title layout="row">
-          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" class="cardLink" flex>
+          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" md-colors="{background: cardColors[0]}" ng-click="activateButton(0)" class="cardLink" flex>
             <md-card-title-text layout-align="center center">
               {{forecast[0].day}}
             </md-card-title-text>
@@ -39,7 +42,7 @@
               <span class="md-body-3">max: {{forecast[0].temp_max}}&deg;C</span>
             </md-card-title-text>
           </md-card>
-          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" class="cardLink" md-colors="{background: 'accent'}" flex>
+          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" ng-click="activateButton(1)" class="cardLink" md-colors="{background: cardColors[1]}" flex>
             <md-card-title-text layout-align="center center">
               {{forecast[8].day}}
             </md-card-title-text>
@@ -58,7 +61,7 @@
               <span class="md-body-3">max: {{forecast[8].temp_max}}&deg;C</span>
             </md-card-title-text>
           </md-card>
-          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" class="cardLink" md-colors="{background: 'accent'}" flex>
+          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" ng-click="activateButton(2)" class="cardLink" md-colors="{background: cardColors[2]}" flex>
             <md-card-title-text layout-align="center center">
               {{forecast[16].day}}
             </md-card-title-text>
@@ -77,7 +80,7 @@
               <span class="md-body-3">max: {{forecast[16].temp_max}}&deg;C</span>
             </md-card-title-text>
           </md-card>
-          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" class="cardLink" md-colors="{background: 'accent'}" flex>
+          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" ng-click="activateButton(3)" class="cardLink" md-colors="{background: cardColors[3]}" flex>
             <md-card-title-text layout-align="center center">
               {{forecast[24].day}}
             </md-card-title-text>
@@ -96,7 +99,7 @@
               <span class="md-body-3">max: {{forecast[24].temp_max}}&deg;C</span>
             </md-card-title-text>
           </md-card>
-          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" class="cardLink" md-colors="{background: 'accent'}" flex>
+          <md-card layout-align="center center" style="padding-top: 10px; padding-bottom: 10px" ng-click="activateButton(4)" class="cardLink" md-colors="{background: cardColors[4]}" flex>
             <md-card-title-text layout-align="center center">
               {{forecast[32].day}}
             </md-card-title-text>

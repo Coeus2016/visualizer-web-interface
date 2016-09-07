@@ -8,9 +8,6 @@ myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRo
     $mdThemingProvider.definePalette('mycolor', mycolor);
 
     $mdThemingProvider.theme('default')
-      .primaryPalette('mycolor');
-
-    $mdThemingProvider.theme('default')
     .primaryPalette('indigo',{'default': '800'})
     .accentPalette('indigo', {'default': '600'});
 
