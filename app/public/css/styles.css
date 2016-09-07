@@ -11,6 +11,10 @@ h1 {
     color: blue;
 }
 
+.active {
+  background: red;
+}
+
 body[ng-cloak] {
   display:none;
 }
