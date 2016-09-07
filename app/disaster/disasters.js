@@ -25,7 +25,19 @@ angular.module('my-disasters.my-disasters',[])
 
 });
 
-function DisastersCtrl($http,MapService){
+function DisastersCtrl($http,MapService,$scope){
+	$scope.isOn = [false,false,false,false];
+	$scope.btnColors = ['accent','accent','accent','accent'];
+	
+	$scope.filter = function(index){
+		$scope.isOn[index] = !$scope.isOn[index];
+
+		if ($scope.btnColors[index]=='primary')
+			$scope.btnColors[index]="accent";
+		else
+			$scope.btnColors[index]="primary";
+	}
+
     $http({
   method: 'GET',
   url: 'http://localhost:3300/earthquakes'
