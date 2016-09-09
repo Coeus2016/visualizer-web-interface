@@ -59,12 +59,30 @@ myMap.service('MapService',function(){
         var mark = L.marker([latitude,longitude],{icon: earthquakeMarker});
         mark.mydata = data;
         mark.what = "earthquake";
+
+        mark.bindPopup("Earthquake");
+        mark.on('mouseover', function (e) {
+            this.openPopup();
+        });
+        mark.on('mouseout', function (e) {
+            this.closePopup();
+        });
+
         this.markers.addLayer(mark);
     }
 
     this.addFire = function(longitude,latitude){
         var mark = L.marker([latitude,longitude],{icon: fireMarker});
         mark.what = "fire";
+
+        mark.bindPopup("Fire");
+        mark.on('mouseover', function (e) {
+            this.openPopup();
+        });
+        mark.on('mouseout', function (e) {
+            this.closePopup();
+        });
+
         this.markers.addLayer(mark);
     }
 
