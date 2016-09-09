@@ -46,7 +46,17 @@ function DisastersCtrl($http,MapService,$scope,DisasterService){
 		$scope.isOn[index] = !$scope.isOn[index];
 
 		if ($scope.isOn[index]){
-			if (index==1){
+			if (index==0){
+				$http({
+  					method: 'GET',
+  					url: 'http://localhost:3300/fires'
+				}).then(function(response) {
+					for (var i=0; i<500; i++){
+						MapService.addFire(response.data[i].longitude,response.data[i].latitude);
+					}
+				});
+			}
+			else if (index==1){
 				$http({
   					method: 'GET',
   					url: 'http://localhost:3300/earthquakes'

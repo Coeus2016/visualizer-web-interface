@@ -62,7 +62,7 @@ myMap.service('MapService',function(){
     }
 
     this.addFire = function(longitude,latitude){
-        var mark = L.marker([latitude,longitude],{icon: earthquakeMarker});
+        var mark = L.marker([latitude,longitude],{icon: fireMarker});
         this.markers.addLayer(mark);
     }
 
