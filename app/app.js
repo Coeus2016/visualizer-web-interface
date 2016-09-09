@@ -56,6 +56,15 @@ function AppCtrl ($timeout, $q, $log,$scope,$http,MapService,WeatherService,$sta
     }
   });
 
+  $scope.$on('$stateChangeSuccess',function onStateSuccess(event, toState,toParams,fromState){
+    if (toState.name=="weather.list")
+      $scope.gis.data = "weather";
+    else if (toState.name=="weather.forecast")
+      $scope.gis.data = "weather";
+    else
+      $scope.gis.data = "disasters";
+  });
+
   var self = this;
   self.querySearch   = querySearch;
   self.selectedItemChange = selectedItemChange;
