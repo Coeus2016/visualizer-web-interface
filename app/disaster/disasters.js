@@ -25,7 +25,7 @@ angular.module('my-disasters.my-disasters',[])
 
 });
 
-function DisastersCtrl($q, $timeout,$log,$scope,MapService, DisasterService){
+function DisastersCtrl(MapService, DisasterService){
     var self = this;
     self.allDisasters = loadDisasters();
     self.disasters = [];
