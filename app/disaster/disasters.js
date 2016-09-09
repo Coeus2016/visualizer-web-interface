@@ -5,15 +5,21 @@ angular.module('my-disasters.my-disasters',[])
 .controller('DisastersCtrl', DisastersCtrl)
 .service('DisasterService', function($http, ENDPOINT){
     var service = this;
-    this.fireData = [];
-    this.fire = [];
+    this.earthData = [];
+    this.earth = [];
 
     function getUrl(path){
         return ENDPOINT + path;
     }
 
-    this.addFire = function(data){
-    	this.fireData.push(data);
+    this.addEarth = function(data){
+    	this.earthData.push(data);
+    }
+
+    this.clearEarth = function(){
+    	while (this.earth.length > 0) {
+            this.earth.pop();
+        }
     }
 
     service.getEarthquakes = function(info){
@@ -22,7 +28,7 @@ angular.module('my-disasters.my-disasters',[])
         return $http.get(getUrl("earthquakes")+"");
     };
 
-    service.getFire = function(info){
+    service.getEarth = function(info){
         var startDate ="";
         var endDate ="";
         return $http.get(getUrl("fires")+"");
@@ -34,7 +40,7 @@ angular.module('my-disasters.my-disasters',[])
 function DisastersCtrl($http,MapService,$scope,DisasterService){
 	$scope.isOn = [false,false,false,false];
 	$scope.btnColors = ['accent','accent','accent','accent'];
-	$scope.fireData = DisasterService.fire;
+	$scope.earthData = DisasterService.earth;
 	
 	$scope.filter = function(index){
 		$scope.isOn[index] = !$scope.isOn[index];
@@ -50,7 +56,7 @@ function DisastersCtrl($http,MapService,$scope,DisasterService){
   		url: 'http://localhost:3300/earthquakes'
 	}).then(function(response) {
 		for (var i=0; i<response.data.length; i++){
-			DisasterService.addFire(response.data[i]);
+			DisasterService.addEarth(response.data[i]);
 			MapService.addLayer(response.data[i].geometry.coordinates[0],response.data[i].geometry.coordinates[1],response.data[i],response.data[i]);
 		}
 		MapService.setEarth(DisasterService);

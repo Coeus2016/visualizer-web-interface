@@ -46,7 +46,7 @@ myMap.service('MapService',function(){
     }).addTo(this.map);
 
     var redMarker = L.WeatherMarkers.icon({
-        icon: 'fire',
+        icon: 'earthquake',
         markerColor: 'red'
     });
 
@@ -63,22 +63,12 @@ myMap.service('MapService',function(){
     }
 
     this.setEarth = function(DisasterService){
-        this.map.eachLayer(function(layer){     //iterate over map rather than clusters
-            if (layer.getChildCount){         // if layer is markerCluster
-                //console.log(layer.getLatLng());
-                //console.log(layer.getLatLng());
-                //if (self.map.getBounds().contains(layer.getLatLng()))
-                   // console.log(layer._childCount);
-
-                //if (self.map.getBounds().contains(layer.getLatLng()))
-                
-                //console.log(visibleOne._childCount);
-                  // return count of points within each cluster
-             //     console.log(marker._childCount);
+        this.map.eachLayer(function(layer){
+            if (layer.getChildCount){
             }
             else if (layer instanceof L.Marker){
                 if (self.map.getBounds().contains(layer.getLatLng()))
-                    DisasterService.fire.push(layer.mydata);
+                    DisasterService.earth.push(layer.mydata);
             }
         });
     }
@@ -86,12 +76,11 @@ myMap.service('MapService',function(){
 
 myMap.controller('MapCtrl', MapCtrl);
 
-function MapCtrl ($scope,MapService,DisasterService) {
+function MapCtrl ($scope,MapService,DisasterService,$timeout) {
     MapService.map.on('moveend', function() {
-        while (DisasterService.fire.length > 0) {
-            DisasterService.fire.pop();
-        }
-
-        MapService.setEarth(DisasterService);
+        $timeout(function(){
+            DisasterService.clearEarth();
+            MapService.setEarth(DisasterService);
+        },500);
     });
 }
