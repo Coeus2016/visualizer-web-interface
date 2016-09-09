@@ -86,6 +86,11 @@ myMap.service('MapService',function(){
         this.markers.addLayer(mark);
     }
 
+    this.addMarker = function(longitude,latitude){
+        var mark = L.marker([latitude,longitude]);
+        this.markers.addLayer(mark);
+    }
+
     this.removeFire = function(){
         this.markers.eachLayer(function(marker){
             if ((marker instanceof L.Marker) && (marker.what =="fire"))
@@ -102,6 +107,7 @@ myMap.service('MapService',function(){
 
     this.updateLocation = function(longitude, latitude){
         this.map.panTo(new L.LatLng(latitude,longitude));
+        this.map.setZoom(5);
         self.longitude=longitude;
         self.latitude=latitude;
     }

@@ -90,6 +90,7 @@ function AppCtrl ($timeout, $q, $log,$scope,$http,MapService,WeatherService,$sta
     if (item===undefined){}
     else {
       MapService.updateLocation(item.geometry.coordinates[0],item.geometry.coordinates[1]);
+      MapService.addMarker(item.geometry.coordinates[0],item.geometry.coordinates[1]);
       //MapService.addLayer(item.geometry.coordinates[0],item.geometry.coordinates[1]);
       WeatherService.push(item);
     }
