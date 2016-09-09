@@ -17,7 +17,10 @@
     "angular-sanitize": "1.5.8",
     "openlayers": "https://github.com/openlayers/ol3/releases/download/v3.17.1/v3.17.1-dist.zip",
     "angular-ui-router": "^0.3.1",
-    "leaflet.markercluster": "^0.5.0"
+    "leaflet.markercluster": "^0.5.0",
+    "leaflet.weather-markers": "Leaflet.weather-markers#^3.0.0",
+    "weather-icons": "^2.0.10",
+    "leaflet": "^0.7.7"
   },
   "devDependencies": {
     "angular-mocks": "1.5.8"

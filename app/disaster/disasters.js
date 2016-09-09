@@ -5,9 +5,21 @@ angular.module('my-disasters.my-disasters',[])
 .controller('DisastersCtrl', DisastersCtrl)
 .service('DisasterService', function($http, ENDPOINT){
     var service = this;
+    this.earthData = [];
+    this.earth = [];
 
     function getUrl(path){
         return ENDPOINT + path;
+    }
+
+    this.addEarth = function(data){
+    	this.earthData.push(data);
+    }
+
+    this.clearEarth = function(){
+    	while (this.earth.length > 0) {
+            this.earth.pop();
+        }
     }
 
     service.getEarthquakes = function(info){
@@ -16,7 +28,7 @@ angular.module('my-disasters.my-disasters',[])
         return $http.get(getUrl("earthquakes")+"");
     };
 
-    service.getFire = function(info){
+    service.getEarth = function(info){
         var startDate ="";
         var endDate ="";
         return $http.get(getUrl("fires")+"");
@@ -25,81 +37,50 @@ angular.module('my-disasters.my-disasters',[])
 
 });
 
-function DisastersCtrl(MapService, DisasterService){
-    var self = this;
-    self.allDisasters = loadDisasters();
-    self.disasters = [];
+function DisastersCtrl($http,MapService,$scope,DisasterService){
+	$scope.isOn = [false,false,false,false];
+	$scope.btnColors = ['accent','accent','accent','accent'];
+	$scope.earthData = DisasterService.earth;
+	
+	$scope.filter = function(index){
+		$scope.isOn[index] = !$scope.isOn[index];
 
-    function loadDisasters() {
+		if ($scope.isOn[index]){
+			if (index==0){
+				$http({
+  					method: 'GET',
+  					url: 'http://localhost:3300/fires'
+				}).then(function(response) {
+					for (var i=0; i<500; i++){
+						MapService.addFire(response.data[i].longitude,response.data[i].latitude);
+					}
+				});
+			}
+			else if (index==1){
+				$http({
+  					method: 'GET',
+  					url: 'http://localhost:3300/earthquakes'
+				}).then(function(response) {
+					for (var i=0; i<response.data.length; i++){
+						DisasterService.addEarth(response.data[i]);
+						MapService.addEarth(response.data[i].geometry.coordinates[0],response.data[i].geometry.coordinates[1],response.data[i],response.data[i]);
+					}
+					MapService.setEarth(DisasterService);
+				});
+			}
+		}else {
+			if (index==0)
+				MapService.removeFire();
+			else if (index==1){
+				MapService.removeEarth();
+				DisasterService.clearEarth();
+				//$scope.$apply();
+			}
+		}
 
-        var disasters = [
-            'Drought',
-            'Fire',
-            'Earthquakes',
-            'Thunderstorms',
-            'Flooding'
-        ];
-        return disasters.map(function (c, index) {
-            var cParts = c.split(' ');
-            var disaster = {
-                name: c,
-                image: 'public/images/disasters/' + index+'.png'
-            };
-            disaster._lowername = disaster.name.toLowerCase();
-            return disaster;
-        });
-    }
-
-    self.toggle = function (item, list) {
-        var idx = list.indexOf(item);
-        if (idx > -1) {
-            list.splice(idx, 1);
-            //REMOVE
-            switch (item.name ){
-                case 'Earthquakes':
-                        MapService.removeEarthLayer();
-                    break;
-                case 'Fire':
-                        MapService.removeFireLayer();
-                    break;
-            }
-
-        }
-        else {
-            //ADD
-            list.push(item);
-            switch (item.name ) {
-                case 'Earthquakes':
-                {
-
-                    DisasterService.getEarthquakes("hee").then(function (result) {
-
-                        MapService.addEarthLayer(result);
-                    });
-                }
-                    break;
-                case 'Fire':{
-                    DisasterService.getFire("hee").then(function (result) {
-
-                        MapService.addFireLayer(result);
-                    });
-                }
-                    break;
-            }
-
-
-        }
-
-    };
-    self.exists = function (item, list) {
-        return list.indexOf(item) > -1;
-    };
-
-    function updateLayer(){
-        var data;
-        for (var i=0; i<disasters.length; i++){
-
-        }
-       // DisasterService.addLayer(disasters);
-    }
+		if ($scope.btnColors[index]=='primary')
+			$scope.btnColors[index]="accent";
+		else
+			$scope.btnColors[index]="primary";
+	}
 }
