@@ -45,14 +45,24 @@ myMap.service('MapService',function(){
         maxZoom: 15
     }).addTo(this.map);
 
-    var redMarker = L.WeatherMarkers.icon({
+    var earthquakeMarker = L.WeatherMarkers.icon({
         icon: 'earthquake',
+        markerColor: 'orange'
+    });
+
+    var fireMarker = L.WeatherMarkers.icon({
+        icon: 'fire',
         markerColor: 'red'
     });
 
-    this.addLayer = function(longitude,latitude,data){
-        var mark = L.marker([latitude,longitude],{icon: redMarker});
+    this.addEarth = function(longitude,latitude,data){
+        var mark = L.marker([latitude,longitude],{icon: earthquakeMarker});
         mark.mydata = data;
+        this.markers.addLayer(mark);
+    }
+
+    this.addFire = function(longitude,latitude){
+        var mark = L.marker([latitude,longitude],{icon: earthquakeMarker});
         this.markers.addLayer(mark);
     }
 
@@ -66,7 +76,7 @@ myMap.service('MapService',function(){
         this.map.eachLayer(function(layer){
             if (layer.getChildCount){
             }
-            else if (layer instanceof L.Marker){
+            else if ((layer instanceof L.Marker) && (typeof layer.mydata!=="undefined")){
                 if (self.map.getBounds().contains(layer.getLatLng()))
                     DisasterService.earth.push(layer.mydata);
             }

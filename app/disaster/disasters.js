@@ -45,20 +45,24 @@ function DisastersCtrl($http,MapService,$scope,DisasterService){
 	$scope.filter = function(index){
 		$scope.isOn[index] = !$scope.isOn[index];
 
+		if ($scope.isOn[index]){
+			if (index==1){
+				$http({
+  					method: 'GET',
+  					url: 'http://localhost:3300/earthquakes'
+				}).then(function(response) {
+					for (var i=0; i<response.data.length; i++){
+						DisasterService.addEarth(response.data[i]);
+						MapService.addEarth(response.data[i].geometry.coordinates[0],response.data[i].geometry.coordinates[1],response.data[i],response.data[i]);
+					}
+					MapService.setEarth(DisasterService);
+				});
+			}
+		}
+
 		if ($scope.btnColors[index]=='primary')
 			$scope.btnColors[index]="accent";
 		else
 			$scope.btnColors[index]="primary";
 	}
-
-    $http({
-  		method: 'GET',
-  		url: 'http://localhost:3300/earthquakes'
-	}).then(function(response) {
-		for (var i=0; i<response.data.length; i++){
-			DisasterService.addEarth(response.data[i]);
-			MapService.addLayer(response.data[i].geometry.coordinates[0],response.data[i].geometry.coordinates[1],response.data[i],response.data[i]);
-		}
-		MapService.setEarth(DisasterService);
-	});
 }
