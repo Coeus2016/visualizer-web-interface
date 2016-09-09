@@ -13,7 +13,7 @@ myMap.service('MapService',function(){
 
     this.map.locate({
         setView: true,
-        maxZoom: 2
+        maxZoom: 5
     });
 
     this.markers = L.markerClusterGroup();
@@ -25,23 +25,33 @@ myMap.service('MapService',function(){
         maxZoom: 15
     }).addTo(this.map);
 
-    this.addLayer = function(longitude,latitude){
-        this.markers.addLayer(L.marker([latitude,longitude]));
+    this.addLayer = function(longitude,latitude, icon){
+
+        if(icon){
+            this.markers.addLayer(L.marker([latitude,longitude], icon));
+        }else {
+            this.markers.addLayer(L.marker([latitude,longitude]));
+        }
+
+
     };
+
 
 
     this.updateLocation = function(longitude, latitude){
         this.map.panTo(new L.LatLng(latitude,longitude));
+        this.map.setZoom(5);
         self.longitude=longitude;
         self.latitude=latitude;
     };
 
     this.addEarthLayer =  function(result){
 
+        var icon = {icon: L.icon({iconUrl: "public/images/disasters/2.png"})};
         //console.log(result.data.length);
        for( var i = 0; i < result.data.length; i++){
             //console.log(result.data[i].geometry.coordinates[0]);
-            this.addLayer(result.data[i].geometry.coordinates[0],result.data[i].geometry.coordinates[1]);
+            this.addLayer(result.data[i].geometry.coordinates[0],result.data[i].geometry.coordinates[1], icon);
        }
 
     };
@@ -52,8 +62,9 @@ myMap.service('MapService',function(){
     this.addFireLayer =  function(result){
 
         //console.log(result.data.length);
+        var icon = {icon: L.icon({iconUrl: "public/images/disasters/1.png"})};
         for( var i = 0; i < result.data.length; i++){
-            this.addLayer(result.data[i].longitude,result.data[i].longitude);
+            this.addLayer(result.data[i].longitude,result.data[i].longitude,  icon);
         }
 
     };
