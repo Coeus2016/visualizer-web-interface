@@ -74,7 +74,6 @@ function DisastersCtrl($http,MapService,$scope,DisasterService){
 			else if (index==1){
 				MapService.removeEarth();
 				DisasterService.clearEarth();
-				//$scope.$apply();
 			}
 		}
 
