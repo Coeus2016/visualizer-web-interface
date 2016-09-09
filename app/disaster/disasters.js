@@ -68,6 +68,14 @@ function DisastersCtrl($http,MapService,$scope,DisasterService){
 					MapService.setEarth(DisasterService);
 				});
 			}
+		}else {
+			if (index==0)
+				MapService.removeFire();
+			else if (index==1){
+				MapService.removeEarth();
+				DisasterService.clearEarth();
+				//$scope.$apply();
+			}
 		}
 
 		if ($scope.btnColors[index]=='primary')

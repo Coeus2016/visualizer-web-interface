@@ -58,12 +58,28 @@ myMap.service('MapService',function(){
     this.addEarth = function(longitude,latitude,data){
         var mark = L.marker([latitude,longitude],{icon: earthquakeMarker});
         mark.mydata = data;
+        mark.what = "earthquake";
         this.markers.addLayer(mark);
     }
 
     this.addFire = function(longitude,latitude){
         var mark = L.marker([latitude,longitude],{icon: fireMarker});
+        mark.what = "fire";
         this.markers.addLayer(mark);
+    }
+
+    this.removeFire = function(){
+        this.markers.eachLayer(function(marker){
+            if ((marker instanceof L.Marker) && (marker.what =="fire"))
+                self.markers.removeLayer(marker);
+        });
+    }
+
+    this.removeEarth = function(){
+        this.markers.eachLayer(function(marker){
+            if ((marker instanceof L.Marker) && (marker.what =="earthquake"))
+                self.markers.removeLayer(marker);
+        });
     }
 
     this.updateLocation = function(longitude, latitude){
