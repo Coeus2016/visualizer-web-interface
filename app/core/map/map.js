@@ -46,12 +46,14 @@ myMap.service('MapService',function(){
     }).addTo(this.map);
 
     var redMarker = L.WeatherMarkers.icon({
-        icon: 'earthquake',
-        markerColor: 'blue'
+        icon: 'fire',
+        markerColor: 'red'
     });
 
-    this.addLayer = function(longitude,latitude){
-        this.markers.addLayer(L.marker([latitude,longitude],{icon: redMarker}));
+    this.addLayer = function(longitude,latitude,data){
+        var mark = L.marker([latitude,longitude],{icon: redMarker});
+        mark.mydata = data;
+        this.markers.addLayer(mark);
     }
 
     this.updateLocation = function(longitude, latitude){
@@ -59,10 +61,37 @@ myMap.service('MapService',function(){
         self.longitude=longitude;
         self.latitude=latitude;
     }
+
+    this.setEarth = function(DisasterService){
+        this.map.eachLayer(function(layer){     //iterate over map rather than clusters
+            if (layer.getChildCount){         // if layer is markerCluster
+                //console.log(layer.getLatLng());
+                //console.log(layer.getLatLng());
+                //if (self.map.getBounds().contains(layer.getLatLng()))
+                   // console.log(layer._childCount);
+
+                //if (self.map.getBounds().contains(layer.getLatLng()))
+                
+                //console.log(visibleOne._childCount);
+                  // return count of points within each cluster
+             //     console.log(marker._childCount);
+            }
+            else if (layer instanceof L.Marker){
+                if (self.map.getBounds().contains(layer.getLatLng()))
+                    DisasterService.fire.push(layer.mydata);
+            }
+        });
+    }
 });
 
 myMap.controller('MapCtrl', MapCtrl);
 
-function MapCtrl ($scope,MapService) {
+function MapCtrl ($scope,MapService,DisasterService) {
+    MapService.map.on('moveend', function() {
+        while (DisasterService.fire.length > 0) {
+            DisasterService.fire.pop();
+        }
 
+        MapService.setEarth(DisasterService);
+    });
 }
