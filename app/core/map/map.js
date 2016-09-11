@@ -86,6 +86,11 @@ myMap.service('MapService',function(){
         this.markers.addLayer(mark);
     }
 
+    this.addMarker = function(longitude,latitude){
+        var mark = L.marker([latitude,longitude]);
+        this.markers.addLayer(mark);
+    }
+
     this.removeFire = function(){
         this.markers.eachLayer(function(marker){
             if ((marker instanceof L.Marker) && (marker.what =="fire"))
