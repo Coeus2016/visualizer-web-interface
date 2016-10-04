@@ -13,7 +13,7 @@ myMap.service('MapService',function(){
 
     this.map.locate({
         setView: true,
-        maxZoom: 2
+        maxZoom: 5
     });
 
     this.markers = L.markerClusterGroup({
