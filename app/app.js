@@ -1,7 +1,7 @@
 'use strict';
 
 //var myApp = angular.module('my-app', ['ngMaterial','ngSanitize','my-app.my-map','ui.router','my-disasters.my-disasters','weather']);
-var myApp = angular.module('my-app', ['ngMaterial','ngSanitize','ui.router']);
+var myApp = angular.module('my-app', ['ngMaterial','ngSanitize','ui.router','welcome']);
 myApp.controller('AppCtrl',AppCtrl);
 
 myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRouterProvider) {
@@ -36,7 +36,7 @@ myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRo
       })
       .state("welcome",{
           url: "/welcome",
-          templateUrl: "templates/welcome.html"
+          templateUrl: "home/index.html"
         }
       );
 
