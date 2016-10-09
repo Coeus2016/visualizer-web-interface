@@ -1,0 +1,74 @@
+<!-- Container #1 (see wireframe) -->
+            <md-toolbar class="md-hue-800" layout="row" style="position: relative">
+                <div class="md-toolbar-tools">
+                    <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
+                        <md-icon class="menu">menu</md-icon>
+                    </md-button>
+                    <h2>
+                        <span>Geospatial Data Visualiser</span>
+                    </h2>
+                    <span flex></span>
+
+                    <!-- AUTOCOMPLETE SEARCH-->
+                    <md-autocomplete
+                        style="width: 500px"
+                        ng-disabled="ctrl.isDisabled"
+                        md-no-cache="ctrl.noCache"
+                        md-selected-item="ctrl.selectedItem"
+                        md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                        md-search-text="ctrl.searchText"
+                        md-selected-item-change="ctrl.selectedItemChange(item)"
+                        md-items="item in ctrl.querySearch(ctrl.searchText)"
+                        md-item-text="item.properties.name"
+                        md-min-length="0"
+                        placeholder="Search location"
+                        md-menu-class="autocomplete-custom-template">
+                        <md-item-template>
+                            <span class="item-title">
+                                <md-icon md-font-library="material-icons">place</md-icon>
+                                <span><strong> {{item.properties.name}}</strong> </span>
+                            </span>
+                            <span class="item-metadata">
+                                <span class="item-metastat">
+                                    {{item.properties.osm_value? item.properties.osm_value+", " : ""}}
+                                </span>
+                                <span class="item-metastat">
+                                    {{item.properties.city? item.properties.city+", " : ""}}
+                                </span>
+                                <span class="item-metastat">
+                                    {{item.properties.country? item.properties.country : ""}}
+                                </span>
+                            </span>
+                        </md-item-template>
+                    </md-autocomplete>
+
+                    <md-input-container class="md-padding">
+                        <md-select placeholder="pick geospatial" ng-model="gis.data" ng-change="selectChanged();" class="md-no-underline md-whiteframe-1dp">
+                            <md-option ng-repeat="gisdata in geospatial" value="{{gisdata.data}}">{{gisdata.data}}</md-option>
+                        </md-select>
+                    </md-input-container>
+
+                    <!-- PROFILE MENU-->
+                    <md-menu md-position-mode="target-right target" >
+                        <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                            <md-icon md-font-library="material-icons">more_vert</md-icon>
+                        </md-button>
+                        <md-menu-content width="4" >
+                            <md-menu-item ng-repeat="item in [1, 2, 3]">
+                                <md-button ng-click="ctrl.announceClick($index)">
+                                    <div layout="row" flex>
+                                        <p flex>Option {{item}}</p>
+                                    </div>
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </div>
+            </md-toolbar>
+            <md-content layout="row" flex class="boxWithHeight">
+                <div flex="60" layout="column" class="map" id="map" ng-controller="MapCtrl" style="position: relative; height: 100%" layout-fill></div>
+
+                <div flex layout="column" class="boxWithHeight" layout-fill>
+                    <div ui-view style="height: 100%"></div>
+                </div>
+            </md-content>

@@ -1,6 +1,7 @@
 'use strict';
 
-var myApp = angular.module('my-app', ['ngMaterial','ngSanitize','my-app.my-map','ui.router','my-disasters.my-disasters','weather']);
+//var myApp = angular.module('my-app', ['ngMaterial','ngSanitize','my-app.my-map','ui.router','my-disasters.my-disasters','weather']);
+var myApp = angular.module('my-app', ['ngMaterial','ngSanitize','ui.router']);
 myApp.controller('AppCtrl',AppCtrl);
 
 myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRouterProvider) {
@@ -32,13 +33,20 @@ myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRo
       .state("/",{
         url: "/",
         templateUrl: "templates/index.html"
-      });
+      })
+      .state("welcome",{
+          url: "/welcome",
+          templateUrl: "templates/welcome.html"
+        }
+      );
 
-    $urlRouterProvider.otherwise("/weather/list");
+    //$urlRouterProvider.otherwise("/weather/list");
+    $urlRouterProvider.otherwise("/welcome");
 });
 
-function AppCtrl ($timeout, $q, $log,$scope,$http,MapService,WeatherService,$state) {
-  $scope.geospatial = [
+//function AppCtrl ($timeout, $q, $log,$scope,$http,MapService,WeatherService,$state) {
+function AppCtrl ($timeout, $q, $log,$scope,$http,$state) {
+  /*$scope.geospatial = [
     {"data": "weather"},
     {"data": "disasters"}
   ];
@@ -73,7 +81,7 @@ function AppCtrl ($timeout, $q, $log,$scope,$http,MapService,WeatherService,$sta
   /**
     * Reverse geolocation
     */
-  function querySearch (query) {
+  /*function querySearch (query) {
     return $http.get('http://photon.komoot.de/api/?lat='+MapService.latitude+'&lon='+MapService.longitude+'&limit=5&q=' + escape(query))
                 .then(function(result) {
                   self.data = result.data.features;
@@ -94,5 +102,5 @@ function AppCtrl ($timeout, $q, $log,$scope,$http,MapService,WeatherService,$sta
       //MapService.addLayer(item.geometry.coordinates[0],item.geometry.coordinates[1]);
       WeatherService.push(item);
     }
-  }
+  }*/
 }
