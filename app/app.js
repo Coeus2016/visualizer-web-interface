@@ -1,7 +1,7 @@
 'use strict';
 
 //var myApp = angular.module('my-app', ['ngMaterial','ngSanitize','my-app.my-map','ui.router','my-disasters.my-disasters','weather']);
-var myApp = angular.module('my-app', ['ngMaterial','ngSanitize','ui.router','welcome']);
+var myApp = angular.module('my-app', ['ngMaterial','ngSanitize','ui.router','main','welcome','my-disasters.my-disasters','weather','my-app.my-map']);
 myApp.controller('AppCtrl',AppCtrl);
 
 myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRouterProvider) {
@@ -13,26 +13,26 @@ myApp.config(function($locationProvider,$mdThemingProvider,$stateProvider,$urlRo
     .accentPalette('indigo', {'default': '600'});
 
     $stateProvider
-      .state("weather",{
+      .state("main",{
+        url: "/main",
+        templateUrl: "main/app.html"
+      })
+      .state("main.weather",{
         url: "/weather",
         templateUrl: "templates/weather.html",
-        redirectTo: 'weather.list'
+        redirectTo: 'main.weather.list'
       })
-      .state("disasters",{
+      .state("main.disasters",{
         url: "/disasters",
         templateUrl: "templates/disasters.html"
       })
-      .state("weather.list",{
+      .state("main.weather.list",{
         url: "/list",
         templateUrl: "templates/weather.list.html"
       })
-      .state("weather.forecast",{
+      .state("main.weather.forecast",{
         url: "/forecast",
         templateUrl: "templates/weather.forecast.html"
-      })
-      .state("/",{
-        url: "/",
-        templateUrl: "templates/index.html"
       })
       .state("welcome",{
           url: "/welcome",

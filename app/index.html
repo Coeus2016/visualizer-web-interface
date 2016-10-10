@@ -24,13 +24,13 @@
         <script type="text/javascript" src="bower_components/leaflet/dist/leaflet.js"></script>
     </head>
 
-    <body ng-app="my-app" layout="column" ng-controller="AppCtrl as ctrl" style="position: relative; height: 100%">
+    <body ng-app="my-app" layout="column" ng-controller="AppCtrl" style="position: relative; height: 100%">
         <!-- needs to be fixed -->
         <div class="loader" ng-if="false">
             <div></div>
         </div>
 
-        <main ui-view></main>
+        <main ui-view layout="column" ng-cloak style="height: 100%"></main>
 
         <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
         <script type="text/javascript" src="bower_components/angular-animate/angular-animate.min.js"></script>
@@ -41,8 +41,8 @@
 
          <!-- Angular Material Library -->
         <script type="text/javascript" src="bower_components/angular-material/angular-material.min.js"></script>
-        <!--<script type="text/javascript" src="bower_components/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
-        <script type="text/javascript" src="bower_components/leaflet.weather-markers/dist/leaflet.weather-markers.min.js"></script>-->
+        <script type="text/javascript" src="bower_components/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+        <script type="text/javascript" src="bower_components/leaflet.weather-markers/dist/leaflet.weather-markers.min.js"></script>
 
         <!-- Your application bootstrap  -->
         <script type="text/javascript" src="app.js"></script>
@@ -50,5 +50,6 @@
         <script type="text/javascript" src="disaster/disasters.js"></script>
         <script type="text/javascript" src="weather/weather.js"></script>
         <script type="text/javascript" src="home/index.js"></script>
+        <script type="text/javascript" src="main/main.js"></script>
     </body>
 </html>
