@@ -1,7 +1,7 @@
 var myApp = angular.module('main', ['ngMaterial']);
 myApp.controller('MainCtrl',MainCtrl);
 
-function MainCtrl($timeout, $q, $log,$scope,$http,$state,MapService,WeatherService){
+function MainCtrl($timeout, $q, $log,$scope,$http,$state,MapService,WeatherService,$rootScope){
 	$scope.geospatial = [
     	{"data": "weather"},
    		{"data": "disasters"}
@@ -13,15 +13,7 @@ function MainCtrl($timeout, $q, $log,$scope,$http,$state,MapService,WeatherServi
     	$state.go("main."+$scope.gis.data);
   	};
 
-  	$scope.$on('$stateChangeStart', function(evt, to, params) {
-    	if (to.redirectTo) {
-      		evt.preventDefault();
-      		$state.go(to.redirectTo, params, {location: 'replace'})
-    	}
-  	});
-
   	$scope.$on('$stateChangeSuccess',function onStateSuccess(event, toState,toParams,fromState){
-  		console.log(toState.name);
     	if (toState.name=="main.weather.list")
       		$scope.gis.data = "weather";
     	else if (toState.name=="main.weather.forecast")

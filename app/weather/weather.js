@@ -2,6 +2,32 @@
 
 var myWeather= angular.module('weather',[]);
 
+myWeather.config(function ($stateProvider){
+	$stateProvider
+	  .state("main.weather",{
+        url: "/weather",
+        templateUrl: "templates/weather.html",
+        redirectTo: 'main.weather.list',
+        data: {
+          requiresLogin: true
+        }
+      })
+	  .state("main.weather.list",{
+        url: "/list",
+        templateUrl: "templates/weather.list.html",
+        data: {
+          requiresLogin: true
+        }
+      })
+      .state("main.weather.forecast",{
+        url: "/forecast",
+        templateUrl: "templates/weather.forecast.html",
+        data: {
+          requiresLogin: true
+        }
+      })
+});
+
 myWeather.service('WeatherService',function(){
 	this.favourates = [];
 	this.weather = {"country":"", "description":"","name":"","temp":"","temp_min":"","temp_max":"","icon":""};
