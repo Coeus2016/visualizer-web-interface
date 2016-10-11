@@ -2,6 +2,32 @@
 
 var myWeather= angular.module('weather',[]);
 
+myWeather.config(function ($stateProvider){
+	$stateProvider
+	  .state("main.weather",{
+        url: "/weather",
+        templateUrl: "templates/weather.html",
+        redirectTo: 'main.weather.list',
+        data: {
+          requiresLogin: true
+        }
+      })
+	  .state("main.weather.list",{
+        url: "/list",
+        templateUrl: "templates/weather.list.html",
+        data: {
+          requiresLogin: true
+        }
+      })
+      .state("main.weather.forecast",{
+        url: "/forecast",
+        templateUrl: "templates/weather.forecast.html",
+        data: {
+          requiresLogin: true
+        }
+      })
+});
+
 myWeather.service('WeatherService',function(){
 	this.favourates = [];
 	this.weather = {"country":"", "description":"","name":"","temp":"","temp_min":"","temp_max":"","icon":""};
@@ -29,7 +55,7 @@ myWeather.service('WeatherService',function(){
 
 myWeather.controller('WeatherCtrl', WeatherCtrl);
 
-function WeatherCtrl($scope,WeatherService,MapService,$state,$http){
+function WeatherCtrl($scope,WeatherService,MapService,$state,$http,store){
 	$scope.favourates = WeatherService.favourates;
 	$scope.weather = WeatherService.weather;
 	$scope.forecast = WeatherService.forecast;
@@ -70,10 +96,21 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http){
 
 	$scope.loadWeather = function(data) {
 		MapService.updateLocation(data.geometry.coordinates[0],data.geometry.coordinates[1]);
-		$state.go("weather.forecast");
+		$state.go("main.weather.forecast");
 
 		$http
-			.post('http://localhost:3300/getweather',{lon: data.geometry.coordinates[0], lat: data.geometry.coordinates[1]})
+			.post(
+				'http://localhost:3300/getweather',
+				{
+					lon: data.geometry.coordinates[0],
+					lat: data.geometry.coordinates[1]
+				},
+				{
+					headers: {
+						"Authorization": "Bearer "+store.get('jwt')
+					}
+				}
+			)
 			.then(function(result){
 				extractData(result.data);
 			});
@@ -108,13 +145,13 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http){
 	}
 
 	$scope.back = function(){
-		$state.go("weather.list");
+		$state.go("main.weather.list");
 	}
 
 	$scope.$on('$stateChangeSuccess',function onStateSuccess(event, toState,toParams,fromState){
-		if (toState.name=="weather.list")
+		if (toState.name=="main.weather.list")
 			$scope.isActive = false;
-		else if (toState.name=="weather.forecast")
+		else if (toState.name=="main.weather.forecast")
 			$scope.isActive = true;
 		else
 			$scope.isActive = false;

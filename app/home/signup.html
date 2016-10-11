@@ -1,0 +1,55 @@
+<md-dialog aria-label="SIGN UP" style="width: 500px">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>SIGN UP</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-font-library="material-icons">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content style="padding : 30px">
+      <md-input-container class="md-block">
+        <label>First name</label>
+        <md-icon md-font-library="material-icons">person</md-icon>
+        <input ng-model="user.first_name" type="text" ng-required="true">
+      </md-input-container>
+
+      <md-input-container class="md-block" flex-gt-xs="">
+        <label>Last name</label>
+        <md-icon md-font-library="material-icons">person</md-icon>
+        <input ng-model="user.last_name" type="text" ng-required="true">
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <label>Email</label>
+        <md-icon md-font-library="material-icons">email</md-icon>
+        <input ng-model="user.email" type="email" ng-required="true">
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <label>Password</label>
+        <md-icon md-font-library="material-icons">lock</md-icon>
+        <input ng-model="user.password" type="password" ng-required="true">
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <label>Re-type password</label>
+        <md-icon md-font-library="material-icons">lock</md-icon>
+        <input ng-model="user.repassword" type="password" ng-required="true">
+      </md-input-container>
+
+      <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button ng-click="answer('not useful')">
+          Register
+        </md-button>
+        <md-button ng-click="answer('useful')">
+          Cancel
+        </md-button>
+      </md-dialog-actions>
+    </md-dialog-content>
+  </form>
+</md-dialog>
