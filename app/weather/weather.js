@@ -55,7 +55,7 @@ myWeather.service('WeatherService',function(){
 
 myWeather.controller('WeatherCtrl', WeatherCtrl);
 
-function WeatherCtrl($scope,WeatherService,MapService,$state,$http){
+function WeatherCtrl($scope,WeatherService,MapService,$state,$http,store){
 	$scope.favourates = WeatherService.favourates;
 	$scope.weather = WeatherService.weather;
 	$scope.forecast = WeatherService.forecast;
@@ -99,7 +99,18 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http){
 		$state.go("main.weather.forecast");
 
 		$http
-			.post('http://localhost:3300/getweather',{lon: data.geometry.coordinates[0], lat: data.geometry.coordinates[1]})
+			.post(
+				'http://localhost:3300/getweather',
+				{
+					lon: data.geometry.coordinates[0],
+					lat: data.geometry.coordinates[1]
+				},
+				{
+					headers: {
+						"Authorization": "Bearer "+store.get('jwt')
+					}
+				}
+			)
 			.then(function(result){
 				extractData(result.data);
 			});

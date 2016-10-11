@@ -34,7 +34,7 @@ function WelcomeCtrl($scope, $mdDialog){
     });
   };
 
-  function DialogController($scope, $mdDialog){
+  function DialogController($scope, $mdDialog,$http,store,$state){
     $scope.user = {};
 
     $scope.hide = function() {
@@ -45,6 +45,19 @@ function WelcomeCtrl($scope, $mdDialog){
     $scope.cancel = function() {
       console.log($scope.user);
       $mdDialog.cancel();
+    };
+
+    $scope.login = function(){
+      $http({
+        url: 'http://localhost:3300/login',
+        method: 'POST',
+        data: $scope.user
+      }).then(function(response) {
+        store.set('jwt', response.data.message);
+        $state.go('main');
+      }, function(error) {
+        console.log(error.data);
+      });
     };
 
     $scope.answer = function(answer) {

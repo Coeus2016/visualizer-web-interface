@@ -55,10 +55,10 @@ myApp.run(function($rootScope, $state, store, jwtHelper) {
       $state.go(to.redirectTo, params, {location: 'replace'})
     }
     if (to.data && to.data.requiresLogin){
-      //if (!store.get('jwt') || jwtHelper.isTokenExpired(store.get('jwt'))) {
+      if (!store.get('jwt') || jwtHelper.isTokenExpired(store.get('jwt'))) {
         e.preventDefault();
         $state.go("welcome",{});
-      //}
+      }
     }
   });
 });
