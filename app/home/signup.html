@@ -1,5 +1,5 @@
 <md-dialog aria-label="SIGN UP" style="width: 500px">
-  <form ng-cloak>
+  <form ng-cloak name="signupform" ng-submit="register()">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>SIGN UP</h2>
@@ -14,42 +14,63 @@
       <md-input-container class="md-block">
         <label>First name</label>
         <md-icon md-font-library="material-icons">person</md-icon>
-        <input ng-model="user.first_name" type="text" ng-required="true">
+        <input ng-model="user.first_name" name="first_name" type="text" ng-required="true">
+        <div ng-messages="signupform.first_name.$error">
+          <div ng-message="required">Please enter a value for this field.</div>
+        </div>
       </md-input-container>
 
       <md-input-container class="md-block" flex-gt-xs="">
         <label>Last name</label>
         <md-icon md-font-library="material-icons">person</md-icon>
-        <input ng-model="user.last_name" type="text" ng-required="true">
+        <input ng-model="user.last_name" type="text" name="last_name" ng-required="true">
+        <div ng-messages="signupform.last_name.$error">
+          <div ng-message="required">Please enter a value for this field.</div>
+        </div>
       </md-input-container>
 
       <md-input-container class="md-block">
         <label>Email</label>
         <md-icon md-font-library="material-icons">email</md-icon>
-        <input ng-model="user.email" type="email" ng-required="true">
+        <input ng-model="user.email" type="email" name="email" ng-required="true">
+        <div ng-messages="signupform.email.$error" role="alert">
+          <div ng-message="required">Please enter a value for this field.</div>
+          <div ng-message="email">This field must be a valid email address.</div>
+        </div>
       </md-input-container>
 
       <md-input-container class="md-block">
         <label>Password</label>
         <md-icon md-font-library="material-icons">lock</md-icon>
-        <input ng-model="user.password" type="password" ng-required="true">
+        <input ng-model="user.password" type="password" name="password" ng-required="true">
+        <div ng-messages="signupform.password.$error" role="alert">
+          <div ng-message="required">Please enter a value for this field.</div>
+        </div>
       </md-input-container>
 
       <md-input-container class="md-block">
         <label>Re-type password</label>
         <md-icon md-font-library="material-icons">lock</md-icon>
-        <input ng-model="user.repassword" type="password" ng-required="true">
+        <input ng-model="user.repassword" type="password" name="repassword" ng-required="true" ng-pattern="{{user.password}}">
+        <div ng-messages="signupform.repassword.$error">
+          <div ng-message="required">Please enter a value for this field.</div>
+          <div ng-message="pattern">Passwords don't match.</div>
+        </div>
       </md-input-container>
 
       <md-dialog-actions layout="row">
         <span flex></span>
-        <md-button ng-click="answer('not useful')">
+        <md-button type="submit">
           Register
         </md-button>
-        <md-button ng-click="answer('useful')">
+        <md-button ng-click="cancel()">
           Cancel
         </md-button>
       </md-dialog-actions>
+
+      <div ng-messages="signupform.$error" role="alert">
+        <div ng-message="userexists">email already exists</div>
+      </div>
     </md-dialog-content>
   </form>
 </md-dialog>
