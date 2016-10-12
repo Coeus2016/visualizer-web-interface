@@ -1,5 +1,5 @@
 <md-dialog aria-label="SIGN UP" style="width: 500px">
-  <form ng-cloak name="signupform">
+  <form ng-cloak name="signupform" ng-submit="register()">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>SIGN UP</h2>
@@ -60,13 +60,17 @@
 
       <md-dialog-actions layout="row">
         <span flex></span>
-        <md-button ng-click="register()">
+        <md-button type="submit">
           Register
         </md-button>
         <md-button ng-click="cancel()">
           Cancel
         </md-button>
       </md-dialog-actions>
+
+      <div ng-messages="signupform.$error" role="alert">
+        <div ng-message="userexists">email already exists</div>
+      </div>
     </md-dialog-content>
   </form>
 </md-dialog>
