@@ -57,7 +57,7 @@ myApp.run(function($rootScope, $state, store, jwtHelper) {
     if (to.data && to.data.requiresLogin){
       if (!store.get('jwt') || jwtHelper.isTokenExpired(store.get('jwt'))) {
         e.preventDefault();
-        $state.go("welcome",{});
+        $state.go("welcome",{},{reload: true});
       }
     }
   });

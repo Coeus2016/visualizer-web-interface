@@ -1,4 +1,4 @@
-var myApp = angular.module('welcome', ['ngMaterial']);
+var myApp = angular.module('welcome', ['ngMaterial','ngMessages']);
 myApp.controller('WelcomeCtrl',WelcomeCtrl);
 
 function WelcomeCtrl($scope, $mdDialog){
@@ -54,11 +54,24 @@ function WelcomeCtrl($scope, $mdDialog){
         data: $scope.user
       }).then(function(response) {
         store.set('jwt', response.data.message);
-        $state.go('main');
+        $scope.hide();
+        $state.go('main',{},{ reload: true });
       }, function(error) {
         console.log(error.data);
       });
     };
+
+    $scope.register = function(){
+      $http({
+        url:'http://localhost:3300/register',
+        method: 'POST',
+        data: $scope.user
+      }).then(function(response){
+        console.log(response.data.message);
+      }, function(error){
+        console.log(error.data);
+      });
+    }
 
     $scope.answer = function(answer) {
       console.log($scope.user);

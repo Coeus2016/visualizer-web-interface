@@ -11,7 +11,7 @@ function MainCtrl($timeout, $q, $log,$scope,$http,$state,MapService,WeatherServi
 
   $scope.logout = function(){
     store.remove('jwt');
-    $state.go('welcome');
+    $state.go('welcome',{},{ reload: true });
   };
 
   $scope.selectChanged = function(){
