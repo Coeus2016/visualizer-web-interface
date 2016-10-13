@@ -53,6 +53,15 @@ myWeather.service('WeatherService',function(){
 		this.colors.push("grey");
 		this.favourates.push(data);
 	}
+
+	this.clear = function(){
+		while(this.favourates.length>0){
+    		this.favourates.pop();
+		}
+		while(this.colors.length>0){
+    		this.colors.pop();
+		}
+	}
 });
 
 myWeather.controller('WeatherCtrl', WeatherCtrl);
@@ -77,9 +86,12 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http,store){
 				}
 			).then(
 				function(response) {
+					WeatherService.clear();
+					MapService.removeMarker();
         			for (var i=0; i<response.data.message.length; i++){
         				var tmp = angular.fromJson(response.data.message[i]);
         				WeatherService.push(tmp);
+        				MapService.addMarker(tmp.geometry.coordinates[0],tmp.geometry.coordinates[1]);
         				$scope.colors[i] = "accent";
         			}
       			}, function(error) {

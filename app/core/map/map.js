@@ -88,7 +88,16 @@ myMap.service('MapService',function(){
 
     this.addMarker = function(longitude,latitude){
         var mark = L.marker([latitude,longitude]);
+        mark.what = "searched";
+
         this.markers.addLayer(mark);
+    }
+
+    this.removeMarker = function(){
+        this.markers.eachLayer(function(marker){
+            if ((marker instanceof L.Marker) && (marker.what =="searched"))
+                self.markers.removeLayer(marker);
+        });
     }
 
     this.removeFire = function(){
