@@ -32,6 +32,7 @@ myWeather.service('WeatherService',function(){
 	this.favourates = [];
 	this.weather = {"country":"", "description":"","name":"","temp":"","temp_min":"","temp_max":"","icon":""};
 	this.forecast = [];
+	this.colors = [];
 
 	this.initializeForecast = function(){
 		for (var i=0; i<40; i++){
@@ -49,6 +50,7 @@ myWeather.service('WeatherService',function(){
 	}
 
 	this.push= function(data){
+		this.colors.push("grey");
 		this.favourates.push(data);
 	}
 });
@@ -56,6 +58,7 @@ myWeather.service('WeatherService',function(){
 myWeather.controller('WeatherCtrl', WeatherCtrl);
 
 function WeatherCtrl($scope,WeatherService,MapService,$state,$http,store){
+	$scope.colors = WeatherService.colors;
 	$scope.favourates = WeatherService.favourates;
 	$scope.weather = WeatherService.weather;
 	$scope.forecast = WeatherService.forecast;
@@ -94,7 +97,9 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http,store){
 		return (date+" "+month+" "+year);
 	}
 
-	$scope.favourate = function(data){
+	$scope.trackingFunction
+
+	$scope.favourate = function(data,index){
 		var temp = angular.toJson(data);
 
 		$http
@@ -110,7 +115,12 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http,store){
 				}
 			).then(
 				function(response) {
-        			console.log(response.data);
+        			if (response.data.message=="removed"){
+        				$scope.colors[index] = "grey";
+        			}
+        			else if (response.data.message=="added"){
+        				$scope.colors[index] = "accent";
+        			}
       			}, function(error) {
        				//$mdToast.show($mdToast.simple().textContent('email or password incorrect.'));
       			}
