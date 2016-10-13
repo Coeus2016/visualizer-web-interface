@@ -94,8 +94,27 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http,store){
 		return (date+" "+month+" "+year);
 	}
 
-	$scope.favourate = function(){
-		console.log("I was clicked");
+	$scope.favourate = function(data){
+		var temp = angular.toJson(data);
+
+		$http
+			.post(
+				'http://localhost:3300/favourate',
+				{
+					favourate: temp
+				},
+				{
+					headers: {
+						"Authorization": "Bearer "+store.get('jwt')
+					}
+				}
+			).then(
+				function(response) {
+        			console.log(response.data);
+      			}, function(error) {
+       				//$mdToast.show($mdToast.simple().textContent('email or password incorrect.'));
+      			}
+      		);
 	}
 
 	$scope.loadWeather = function(data) {
