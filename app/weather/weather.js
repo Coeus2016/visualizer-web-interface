@@ -66,6 +66,28 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http,store){
 
 	WeatherService.initializeForecast();
 
+	$scope.init = function(){
+		$http
+			.get(
+				'http://localhost:3300/getfavourate',
+				{
+					headers: {
+						"Authorization": "Bearer "+store.get('jwt')
+					}
+				}
+			).then(
+				function(response) {
+        			for (var i=0; i<response.data.message.length; i++){
+        				var tmp = angular.fromJson(response.data.message[i]);
+        				WeatherService.push(tmp);
+        				$scope.colors[i] = "accent";
+        			}
+      			}, function(error) {
+       				//$mdToast.show($mdToast.simple().textContent('email or password incorrect.'));
+      			}
+      		);
+	}
+
 	$scope.activateButton = function(index){
 		$scope.cardColors[index] = 'grey-A100';
 
