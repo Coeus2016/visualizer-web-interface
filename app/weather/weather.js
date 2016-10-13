@@ -32,6 +32,7 @@ myWeather.service('WeatherService',function(){
 	this.favourates = [];
 	this.weather = {"country":"", "description":"","name":"","temp":"","temp_min":"","temp_max":"","icon":""};
 	this.forecast = [];
+	this.colors = [];
 
 	this.initializeForecast = function(){
 		for (var i=0; i<40; i++){
@@ -49,19 +50,55 @@ myWeather.service('WeatherService',function(){
 	}
 
 	this.push= function(data){
+		this.colors.push("grey");
 		this.favourates.push(data);
+	}
+
+	this.clear = function(){
+		while(this.favourates.length>0){
+    		this.favourates.pop();
+		}
+		while(this.colors.length>0){
+    		this.colors.pop();
+		}
 	}
 });
 
 myWeather.controller('WeatherCtrl', WeatherCtrl);
 
 function WeatherCtrl($scope,WeatherService,MapService,$state,$http,store){
+	$scope.colors = WeatherService.colors;
 	$scope.favourates = WeatherService.favourates;
 	$scope.weather = WeatherService.weather;
 	$scope.forecast = WeatherService.forecast;
 	$scope.cardColors = ['grey-A100','accent','accent','accent','accent'];
 
 	WeatherService.initializeForecast();
+
+	$scope.init = function(){
+		$http
+			.get(
+				'http://localhost:3300/getfavourate',
+				{
+					headers: {
+						"Authorization": "Bearer "+store.get('jwt')
+					}
+				}
+			).then(
+				function(response) {
+					WeatherService.clear();
+					MapService.removeMarker();
+        			for (var i=0; i<response.data.message.length; i++){
+        				var tmp = angular.fromJson(response.data.message[i]);
+        				WeatherService.push(tmp);
+        				MapService.addMarker(tmp.geometry.coordinates[0],tmp.geometry.coordinates[1]);
+        				$scope.colors[i] = "accent";
+        			}
+      			}, function(error) {
+       				//$mdToast.show($mdToast.simple().textContent('email or password incorrect.'));
+      			}
+      		);
+	}
 
 	$scope.activateButton = function(index){
 		$scope.cardColors[index] = 'grey-A100';
@@ -92,6 +129,36 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http,store){
 		var year = d.getFullYear();
 
 		return (date+" "+month+" "+year);
+	}
+
+	$scope.trackingFunction
+
+	$scope.favourate = function(data,index){
+		var temp = angular.toJson(data);
+
+		$http
+			.post(
+				'http://localhost:3300/favourate',
+				{
+					favourate: temp
+				},
+				{
+					headers: {
+						"Authorization": "Bearer "+store.get('jwt')
+					}
+				}
+			).then(
+				function(response) {
+        			if (response.data.message=="removed"){
+        				$scope.colors[index] = "grey";
+        			}
+        			else if (response.data.message=="added"){
+        				$scope.colors[index] = "accent";
+        			}
+      			}, function(error) {
+       				//$mdToast.show($mdToast.simple().textContent('email or password incorrect.'));
+      			}
+      		);
 	}
 
 	$scope.loadWeather = function(data) {
