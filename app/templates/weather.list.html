@@ -8,5 +8,7 @@
 				{{data.properties.osm_value? data.properties.osm_value+", " : ""}}{{data.properties.city? data.properties.city+", " : ""}}{{data.properties.country? data.properties.country : ""}}
 			</h4>
 		</div>
+
+		<md-icon class="md-secondary" md-colors="{color: 'primary'}" md-font-library="material-icons" ng-click="favourate(); $event.stopPropagation();">star</md-icon>
 	</md-list-item>
 </md-list>

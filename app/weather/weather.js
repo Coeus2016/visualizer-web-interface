@@ -94,6 +94,10 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http,store){
 		return (date+" "+month+" "+year);
 	}
 
+	$scope.favourate = function(){
+		console.log("I was clicked");
+	}
+
 	$scope.loadWeather = function(data) {
 		MapService.updateLocation(data.geometry.coordinates[0],data.geometry.coordinates[1]);
 		$state.go("main.weather.forecast");
