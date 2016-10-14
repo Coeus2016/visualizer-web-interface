@@ -60,6 +60,8 @@ function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store){
 	}
 
 	$scope.showSignUp = function(ev){
+		console.log(store.get('longitude'));
+		console.log(store.get('latitude'));
 	    $mdDialog.show({
 	      	controller: DialogController,
 	      	templateUrl: 'disaster/earthquakes.html',
@@ -113,15 +115,12 @@ function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store){
 
 	function DialogController($scope, $mdDialog,$http,store,$mdToast){
 		$scope.quake = store.get('earthfilter');
-		console.log($scope.quake);
 
     	$scope.hide = function(){
-    		console.log($scope.quake);
       		$mdDialog.hide();
     	};
 
     	$scope.cancel = function(){
-    		console.log($scope.quake);
       		$mdDialog.cancel();
     	};
 
@@ -141,7 +140,6 @@ function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store){
 					}
 				).then(
 					function(response) {
-	        			console.log(response.data);
 	        			$scope.cancel();
 	        			$mdToast.show($mdToast.simple().textContent('Earthquake filter was saved.'));
 	      			}, function(error) {
