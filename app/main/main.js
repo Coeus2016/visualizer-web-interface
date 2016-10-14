@@ -52,7 +52,7 @@ function MainCtrl($timeout, $q, $log,$scope,$http,$state,MapService,WeatherServi
     if (item===undefined){}
     else {
       MapService.updateLocation(item.geometry.coordinates[0],item.geometry.coordinates[1]);
-      MapService.addMarker(item.geometry.coordinates[0],item.geometry.coordinates[1]);
+      MapService.addMarker(item.geometry.coordinates[0],item.geometry.coordinates[1],item.properties.name);
       //MapService.addLayer(item.geometry.coordinates[0],item.geometry.coordinates[1]);
       WeatherService.push(item);
     }

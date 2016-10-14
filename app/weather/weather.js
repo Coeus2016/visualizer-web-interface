@@ -91,7 +91,7 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http,store){
         			for (var i=0; i<response.data.message.length; i++){
         				var tmp = angular.fromJson(response.data.message[i]);
         				WeatherService.push(tmp);
-        				MapService.addMarker(tmp.geometry.coordinates[0],tmp.geometry.coordinates[1]);
+        				MapService.addMarker(tmp.geometry.coordinates[0],tmp.geometry.coordinates[1],tmp.properties.name);
         				$scope.colors[i] = "accent";
         			}
       			}, function(error) {

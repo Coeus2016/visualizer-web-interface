@@ -87,13 +87,19 @@ myMap.service('MapService',function(){
         this.markers.addLayer(mark);
     }
 
-    this.addMarker = function(longitude,latitude){
+    this.addMarker = function(longitude,latitude,name){
         var mark = L.marker([latitude,longitude]);
         mark.what = "searched";
 
-        mark.bindPopup("This is a good thing");
+        mark.bindPopup(name);
         mark.on('click', function (e) {
             this.openPopup();
+        });
+        mark.on('mouseover', function (e) {
+            this.openPopup();
+        });
+        mark.on('mouseout', function (e) {
+            this.closePopup();
         });
 
         this.markersList.push(mark);
