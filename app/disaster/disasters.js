@@ -37,10 +37,27 @@ angular.module('my-disasters.my-disasters',[])
 
 });
 
-function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog){
+function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store){
 	$scope.isOn = [false,false,false,false];
 	$scope.btnColors = ['accent','accent','accent','accent'];
 	$scope.earthData = DisasterService.earth;
+
+	$scope.init = function(){
+		$http
+			.get(
+				'http://localhost:3300/getearthquakefilter',
+				{
+					headers: {
+						"Authorization": "Bearer "+store.get('jwt')
+					}
+				}
+			).then(
+				function(response) {
+	        		store.set('earthfilter',response.data.message);
+	      		}, function(error) {
+	      		}
+	      	);
+	}
 
 	$scope.showSignUp = function(ev){
 	    $mdDialog.show({
@@ -94,8 +111,9 @@ function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog){
 			$scope.btnColors[index]="primary";
 	}
 
-	function DialogController($scope, $mdDialog){
-		$scope.quake = {};
+	function DialogController($scope, $mdDialog,$http,store,$mdToast){
+		$scope.quake = store.get('earthfilter');
+		console.log($scope.quake);
 
     	$scope.hide = function(){
     		console.log($scope.quake);
@@ -106,5 +124,30 @@ function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog){
     		console.log($scope.quake);
       		$mdDialog.cancel();
     	};
+
+    	$scope.saveEarthquakeFilter = function(){
+    		var temp = angular.toJson($scope.quake);
+
+			$http
+				.post(
+					'http://localhost:3300/earthquakefilter',
+					{
+						filter: temp
+					},
+					{
+						headers: {
+							"Authorization": "Bearer "+store.get('jwt')
+						}
+					}
+				).then(
+					function(response) {
+	        			console.log(response.data);
+	        			$scope.cancel();
+	        			$mdToast.show($mdToast.simple().textContent('Earthquake filter was saved.'));
+	      			}, function(error) {
+	       				$mdToast.show($mdToast.simple().textContent('Earthquake filter failed saved.'));
+	      			}
+	      		);
+    	}
   	}
 }
