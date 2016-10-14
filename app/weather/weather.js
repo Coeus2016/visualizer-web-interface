@@ -100,6 +100,14 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http,store){
       		);
 	}
 
+	$scope.callPopup = function(index){
+		MapService.mapClick(index);
+	}
+
+	$scope.closePopup = function(index){
+		MapService.mapClickClose(index);
+	}
+
 	$scope.activateButton = function(index){
 		$scope.cardColors[index] = 'grey-A100';
 
