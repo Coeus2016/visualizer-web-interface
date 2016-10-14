@@ -1,7 +1,9 @@
 var myApp = angular.module('main', ['ngMaterial']);
 myApp.controller('MainCtrl',MainCtrl);
 
-function MainCtrl($timeout, $q, $log,$scope,$http,$state,MapService,WeatherService,$rootScope,store){
+function MainCtrl($timeout, $q, $log,$scope,$http,$state,MapService,WeatherService,$rootScope,store,jwtHelper){
+  $scope.payload = jwtHelper.decodeToken(store.get("jwt"));
+  
   $scope.geospatial = [
     {"data": "weather"},
    	{"data": "disasters"}

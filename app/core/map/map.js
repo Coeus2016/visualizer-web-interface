@@ -12,11 +12,6 @@ myMap.service('MapService',function(){
         'worldCopyJump': true
     });
 
-    this.map.locate({
-        setView: true,
-        maxZoom: 5
-    });
-
     this.markers = L.markerClusterGroup({
         iconCreateFunction: function(cluster) {
             // get the number of items in the cluster
@@ -160,11 +155,23 @@ myMap.service('MapService',function(){
 
 myMap.controller('MapCtrl', MapCtrl);
 
-function MapCtrl ($scope,MapService,DisasterService,$timeout) {
-    MapService.map.on('moveend', function() {
+function MapCtrl ($scope,MapService,DisasterService,$timeout,store) {
+    MapService.map.locate({
+        setView: true,
+        maxZoom: 5,
+        watch: true
+    }).on('locationfound',function(e){
+        store.set('latitude',e.latitude);
+        store.set('longitude',e.longitude);
+    }).on('locationerror',function(e){
+        store.set('latitude',0);
+        store.set('longitude',0);
+    });
+
+    /*MapService.map.on('moveend', function() {
         $timeout(function(){
             DisasterService.clearEarth();
             MapService.setEarth(DisasterService);
         },500);
-    });
+    });*/
 }

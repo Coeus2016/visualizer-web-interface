@@ -37,10 +37,40 @@ angular.module('my-disasters.my-disasters',[])
 
 });
 
-function DisastersCtrl($http,MapService,$scope,DisasterService){
+function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store){
 	$scope.isOn = [false,false,false,false];
 	$scope.btnColors = ['accent','accent','accent','accent'];
 	$scope.earthData = DisasterService.earth;
+
+	$scope.init = function(){
+		$http
+			.get(
+				'http://localhost:3300/getearthquakefilter',
+				{
+					headers: {
+						"Authorization": "Bearer "+store.get('jwt')
+					}
+				}
+			).then(
+				function(response) {
+	        		store.set('earthfilter',response.data.message);
+	      		}, function(error) {
+	      		}
+	      	);
+	}
+
+	$scope.showSignUp = function(ev){
+		console.log(store.get('longitude'));
+		console.log(store.get('latitude'));
+	    $mdDialog.show({
+	      	controller: DialogController,
+	      	templateUrl: 'disaster/earthquakes.html',
+	      	parent: angular.element(document.body),
+	      	targetEvent: ev,
+	      	clickOutsideToClose:true,
+	  		fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+	    });
+	};
 	
 	$scope.filter = function(index){
 		$scope.isOn[index] = !$scope.isOn[index];
@@ -82,4 +112,40 @@ function DisastersCtrl($http,MapService,$scope,DisasterService){
 		else
 			$scope.btnColors[index]="primary";
 	}
+
+	function DialogController($scope, $mdDialog,$http,store,$mdToast){
+		$scope.quake = store.get('earthfilter');
+
+    	$scope.hide = function(){
+      		$mdDialog.hide();
+    	};
+
+    	$scope.cancel = function(){
+      		$mdDialog.cancel();
+    	};
+
+    	$scope.saveEarthquakeFilter = function(){
+    		var temp = angular.toJson($scope.quake);
+
+			$http
+				.post(
+					'http://localhost:3300/earthquakefilter',
+					{
+						filter: temp
+					},
+					{
+						headers: {
+							"Authorization": "Bearer "+store.get('jwt')
+						}
+					}
+				).then(
+					function(response) {
+	        			$scope.cancel();
+	        			$mdToast.show($mdToast.simple().textContent('Earthquake filter was saved.'));
+	      			}, function(error) {
+	       				$mdToast.show($mdToast.simple().textContent('Earthquake filter failed saved.'));
+	      			}
+	      		);
+    	}
+  	}
 }
