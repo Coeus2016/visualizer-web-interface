@@ -1,6 +1,6 @@
 <md-list ng-model="gis.weather">
 	<md-subheader class="md-no-sticky">Searched locations (Favourates)</md-subheader>
-	<md-list-item ng-repeat="data in favourates track by $index" class="md-3-line" ng-click="loadWeather(data)">
+	<md-list-item ng-repeat="data in favourates track by $index" class="md-3-line" ng-click="loadWeather(data)" ng-mouseover="callPopup($index)" ng-mouseleave="closePopup($index)">
 		<md-icon md-font-library="material-icons">place</md-icon>
 		<div class="md-list-item-text" layout="column">
 			<h3 style="font-weight:bold">{{data.properties.name}}</h3>

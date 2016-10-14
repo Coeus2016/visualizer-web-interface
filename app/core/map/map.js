@@ -6,6 +6,7 @@ myMap.service('MapService',function(){
     var self = this;
     this.longitude = 0;
     this.latitude = 0;
+    this.markersList = [];
 
     this.map = L.map('map',{
         'worldCopyJump': true
@@ -86,14 +87,38 @@ myMap.service('MapService',function(){
         this.markers.addLayer(mark);
     }
 
-    this.addMarker = function(longitude,latitude){
+    this.addMarker = function(longitude,latitude,name){
         var mark = L.marker([latitude,longitude]);
         mark.what = "searched";
 
+        mark.bindPopup(name);
+        mark.on('click', function (e) {
+            this.openPopup();
+        });
+        mark.on('mouseover', function (e) {
+            this.openPopup();
+        });
+        mark.on('mouseout', function (e) {
+            this.closePopup();
+        });
+
+        this.markersList.push(mark);
         this.markers.addLayer(mark);
     }
 
+    this.mapClick = function(index){
+        this.markersList[index].openPopup(this.markersList[index].getLatLng());
+    }
+
+    this.mapClickClose = function(index){
+        this.markersList[index].closePopup(this.markersList[index].getLatLng());
+    }
+
     this.removeMarker = function(){
+        while(this.markersList.length>0){
+            this.markersList.pop();
+        }
+
         this.markers.eachLayer(function(marker){
             if ((marker instanceof L.Marker) && (marker.what =="searched"))
                 self.markers.removeLayer(marker);

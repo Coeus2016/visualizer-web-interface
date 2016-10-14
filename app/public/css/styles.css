@@ -7,6 +7,31 @@ html, body {
     box-sizing: border-box;
 }
 
+.leaflet-popup-content-wrapper {
+  color: #ffebee;
+  background-color: blue;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  border-radius: 2px;
+  background-color: #323232;
+}
+
+.leaflet-popup-close-button {
+  display: none;
+}
+
+.leaflet-popup-content-wrapper .leaflet-popup-content {
+  font-size: 14px;
+}
+
+.leaflet-popup-tip-container {
+
+}
+
+.leaflet-popup-tip {
+  background-color: #323232;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
 h1 {
     color: blue;
 }
