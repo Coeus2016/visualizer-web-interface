@@ -51,9 +51,9 @@
 
             <!-- PROFILE MENU-->
             <md-menu md-position-mode="target-right target" >
-                <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                    <md-icon md-font-library="material-icons">more_vert</md-icon>
-                </md-button>
+                <div aria-label="Open demo menu" class="md-button" ng-click="$mdOpenMenu($event)">
+                    <md-icon md-font-library="material-icons">account_circle</md-icon> {{payload.first_name}} {{payload.last_name}} <md-icon md-font-library="material-icons">keyboard_arrow_down</md-icon>
+                </div>
                 <md-menu-content width="4" >
                     <md-menu-item>
                         <md-button ng-click="logout()">
