@@ -1,0 +1,95 @@
+<md-dialog aria-label="EARTHQUAKE" style="width: 500px">
+  <form ng-cloak name="earthquakesform" ng-submit="login()">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Filter quakes by</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-font-library="material-icons">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content style="padding : 30px">
+      <md-input-container class="md-block">
+        <label>Location</label>
+        <md-select ng-model="quake.location" ng-init="quake.location = 0">
+          <md-option ng-value="0">
+            Worldwide
+          </md-option>
+          <md-option ng-value="10">
+            Near me
+          </md-option>
+          <md-option ng-value="100">
+            100 km away
+          </md-option>
+          <md-option ng-value="500">
+            500 km away
+          </md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Date</label>
+        <md-select ng-model="quake.date" ng-init="quake.date = 2">
+          <md-option ng-value="0">
+            Last hour
+          </md-option>
+          <md-option ng-value="1">
+            Today
+          </md-option>
+          <md-option ng-value="2">
+            Last 24 hours
+          </md-option>
+          <md-option ng-value="3">
+            Last 48 hours
+          </md-option>
+          <md-option ng-value="4">
+            This week
+          </md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Magnitude</label>
+        <md-select ng-model="quake.magnitude" ng-init="quake.magnitude = 3.0">
+          <md-option ng-value="1.0">
+            1.0+
+          </md-option>
+          <md-option ng-value="2.0">
+            2.0+
+          </md-option>
+          <md-option ng-value="3.0">
+            3.0+
+          </md-option>
+          <md-option ng-value="4.0">
+            4.0+
+          </md-option>
+          <md-option ng-value="4.5">
+            4.5+
+          </md-option>
+          <md-option ng-value="5.0">
+            5.0+
+          </md-option>
+          <md-option ng-value="5.5">
+            5.5+
+          </md-option>
+          <md-option ng-value="6.0">
+            6.0+
+          </md-option>
+          <md-option ng-value="6.5">
+            6.5+
+          </md-option>
+          <md-option ng-value="7.0">
+            7.0+
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+      <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button type="submit">
+          Save Changes
+        </md-button>
+      </md-dialog-actions>
+    </md-dialog-content>
+  </form>
+</md-dialog>

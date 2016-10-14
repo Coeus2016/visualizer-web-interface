@@ -147,7 +147,7 @@ md-input-container .md-errors-spacer{
  min-height: 0px !important;
 }
 
-md-select .md-select-value {
+.myclass md-select .md-select-value {
     font-size: 1rem;
     background: white;
     border-radius: 2px;
@@ -292,20 +292,20 @@ button + label{
   }
 }
 
-md-select:not([disabled]):focus .md-select-value {
+.myclass md-select:not([disabled]):focus .md-select-value {
     background: white;
     border: none;
 }
 
-md-select .md-select-value .md-text {
+.myclass md-select .md-select-value .md-text {
     color: #37474f! important;
 }
 
-md-select .md-select-icon:after{
+.myclass md-select .md-select-icon:after{
     color: #37474f! important;
 }
 
-md-select .md-select-icon{
+.myclass md-select .md-select-icon{
     color: #37474f! important;
 }
 

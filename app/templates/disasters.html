@@ -5,20 +5,9 @@
                 <span>Disasters</span>
             </h2>
             <span flex></span>
-            <md-input-container md-no-float style="padding-bottom:0px;">
-                <md-datepicker ng-model="myDate" md-placeholder="Start date"></md-datepicker>
-            </md-input-container>
-            <md-input-container md-no-float style="padding-bottom:0px;">
-                <md-datepicker ng-model="myDate" md-placeholder="End date"></md-datepicker>
-            </md-input-container>
-        </div>
-        <div class="md-toolbar-tools md-toolbar-tools-bottom">
-            <md-button-group>
-                <md-button ng-click="filter(0)" md-colors="{background: btnColors[0]}"><md-icon class="wi wi-fire"></md-icon> Fire <md-icon ng-show="isOn[0]" class="close">close</md-icon></md-button>
-                <md-button ng-click="filter(1)" md-colors="{background: btnColors[1]}"><md-icon class="wi wi-earthquake"></md-icon> Earthquake <md-icon ng-show="isOn[1]" class="close">close</md-icon></md-button>
-                <md-button ng-click="filter(2)" md-colors="{background: btnColors[2]}"><md-icon class="wi wi-flood"></md-icon> Flood <md-icon ng-show="isOn[2]" class="close">close</md-icon></md-button>
-                <md-button ng-click="filter(3)" md-colors="{background: btnColors[3]}"><md-icon class="wi wi-tsunami"></md-icon> Tsunami <md-icon ng-show="isOn[3]" class="close">close</md-icon></md-button>
-            </md-button-group>
+            <md-button class="md-icon-button" aria-label="Favorite" ng-click="showSignUp($event)">
+                <md-icon md-font-icon="fa-filter" class="fa" style="color: greenyellow;"></md-icon>
+            </md-button>
         </div>
     </md-toolbar>
     <md-content flex layout-fill style="height:100%">

@@ -37,10 +37,21 @@ angular.module('my-disasters.my-disasters',[])
 
 });
 
-function DisastersCtrl($http,MapService,$scope,DisasterService){
+function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog){
 	$scope.isOn = [false,false,false,false];
 	$scope.btnColors = ['accent','accent','accent','accent'];
 	$scope.earthData = DisasterService.earth;
+
+	$scope.showSignUp = function(ev){
+	    $mdDialog.show({
+	      	controller: DialogController,
+	      	templateUrl: 'disaster/earthquakes.html',
+	      	parent: angular.element(document.body),
+	      	targetEvent: ev,
+	      	clickOutsideToClose:true,
+	  		fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+	    });
+	};
 	
 	$scope.filter = function(index){
 		$scope.isOn[index] = !$scope.isOn[index];
@@ -82,4 +93,18 @@ function DisastersCtrl($http,MapService,$scope,DisasterService){
 		else
 			$scope.btnColors[index]="primary";
 	}
+
+	function DialogController($scope, $mdDialog){
+		$scope.quake = {};
+
+    	$scope.hide = function(){
+    		console.log($scope.quake);
+      		$mdDialog.hide();
+    	};
+
+    	$scope.cancel = function(){
+    		console.log($scope.quake);
+      		$mdDialog.cancel();
+    	};
+  	}
 }
