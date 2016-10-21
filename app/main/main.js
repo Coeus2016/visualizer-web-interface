@@ -38,6 +38,7 @@ function MainCtrl($timeout, $q, $log,$scope,$http,$state,MapService,WeatherServi
   * Reverse geolocation
   */
   function querySearch (query) {
+    
     return $http.get('http://photon.komoot.de/api/?lat='+MapService.latitude+'&lon='+MapService.longitude+'&limit=5&q=' + escape(query))
                 .then(function(result) {
                   self.data = result.data.features;

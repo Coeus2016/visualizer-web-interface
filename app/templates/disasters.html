@@ -12,10 +12,16 @@
     </md-toolbar>
     <md-content flex layout-fill style="height:100%">
         <md-list flex>
-            <md-list-item class="md-3-line" ng-repeat="earth in earthData" ng-click="null">
-              <div class="md-list-item-text" layout="column">
-                <h3>{{ earth.properties.title }}</h3>
-              </div>
+            <md-list-item class="md-3-line" ng-repeat="earth in earthData | orderBy: '-properties.time'" ng-click="null">
+                <md-icon md-font-icon="wi-earthquake" class="wi" style="color: orange;"></md-icon>
+                <div class="md-list-item-text" layout="column">
+                    <div style="display: inline">
+                        <h3 style="font-weight: bold; text-align:left;float:left;display:inline;">{{ earth.properties.mag }}</h3>
+                        <h4 style="text-align:right;float:right;display:inline;">{{earth.properties.time | date:"MM/dd 'at' HH:mm a" }}</h4>
+                    </div>
+                    <h4>{{ earth.properties.title }}</h4>
+                    <p>Distance to: {{  getDistanceFromLatLonInKm(earth.geometry.coordinates[1],earth.geometry.coordinates[0]) }} Km</p>
+                </div>
             </md-list-item>
         </md-list>
     </md-content>
