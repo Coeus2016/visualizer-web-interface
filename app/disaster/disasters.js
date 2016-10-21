@@ -37,12 +37,14 @@ angular.module('my-disasters.my-disasters',[])
 
 });
 
-function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store){
+function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store,$q){
 	$scope.isOn = [false,false,false,false];
 	$scope.btnColors = ['accent','accent','accent','accent'];
-	$scope.earthData = DisasterService.earth;
+	$scope.earthData = DisasterService.earthData;
 
-	$scope.init = function(){
+	$scope.getFilter = function(){
+		var deferred = $q.defer();
+
 		$http
 			.get(
 				'http://localhost:3300/getearthquakefilter',
@@ -54,14 +56,73 @@ function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store){
 			).then(
 				function(response) {
 	        		store.set('earthfilter',response.data.message);
+	        		deferred.resolve(response);
 	      		}, function(error) {
+	      			deferred.reject(error);
 	      		}
 	      	);
+
+		return deferred.promise;
+	}
+
+	$scope.getDistanceFromLatLonInKm = function(lat2,lon2) {
+		var lat1 = store.get('latitude');
+		var lon1 = store.get('longitude');
+
+ 		var R = 6371; // Radius of the earth in km
+  		var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  		var dLon = deg2rad(lon2-lon1); 
+  		var a = 
+    		Math.sin(dLat/2) * Math.sin(dLat/2) +
+    		Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+    		Math.sin(dLon/2) * Math.sin(dLon/2); 
+ 	 	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  		var d = R * c; // Distance in km
+  		
+  		return Math.round(d); //RoundOff distance
+	}
+
+	function deg2rad(deg) {
+  		return deg * (Math.PI/180);
+	}
+
+	$scope.init = function(){
+		var filtered = $scope.getFilter();
+
+		filtered.then(
+			function(resolve){
+        		$http
+					.post(
+						'http://localhost:3300/filteredquakes',
+						{
+							longitude: store.get('longitude'),
+							latitude: store.get('latitude')
+						},
+						{
+							headers: {
+								"Authorization": "Bearer "+store.get('jwt')
+							}
+						}
+					).then(
+						function(response) {
+							console.log(response);
+							for (var i=0; i<response.data.length; i++){
+								var tmp = response.data[i].properties.title;
+								response.data[i].properties.title = tmp.substring(tmp.indexOf(" - ")+3, tmp.length);
+								DisasterService.addEarth(response.data[i]);
+								console.log($scope.earthData);
+								MapService.addEarth(response.data[i].geometry.coordinates[0],response.data[i].geometry.coordinates[1],response.data[i],response.data[i]);
+							}
+							//MapService.setEarth(DisasterService);
+						}
+					);
+        	}, function(reject){
+        		console.log(reject)      
+    		}
+    	);
 	}
 
 	$scope.showSignUp = function(ev){
-		console.log(store.get('longitude'));
-		console.log(store.get('latitude'));
 	    $mdDialog.show({
 	      	controller: DialogController,
 	      	templateUrl: 'disaster/earthquakes.html',
@@ -71,47 +132,6 @@ function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store){
 	  		fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
 	    });
 	};
-	
-	$scope.filter = function(index){
-		$scope.isOn[index] = !$scope.isOn[index];
-
-		if ($scope.isOn[index]){
-			if (index==0){
-				$http({
-  					method: 'GET',
-  					url: 'http://localhost:3300/fires'
-				}).then(function(response) {
-					for (var i=0; i<500; i++){
-						MapService.addFire(response.data[i].longitude,response.data[i].latitude);
-					}
-				});
-			}
-			else if (index==1){
-				$http({
-  					method: 'GET',
-  					url: 'http://localhost:3300/earthquakes'
-				}).then(function(response) {
-					for (var i=0; i<response.data.length; i++){
-						DisasterService.addEarth(response.data[i]);
-						MapService.addEarth(response.data[i].geometry.coordinates[0],response.data[i].geometry.coordinates[1],response.data[i],response.data[i]);
-					}
-					MapService.setEarth(DisasterService);
-				});
-			}
-		}else {
-			if (index==0)
-				MapService.removeFire();
-			else if (index==1){
-				MapService.removeEarth();
-				DisasterService.clearEarth();
-			}
-		}
-
-		if ($scope.btnColors[index]=='primary')
-			$scope.btnColors[index]="accent";
-		else
-			$scope.btnColors[index]="primary";
-	}
 
 	function DialogController($scope, $mdDialog,$http,store,$mdToast){
 		$scope.quake = store.get('earthfilter');

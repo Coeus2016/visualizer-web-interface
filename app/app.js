@@ -10,8 +10,15 @@ var myApp = angular.module('my-app', [
   'weather',
   'my-app.my-map',
   'angular-jwt',
-  'angular-storage'
+  'angular-storage',
+  'btford.socket-io'
 ]);
+
+myApp.factory('socket', function (socketFactory) {
+  return socketFactory({
+    ioSocket: io.connect('http://localhost:3300')
+  });
+});
 
 myApp.controller('AppCtrl',AppCtrl);
 
@@ -63,6 +70,10 @@ myApp.run(function($rootScope, $state, store, jwtHelper) {
   });
 });
 
-function AppCtrl () {
-  
+function AppCtrl (socket,jwtHelper,$scope,store) {
+  $scope.payload = jwtHelper.decodeToken(store.get("jwt"));
+  socket.on($scope.payload.email, function (data) {
+    console.log(data);
+    //socket.emit('my other event', { my: 'data' });
+  });
 }
