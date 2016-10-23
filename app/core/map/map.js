@@ -7,6 +7,7 @@ myMap.service('MapService',function(){
     this.longitude = 0;
     this.latitude = 0;
     this.markersList = [];
+    this.quakes = {};
 
     this.map = L.map('map',{
         'worldCopyJump': true
@@ -30,7 +31,8 @@ myMap.service('MapService',function(){
                 className:'cluster digits-'+digits,
                 iconSize: null
             });
-        }
+        },
+        disableClusteringAtZoom: 5
     });
 
     this.map.addLayer(this.markers);
@@ -64,6 +66,7 @@ myMap.service('MapService',function(){
             this.closePopup();
         });
 
+        this.quakes[data.id] = mark;
         this.markers.addLayer(mark);
     }
 
@@ -99,6 +102,14 @@ myMap.service('MapService',function(){
 
         this.markersList.push(mark);
         this.markers.addLayer(mark);
+    }
+
+    this.mapQuakeClick = function(key){
+        this.quakes[key].openPopup(this.quakes[key].getLatLng());
+    }
+
+    this.mapQuakeClose = function(key){
+        this.quakes[key].closePopup(this.quakes[key].getLatLng());
     }
 
     this.mapClick = function(index){
@@ -163,6 +174,7 @@ function MapCtrl ($scope,MapService,DisasterService,$timeout,store) {
     }).on('locationfound',function(e){
         store.set('latitude',e.latitude);
         store.set('longitude',e.longitude);
+        MapService.map.stopLocate();
     }).on('locationerror',function(e){
         store.set('latitude',0);
         store.set('longitude',0);

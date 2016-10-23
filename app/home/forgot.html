@@ -1,8 +1,8 @@
-<md-dialog aria-label="LOGIN" style="width: 500px">
-  <form ng-cloak name="loginform" ng-submit="login()">
+<md-dialog aria-label="FORGOT" style="width: 500px">
+  <form ng-cloak name="forgotform" ng-submit="forgot()">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>LOGIN</h2>
+        <h2>Forgot Password</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()">
           <md-icon md-font-library="material-icons">close</md-icon>
@@ -15,32 +15,18 @@
         <label>Email</label>
         <md-icon md-font-library="material-icons">email</md-icon>
         <input ng-model="user.email" name="email" type="email" ng-required="true">
-        <div ng-messages="loginform.email.$error" role="alert">
+        <div ng-messages="forgotform.email.$error" role="alert">
           <div ng-message="required">Please enter a value for this field.</div>
           <div ng-message="email">This field must be a valid email address.</div>
         </div>
       </md-input-container>
 
-      <md-input-container class="md-block">
-        <label>Password</label>
-        <md-icon md-font-library="material-icons">lock</md-icon>
-        <input ng-model="user.password" name="password" type="password" ng-required="true">
-        <div ng-messages="loginform.password.$error" role="alert">
-          <div ng-message="required">Please enter a value for this field.</div>
-        </div>
-      </md-input-container>
-
       <md-dialog-actions layout="row">
-        <md-button ng-click="cancel(); showForgot($event)">Forgot password?</md-button>
         <span flex></span>
         <md-button type="submit">
-          Login
+          Reset
         </md-button>
       </md-dialog-actions>
-
-      <div ng-messages="loginform.$error" role="alert">
-        <div ng-message="emailpassword">email or password incorrect</div>
-      </div>
     </md-dialog-content>
   </form>
 </md-dialog>

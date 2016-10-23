@@ -2,9 +2,6 @@
 <div ng-controller="MainCtrl as ctrl" layout="column" ng-cloak style="height: 100%">
     <md-toolbar class="md-hue-800" layout="row" style="position: relative">
         <div class="md-toolbar-tools">
-            <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
-                <md-icon class="menu">menu</md-icon>
-            </md-button>
             <h2>
                 <span>Geospatial Data Visualiser</span>
             </h2>
@@ -49,12 +46,26 @@
                 </md-select>
             </md-input-container>
 
+            <notification-icon count="notification.value">
+                <!--<i class="fa fa-envelope-o fa-2x"></i>-->
+                <md-button class="md-icon-button" aria-label="notification" ng-click="clearNotif()">
+                    <md-icon md-font-icon="fa-bell-o fa-2x" class="fa" style="color: orange;"></md-icon>
+                </md-button>
+            </notification-icon>
+
             <!-- PROFILE MENU-->
             <md-menu class="md-padding" md-position-mode="target-right target">
                 <div aria-label="Open demo menu" class="md-button" ng-click="$mdOpenMenu($event)">
                     <md-icon md-font-library="material-icons">account_circle</md-icon> {{payload.first_name}} {{payload.last_name}} <md-icon md-font-library="material-icons">keyboard_arrow_down</md-icon>
                 </div>
                 <md-menu-content width="4" >
+                    <md-menu-item>
+                        <md-button ng-click="showChangeProfile($event)">
+                            <div layout="row" flex>
+                                <p flex>Change Password</p>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
                     <md-menu-item>
                         <md-button ng-click="logout()">
                             <div layout="row" flex>

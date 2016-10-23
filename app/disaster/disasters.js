@@ -17,8 +17,8 @@ angular.module('my-disasters.my-disasters',[])
     }
 
     this.clearEarth = function(){
-    	while (this.earth.length > 0) {
-            this.earth.pop();
+    	while (this.earthData.length > 0) {
+            this.earthData.pop();
         }
     }
 
@@ -37,10 +37,27 @@ angular.module('my-disasters.my-disasters',[])
 
 });
 
-function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store,$q){
+function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store,$q,MService){
 	$scope.isOn = [false,false,false,false];
 	$scope.btnColors = ['accent','accent','accent','accent'];
 	$scope.earthData = DisasterService.earthData;
+	MService.notification.value = 0;
+	DisasterService.clearEarth();
+	MapService.removeEarth();
+
+	$scope.moveLocation = function(data){
+		MapService.updateLocation(data.geometry.coordinates[0],data.geometry.coordinates[1]);
+	}
+
+	$scope.openPop = function(data){
+		var key = data.id;
+		MapService.mapQuakeClick(key);
+	}
+
+	$scope.closePop = function(data){
+		var key = data.id;
+		MapService.mapQuakeClose(key);
+	}
 
 	$scope.getFilter = function(){
 		var deferred = $q.defer();
@@ -105,19 +122,17 @@ function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store,$
 						}
 					).then(
 						function(response) {
-							console.log(response);
 							for (var i=0; i<response.data.length; i++){
 								var tmp = response.data[i].properties.title;
 								response.data[i].properties.title = tmp.substring(tmp.indexOf(" - ")+3, tmp.length);
 								DisasterService.addEarth(response.data[i]);
-								console.log($scope.earthData);
-								MapService.addEarth(response.data[i].geometry.coordinates[0],response.data[i].geometry.coordinates[1],response.data[i],response.data[i]);
+								MapService.addEarth(response.data[i].geometry.coordinates[0],response.data[i].geometry.coordinates[1],response.data[i]);
 							}
 							//MapService.setEarth(DisasterService);
 						}
 					);
         	}, function(reject){
-        		console.log(reject)      
+        		console.log(reject);
     		}
     	);
 	}
@@ -133,7 +148,7 @@ function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store,$
 	    });
 	};
 
-	function DialogController($scope, $mdDialog,$http,store,$mdToast){
+	function DialogController($scope, $mdDialog,$http,store,$mdToast,$state){
 		$scope.quake = store.get('earthfilter');
 
     	$scope.hide = function(){
@@ -162,6 +177,7 @@ function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store,$
 					function(response) {
 	        			$scope.cancel();
 	        			$mdToast.show($mdToast.simple().textContent('Earthquake filter was saved.'));
+	        			$state.reload("main.disasters");
 	      			}, function(error) {
 	       				$mdToast.show($mdToast.simple().textContent('Earthquake filter failed saved.'));
 	      			}

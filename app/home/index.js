@@ -27,12 +27,36 @@ function WelcomeCtrl($scope, $mdDialog,$mdToast){
   function DialogController($scope, $mdDialog,$http,store,$state){
     $scope.user = {};
 
+    $scope.showForgot = function(ev){
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: 'home/forgot.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose: true,
+        fullscreen: $scope.customFullscreen
+      });
+    }
+
     $scope.hide = function(){
       $mdDialog.hide();
     };
 
     $scope.cancel = function(){
       $mdDialog.cancel();
+    };
+
+    $scope.forgot = function(){
+      $http({
+        url: 'http://localhost:3300/forgotpassword',
+        method: 'POST',
+        data: $scope.user
+      }).then(function(response) {
+        $mdToast.show($mdToast.simple().textContent('password reset.'));
+        $scope.cancel();
+      }, function(error) {
+        $mdToast.show($mdToast.simple().textContent('user does not exist.'));
+      });
     };
 
     $scope.login = function(){
@@ -58,7 +82,7 @@ function WelcomeCtrl($scope, $mdDialog,$mdToast){
         method: 'POST',
         data: $scope.user
       }).then(function(response){
-        $mdToast.show($mdToast.simple().textContent('Thank you for signing up.'));
+        $mdToast.show($mdToast.simple().textContent('Thank you for signing up. Check your emails.'));
         $scope.cancel();
       }, function(error){
         $mdToast.show($mdToast.simple().textContent('email already exist.'));

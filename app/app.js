@@ -11,7 +11,8 @@ var myApp = angular.module('my-app', [
   'my-app.my-map',
   'angular-jwt',
   'angular-storage',
-  'btford.socket-io'
+  'btford.socket-io',
+  'angular-notification-icons'
 ]);
 
 myApp.factory('socket', function (socketFactory) {
@@ -70,10 +71,6 @@ myApp.run(function($rootScope, $state, store, jwtHelper) {
   });
 });
 
-function AppCtrl (socket,jwtHelper,$scope,store) {
-  $scope.payload = jwtHelper.decodeToken(store.get("jwt"));
-  socket.on($scope.payload.email, function (data) {
-    console.log(data);
-    //socket.emit('my other event', { my: 'data' });
-  });
+function AppCtrl () {
+
 }
