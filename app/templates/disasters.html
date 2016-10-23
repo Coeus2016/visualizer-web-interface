@@ -6,13 +6,16 @@
             </h2>
             <span flex></span>
             <md-button class="md-icon-button" aria-label="Favorite" ng-click="showSignUp($event)">
+                <md-tooltip>
+                    Filter Earthquakes
+                </md-tooltip>
                 <md-icon md-font-icon="fa-filter" class="fa" style="color: greenyellow;"></md-icon>
             </md-button>
         </div>
     </md-toolbar>
     <md-content flex layout-fill style="height:100%">
         <md-list flex>
-            <md-list-item class="md-3-line" ng-repeat="earth in earthData | orderBy: '-properties.time'" ng-click="null" ng-mouseover="openPop(earth)" ng-mouseleave="closePop(earth)">
+            <md-list-item class="md-3-line" ng-repeat="earth in earthData | orderBy: '-properties.time'" ng-click="moveLocation(earth)" ng-mouseover="openPop(earth)" ng-mouseleave="closePop(earth)">
                 <md-icon md-font-icon="wi-earthquake" class="wi" style="color: orange;"></md-icon>
                 <div class="md-list-item-text" layout="column">
                     <div style="display: inline">

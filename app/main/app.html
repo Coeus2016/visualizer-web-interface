@@ -2,9 +2,6 @@
 <div ng-controller="MainCtrl as ctrl" layout="column" ng-cloak style="height: 100%">
     <md-toolbar class="md-hue-800" layout="row" style="position: relative">
         <div class="md-toolbar-tools">
-            <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
-                <md-icon class="menu">menu</md-icon>
-            </md-button>
             <h2>
                 <span>Geospatial Data Visualiser</span>
             </h2>
@@ -49,7 +46,7 @@
                 </md-select>
             </md-input-container>
 
-            <notification-icon count="notification">
+            <notification-icon count="notification.value">
                 <!--<i class="fa fa-envelope-o fa-2x"></i>-->
                 <md-button class="md-icon-button" aria-label="notification" ng-click="clearNotif()">
                     <md-icon md-font-icon="fa-bell-o fa-2x" class="fa" style="color: orange;"></md-icon>

@@ -37,10 +37,15 @@ angular.module('my-disasters.my-disasters',[])
 
 });
 
-function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store,$q){
+function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store,$q,MService){
 	$scope.isOn = [false,false,false,false];
 	$scope.btnColors = ['accent','accent','accent','accent'];
 	$scope.earthData = DisasterService.earthData;
+	MService.notification.value = 0;
+
+	$scope.moveLocation = function(data){
+		MapService.updateLocation(data.geometry.coordinates[0],data.geometry.coordinates[1]);
+	}
 
 	$scope.openPop = function(data){
 		var key = data.id;
@@ -119,7 +124,7 @@ function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store,$
 								var tmp = response.data[i].properties.title;
 								response.data[i].properties.title = tmp.substring(tmp.indexOf(" - ")+3, tmp.length);
 								DisasterService.addEarth(response.data[i]);
-								MapService.addEarth(response.data[i].geometry.coordinates[0],response.data[i].geometry.coordinates[1],response.data[i],response.data[i]);
+								MapService.addEarth(response.data[i].geometry.coordinates[0],response.data[i].geometry.coordinates[1],response.data[i]);
 							}
 							//MapService.setEarth(DisasterService);
 						}
