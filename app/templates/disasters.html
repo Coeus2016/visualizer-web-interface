@@ -15,6 +15,7 @@
     </md-toolbar>
     <md-content flex layout-fill style="height:100%">
         <md-list flex>
+            <md-subheader class="md-no-sticky">Change Filter if data not showing</md-subheader>
             <md-list-item class="md-3-line" ng-repeat="earth in earthData | orderBy: '-properties.time'" ng-click="moveLocation(earth)" ng-mouseover="openPop(earth)" ng-mouseleave="closePop(earth)">
                 <md-icon md-font-icon="wi-earthquake" class="wi" style="color: orange;"></md-icon>
                 <div class="md-list-item-text" layout="column">

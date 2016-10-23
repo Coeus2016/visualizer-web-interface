@@ -47,7 +47,6 @@ function WelcomeCtrl($scope, $mdDialog,$mdToast){
     };
 
     $scope.forgot = function(){
-      console.log($scope.user);
       $http({
         url: 'http://localhost:3300/forgotpassword',
         method: 'POST',

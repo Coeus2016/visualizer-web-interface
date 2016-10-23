@@ -32,7 +32,7 @@ myMap.service('MapService',function(){
                 iconSize: null
             });
         },
-        disableClusteringAtZoom: 2
+        disableClusteringAtZoom: 5
     });
 
     this.map.addLayer(this.markers);

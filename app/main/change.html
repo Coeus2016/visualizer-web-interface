@@ -1,0 +1,57 @@
+<md-dialog aria-label="CHANGE" style="width: 500px">
+  <form ng-cloak name="editform" ng-submit="change()">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Change Password</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-font-library="material-icons">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content style="padding : 30px">
+    	<md-input-container class="md-block">
+    		<label>Old Password</label>
+    		<md-icon md-font-library="material-icons">lock</md-icon>
+    		<input ng-model="user.oldpassword" type="password" name="password" ng-required="true">
+    		<div ng-messages="editform.password.$error" role="alert">
+          		<div ng-message="required">Please enter a value for this field.</div>
+        	</div>
+    	</md-input-container>
+
+      <md-input-container class="md-block">
+        <label>New Password</label>
+        <md-icon md-font-library="material-icons">lock</md-icon>
+        <input ng-model="user.password" type="password" name="password" ng-required="true">
+        <div ng-messages="editform.password.$error" role="alert">
+          <div ng-message="required">Please enter a value for this field.</div>
+        </div>
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <label>Re-type password</label>
+        <md-icon md-font-library="material-icons">lock</md-icon>
+        <input ng-model="user.repassword" type="password" name="repassword" ng-required="true" ng-pattern="{{user.password}}">
+        <div ng-messages="editform.repassword.$error">
+          <div ng-message="required">Please enter a value for this field.</div>
+          <div ng-message="pattern">Passwords don't match.</div>
+        </div>
+      </md-input-container>
+
+      <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button type="submit">
+          Change
+        </md-button>
+        <md-button ng-click="cancel()">
+          Cancel
+        </md-button>
+      </md-dialog-actions>
+
+      <div ng-messages="editform.$error" role="alert">
+        <div ng-message="userexists">email already exists</div>
+      </div>
+    </md-dialog-content>
+  </form>
+</md-dialog>

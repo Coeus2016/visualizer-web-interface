@@ -17,8 +17,8 @@ angular.module('my-disasters.my-disasters',[])
     }
 
     this.clearEarth = function(){
-    	while (this.earth.length > 0) {
-            this.earth.pop();
+    	while (this.earthData.length > 0) {
+            this.earthData.pop();
         }
     }
 
@@ -42,6 +42,8 @@ function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store,$
 	$scope.btnColors = ['accent','accent','accent','accent'];
 	$scope.earthData = DisasterService.earthData;
 	MService.notification.value = 0;
+	DisasterService.clearEarth();
+	MapService.removeEarth();
 
 	$scope.moveLocation = function(data){
 		MapService.updateLocation(data.geometry.coordinates[0],data.geometry.coordinates[1]);
@@ -146,7 +148,7 @@ function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store,$
 	    });
 	};
 
-	function DialogController($scope, $mdDialog,$http,store,$mdToast){
+	function DialogController($scope, $mdDialog,$http,store,$mdToast,$state){
 		$scope.quake = store.get('earthfilter');
 
     	$scope.hide = function(){
@@ -175,6 +177,7 @@ function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store,$
 					function(response) {
 	        			$scope.cancel();
 	        			$mdToast.show($mdToast.simple().textContent('Earthquake filter was saved.'));
+	        			$state.reload("main.disasters");
 	      			}, function(error) {
 	       				$mdToast.show($mdToast.simple().textContent('Earthquake filter failed saved.'));
 	      			}

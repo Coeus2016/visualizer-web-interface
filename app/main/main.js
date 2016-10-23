@@ -6,7 +6,7 @@ myApp.service('MService', function(){
   };
 });
 
-function MainCtrl($timeout,MService, $q,$scope,$http,$state,$window,MapService,WeatherService,$rootScope,store,jwtHelper,socket,DisasterService,$location){
+function MainCtrl($timeout,MService, $q,$mdDialog,$scope,$http,$state,$window,MapService,WeatherService,$rootScope,store,jwtHelper,socket,DisasterService,$location){
   $scope.payload = jwtHelper.decodeToken(store.get("jwt"));
   $scope.notification = MService.notification;
 
@@ -94,5 +94,44 @@ function MainCtrl($timeout,MService, $q,$scope,$http,$state,$window,MapService,W
       //MapService.addLayer(item.geometry.coordinates[0],item.geometry.coordinates[1]);
       WeatherService.push(item);
     }
+  }
+
+  $scope.showChangeProfile = function(ev){
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: 'main/change.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:true,
+        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+      });
+  };
+
+  function DialogController($scope, $mdDialog,$http,store,$mdToast,store){
+    $scope.user = {};
+
+    $scope.change = function(){
+      $http({
+        url: 'http://localhost:3300/changeuser',
+        method: 'POST',
+        data: $scope.user,
+        headers: {
+          "Authorization": "Bearer "+store.get('jwt')
+        }
+      }).then(function(response) {
+        $mdToast.show($mdToast.simple().textContent('password changed.'));
+        $scope.cancel();
+      }, function(error) {
+        $mdToast.show($mdToast.simple().textContent('enter correct old password.'));
+      });
+    }
+
+    $scope.hide = function(){
+      $mdDialog.hide();
+    };
+
+    $scope.cancel = function(){
+      $mdDialog.cancel();
+    };
   }
 }
