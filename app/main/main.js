@@ -1,7 +1,7 @@
 var myApp = angular.module('main', ['ngMaterial']);
 myApp.controller('MainCtrl',MainCtrl);
 
-function MainCtrl($timeout, $q, $log,$scope,$http,$state,MapService,WeatherService,$rootScope,store,jwtHelper,socket,DisasterService){
+function MainCtrl($timeout, $q, $log,$scope,$http,$state,$window,MapService,WeatherService,$rootScope,store,jwtHelper,socket,DisasterService,$location){
   $scope.payload = jwtHelper.decodeToken(store.get("jwt"));
   $scope.notification = 3;
 
@@ -28,7 +28,9 @@ function MainCtrl($timeout, $q, $log,$scope,$http,$state,MapService,WeatherServi
 
   $scope.logout = function(){
     store.remove('jwt');
-    $state.go('welcome',{},{ reload: true });
+    $location.path('/welcome');
+    $window.location.reload();
+    //$state.go('welcome',{},{ reload: true });
   };
 
   $scope.selectChanged = function(){

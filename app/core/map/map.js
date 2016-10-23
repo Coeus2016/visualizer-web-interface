@@ -7,6 +7,7 @@ myMap.service('MapService',function(){
     this.longitude = 0;
     this.latitude = 0;
     this.markersList = [];
+    this.quakes = {};
 
     this.map = L.map('map',{
         'worldCopyJump': true
@@ -65,6 +66,7 @@ myMap.service('MapService',function(){
             this.closePopup();
         });
 
+        this.quakes[data.id] = mark;
         this.markers.addLayer(mark);
     }
 
@@ -100,6 +102,14 @@ myMap.service('MapService',function(){
 
         this.markersList.push(mark);
         this.markers.addLayer(mark);
+    }
+
+    this.mapQuakeClick = function(key){
+        this.quakes[key].openPopup(this.quakes[key].getLatLng());
+    }
+
+    this.mapQuakeClose = function(key){
+        this.quakes[key].closePopup(this.quakes[key].getLatLng());
     }
 
     this.mapClick = function(index){

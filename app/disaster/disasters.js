@@ -42,6 +42,16 @@ function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store,$
 	$scope.btnColors = ['accent','accent','accent','accent'];
 	$scope.earthData = DisasterService.earthData;
 
+	$scope.openPop = function(data){
+		var key = data.id;
+		MapService.mapQuakeClick(key);
+	}
+
+	$scope.closePop = function(data){
+		var key = data.id;
+		MapService.mapQuakeClose(key);
+	}
+
 	$scope.getFilter = function(){
 		var deferred = $q.defer();
 

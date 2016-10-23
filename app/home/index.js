@@ -48,6 +48,16 @@ function WelcomeCtrl($scope, $mdDialog,$mdToast){
 
     $scope.forgot = function(){
       console.log($scope.user);
+      $http({
+        url: 'http://localhost:3300/forgotpassword',
+        method: 'POST',
+        data: $scope.user
+      }).then(function(response) {
+        $mdToast.show($mdToast.simple().textContent('password reset.'));
+        $scope.cancel();
+      }, function(error) {
+        $mdToast.show($mdToast.simple().textContent('user does not exist.'));
+      });
     };
 
     $scope.login = function(){
