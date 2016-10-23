@@ -39,25 +39,6 @@
         </div>
       </md-input-container>
 
-      <md-input-container class="md-block">
-        <label>Password</label>
-        <md-icon md-font-library="material-icons">lock</md-icon>
-        <input ng-model="user.password" type="password" name="password" ng-required="true">
-        <div ng-messages="signupform.password.$error" role="alert">
-          <div ng-message="required">Please enter a value for this field.</div>
-        </div>
-      </md-input-container>
-
-      <md-input-container class="md-block">
-        <label>Re-type password</label>
-        <md-icon md-font-library="material-icons">lock</md-icon>
-        <input ng-model="user.repassword" type="password" name="repassword" ng-required="true" ng-pattern="{{user.password}}">
-        <div ng-messages="signupform.repassword.$error">
-          <div ng-message="required">Please enter a value for this field.</div>
-          <div ng-message="pattern">Passwords don't match.</div>
-        </div>
-      </md-input-container>
-
       <md-dialog-actions layout="row">
         <span flex></span>
         <md-button type="submit">

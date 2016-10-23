@@ -1,9 +1,24 @@
 var myApp = angular.module('main', ['ngMaterial']);
 myApp.controller('MainCtrl',MainCtrl);
 
-function MainCtrl($timeout, $q, $log,$scope,$http,$state,MapService,WeatherService,$rootScope,store,jwtHelper){
+function MainCtrl($timeout, $q, $log,$scope,$http,$state,MapService,WeatherService,$rootScope,store,jwtHelper,socket,DisasterService){
   $scope.payload = jwtHelper.decodeToken(store.get("jwt"));
-  
+  $scope.notification = 3;
+
+  $scope.payload = jwtHelper.decodeToken(store.get("jwt"));
+  socket.on($scope.payload.email, function (data) {
+    DisasterService.addEarth(data);
+    $scope.notification++;
+    console.log(data);
+  });
+
+  $scope.clearNotif = function(){
+    $scope.notification = 0;
+    if ($scope.notification){
+      $state.go('main.disasters',{},{ reload: true });
+    }
+  }
+
   $scope.geospatial = [
     {"data": "weather"},
    	{"data": "disasters"}
@@ -38,7 +53,7 @@ function MainCtrl($timeout, $q, $log,$scope,$http,$state,MapService,WeatherServi
   * Reverse geolocation
   */
   function querySearch (query) {
-    
+
     return $http.get('http://photon.komoot.de/api/?lat='+MapService.latitude+'&lon='+MapService.longitude+'&limit=5&q=' + escape(query))
                 .then(function(result) {
                   self.data = result.data.features;

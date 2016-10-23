@@ -30,7 +30,8 @@ myMap.service('MapService',function(){
                 className:'cluster digits-'+digits,
                 iconSize: null
             });
-        }
+        },
+        disableClusteringAtZoom: 2
     });
 
     this.map.addLayer(this.markers);
@@ -163,6 +164,7 @@ function MapCtrl ($scope,MapService,DisasterService,$timeout,store) {
     }).on('locationfound',function(e){
         store.set('latitude',e.latitude);
         store.set('longitude',e.longitude);
+        MapService.map.stopLocate();
     }).on('locationerror',function(e){
         store.set('latitude',0);
         store.set('longitude',0);

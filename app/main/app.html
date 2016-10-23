@@ -49,6 +49,13 @@
                 </md-select>
             </md-input-container>
 
+            <notification-icon count="notification">
+                <!--<i class="fa fa-envelope-o fa-2x"></i>-->
+                <md-button class="md-icon-button" aria-label="notification" ng-click="clearNotif()">
+                    <md-icon md-font-icon="fa-bell-o fa-2x" class="fa" style="color: orange;"></md-icon>
+                </md-button>
+            </notification-icon>
+
             <!-- PROFILE MENU-->
             <md-menu class="md-padding" md-position-mode="target-right target">
                 <div aria-label="Open demo menu" class="md-button" ng-click="$mdOpenMenu($event)">

@@ -22,8 +22,31 @@ myWeather.config(function ($stateProvider){
       .state("main.weather.forecast",{
         url: "/forecast",
         templateUrl: "templates/weather.forecast.html",
+        params: {
+        	data: null
+    	},
         data: {
           requiresLogin: true
+        }, resolve: {
+        	items: ['$http','$stateParams','store','WeatherService', function($http,$stateParams,store,WeatherService) {
+        		var data = $stateParams.data;
+		        return $http
+							.post(
+								'http://localhost:3300/getweather',
+								{
+									lon: data.geometry.coordinates[0],
+									lat: data.geometry.coordinates[1]
+								},
+								{
+									headers: {
+										"Authorization": "Bearer "+store.get('jwt')
+									}
+								}
+							)
+							.then(function(result){
+								WeatherService.extractData(result.data);
+							});
+      		}]
         }
       })
 });
@@ -60,6 +83,33 @@ myWeather.service('WeatherService',function(){
 		}
 		while(this.colors.length>0){
     		this.colors.pop();
+		}
+	}
+
+	this.extractData = function(data){
+		if (typeof data !== 'undefined'){
+			var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+			this.weather.country = data[0].country;
+			this.weather.name = data[0].description;
+			this.weather.description = data[0].weather_description;
+			this.weather.temp = Math.round(data[0].temp);
+			this.weather.temp_min = Math.round(data[0].temp_min);
+			this.weather.temp_max = Math.round(data[0].temp_max);
+			this.weather.icon = data[0].weather_icon;
+			this.weather.humidity = data[0].humidity;
+			this.weather.wind = data[0].wind.speed;
+
+			for (var i=0; i<data.length; i++){
+				var d = new Date(data[i].time);
+				var day = days[d.getDay()];
+
+				this.forecast[i].temp = Math.round(data[i].temp);
+				this.forecast[i].temp_min = Math.round(data[i].temp_min);
+				this.forecast[i].temp_max = Math.round(data[i].temp_max);
+				this.forecast[i].icon = data[i].weather_icon;
+				this.forecast[i].day = day;
+			}
 		}
 	}
 });
@@ -171,53 +221,8 @@ function WeatherCtrl($scope,WeatherService,MapService,$state,$http,store){
 
 	$scope.loadWeather = function(data) {
 		MapService.updateLocation(data.geometry.coordinates[0],data.geometry.coordinates[1]);
-		$state.go("main.weather.forecast");
-
-		$http
-			.post(
-				'http://localhost:3300/getweather',
-				{
-					lon: data.geometry.coordinates[0],
-					lat: data.geometry.coordinates[1]
-				},
-				{
-					headers: {
-						"Authorization": "Bearer "+store.get('jwt')
-					}
-				}
-			)
-			.then(function(result){
-				extractData(result.data);
-			});
+		$state.go("main.weather.forecast",{"data": data});
 	};
-
-	function extractData(data){
-		if (typeof data !== 'undefined'){
-			var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-			WeatherService.weather.country = data[0].country;
-			WeatherService.weather.name = data[0].description;
-			WeatherService.weather.description = data[0].weather_description;
-			WeatherService.weather.temp = Math.round(data[0].temp);
-			WeatherService.weather.temp_min = Math.round(data[0].temp_min);
-			WeatherService.weather.temp_max = Math.round(data[0].temp_max);
-			WeatherService.weather.icon = data[0].weather_icon;
-			WeatherService.weather.humidity = data[0].humidity;
-			WeatherService.weather.wind = data[0].wind.speed;
-
-			for (var i=0; i<data.length; i++){
-				var d = new Date(data[i].time);
-				var day = days[d.getDay()];
-
-				WeatherService.forecast[i].temp = Math.round(data[i].temp);
-				WeatherService.forecast[i].temp_min = Math.round(data[i].temp_min);
-				WeatherService.forecast[i].temp_max = Math.round(data[i].temp_max);
-				WeatherService.forecast[i].icon = data[i].weather_icon;
-				WeatherService.forecast[i].day = day;
-			}
-		}
-		console.log(data);
-	}
 
 	$scope.back = function(){
 		$state.go("main.weather.list");

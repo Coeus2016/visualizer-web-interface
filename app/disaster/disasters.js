@@ -105,19 +105,17 @@ function DisastersCtrl($http,MapService,$scope,DisasterService,$mdDialog,store,$
 						}
 					).then(
 						function(response) {
-							console.log(response);
 							for (var i=0; i<response.data.length; i++){
 								var tmp = response.data[i].properties.title;
 								response.data[i].properties.title = tmp.substring(tmp.indexOf(" - ")+3, tmp.length);
 								DisasterService.addEarth(response.data[i]);
-								console.log($scope.earthData);
 								MapService.addEarth(response.data[i].geometry.coordinates[0],response.data[i].geometry.coordinates[1],response.data[i],response.data[i]);
 							}
 							//MapService.setEarth(DisasterService);
 						}
 					);
         	}, function(reject){
-        		console.log(reject)      
+        		console.log(reject);
     		}
     	);
 	}
