@@ -1,4 +1,4 @@
-<div ng-controller="WelcomeCtrl">
+<div ng-controller="WelcomeCtrl" layout="column" ng-cloak style="height: 100%">
 	<md-toolbar class="md-hue-800" layout="row" style="position: relative">
 		<div class="md-toolbar-tools">
 			<h2>
@@ -15,4 +15,11 @@
 	        </md-button>
 		</div>
 	</md-toolbar>
+	<jk-carousel
+        data="dataArray"
+        item-template-url="'home/pics.html'"
+        max-width="2000" 
+        max-height="{{ iframeHeight }}"
+        auto-slide="true" auto-slide-time="2000">
+    </jk-carousel>
 </div>

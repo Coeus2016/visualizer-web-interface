@@ -12,7 +12,8 @@ var myApp = angular.module('my-app', [
   'angular-jwt',
   'angular-storage',
   'btford.socket-io',
-  'angular-notification-icons'
+  'angular-notification-icons',
+  'jkAngularCarousel'
 ]);
 
 myApp.factory('socket', function (socketFactory) {

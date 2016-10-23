@@ -1,7 +1,20 @@
 var myApp = angular.module('welcome', ['ngMaterial','ngMessages']);
 myApp.controller('WelcomeCtrl',WelcomeCtrl);
 
-function WelcomeCtrl($scope, $mdDialog,$mdToast){
+function WelcomeCtrl($scope, $mdDialog,$mdToast,$window){
+  $scope.iframeHeight = $window.innerHeight+300;
+  $scope.dataArray = [
+      {
+        src: 'public/images/back2.png'
+      },
+      {
+        src: 'public/images/back3.png'
+      },
+      {
+        src: 'public/images/background.png'
+      }
+    ];
+
 	$scope.showSignUp = function(ev){
     $mdDialog.show({
       controller: DialogController,
